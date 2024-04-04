@@ -1,0 +1,8 @@
+numpy
+scipy
+scikit-learn
+dotmap
+joblib
+matplotlib
+ipython
+soundfile

@@ -1,0 +1,84 @@
+default:
+  target_bands: 150
+  time_window_len: 0.04
+  time_window_overlap: 0.5
+  spectrogram_min_freq: 100
+  spectrogram_max_freq: 16000
+  input_dir: '/run/media/pawel/alpha/spatresults/spat'
+  split_seed: 1
+  model_architecture: simple1
+  train_loss: mean_absolute_error
+  train_patience: 10
+  train_batch_size: 32
+  train_epochs: 256
+  train_optimizer: adam
+requests:
+  #  - name: 'simple1'
+  #    model_architecture: simple1
+  - name: 'simple2_3'
+    model_architecture: simple2
+    run_num_repetitions: 4
+  - name: 'simple2_magnitude_phase'
+    model_architecture: simple2
+    run_num_repetitions: 3
+    train_batch_size: 32
+    spectrogram_type: MAGNITUDE_PHASE
+  - name: 'simple3_magnitude_phase'
+    model_architecture: simple4
+    run_num_repetitions: 3
+    train_batch_size: 32
+    spectrogram_type: MAGNITUDE_PHASE
+  - name: 'simple4_magnitude_phase'
+    model_architecture: simple4
+    run_num_repetitions: 3
+    train_batch_size: 32
+    spectrogram_type: MAGNITUDE_PHASE
+  - name: 'simple2_dropout1_magnitude_phase'
+    model_architecture: simple2_dropout1
+    run_num_repetitions: 3
+    train_batch_size: 32
+    spectrogram_type: MAGNITUDE_PHASE
+  - name: 'simple2_dropout2_magnitude_phase'
+    model_architecture: simple2_dropout2
+    run_num_repetitions: 3
+    train_batch_size: 32
+    spectrogram_type: MAGNITUDE_PHASE
+  - name: 'simple3_dropout2_magnitude_phase'
+    model_architecture: simple3_dropout2
+    run_num_repetitions: 3
+    train_batch_size: 32
+    spectrogram_type: MAGNITUDE_PHASE
+  - name: 'simple3_dropout2_flatten_magnitude_phase'
+    model_architecture: simple3_dropout2_flatten
+    run_num_repetitions: 3
+    train_batch_size: 32
+    spectrogram_type: MAGNITUDE_PHASE
+  #  - name: 'simple2_flatten'
+  #    model_architecture: simple2_flatten
+  #    run_num_repetitions: 5
+  #  - name: 'simple2_norm'
+  #    model_architecture: simple2_norm
+  #    run_num_repetitions: 5
+  #  - name: 'simple3'
+  #    model_architecture: simple3
+  #  - name: 'simple4'
+  #    model_architecture: simple4
+  #  - name: 'simple_kernel3'
+  #    model_architecture: simple_kernel3
+  #  - name: 'simple1_bands300'
+  #    model_architecture: simple1
+  #    target_bands: 300
+  #    train_batch_size: 16
+  #  - name: 'simple1_time0.02'
+  #    model_architecture: simple1
+  #    time_window_len: 0.02
+  #    train_batch_size: 8
+  # - name: 'simple_kernel3_2'
+  #   model_architecture: simple_kernel3_2
+  # - name: 'simple_kernel3_2_dropout1'
+  #   model_architecture: simple_kernel3_2_dropout1
+  # - name: 'simple_kernel3_2_dropout2'
+  #   model_architecture: simple_kernel3_2_dropout2
+#  - name: 'simple_kernel3_2_dropout2_0_5'
+#    model_architecture: simple_kernel3_2_dropout2_0_5
+
