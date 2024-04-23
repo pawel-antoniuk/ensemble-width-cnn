@@ -64,6 +64,17 @@ class Model:
         self.time_split: Optional[float] = None
         self.time_train: Optional[float] = None
 
+        self.input_spectrogram_magnitude: Optional[np.memmap] = None
+        self.input_spectrogram_phase: Optional[np.memmap] = None
+        self.x_dev_mag: Optional[np.memmap] = None
+        self.x_dev_phase: Optional[np.memmap] = None
+        self.x_train_mag: Optional[np.memmap] = None
+        self.x_train_phase: Optional[np.memmap] = None
+        self.x_val_mag: Optional[np.memmap] = None
+        self.x_val_phase: Optional[np.memmap] = None
+        self.x_test_mag: Optional[np.memmap] = None
+        self.x_test_phase: Optional[np.memmap] = None
+
         self.store_split: DotMap = DotMap()
         self.store_extract: DotMap = DotMap()
         self.request: Request = request
@@ -77,16 +88,14 @@ class Model:
         self.spectrogram_min_freq = request.spectrogram_min_freq
         self.spectrogram_max_freq = request.spectrogram_max_freq
         self.recording_time_length = request.recording_time_length
-        self.n_time_frames = int(
-            self.recording_time_length / self.time_window_len * 2 - 1
-        )
+        self.n_time_frames = int(self.recording_time_length / self.time_window_len * 2 - 1)
         self.model_architecture = request.model_architecture
         self.train_batch_size = request.train_batch_size
         self.train_epochs = request.train_epochs
         self.train_patience = request.train_patience
         self.train_loss = request.train_loss
         self.train_optimizer = request.train_optimizer
-        self.store_extract.number_of_spectrograms = 4 if request.spectrogram_type == 'MAGNITUDE_PHASE' else 2
+        self.store_extract.number_of_spectrograms = 2
         self.store_extract.input_features_shape = (
             self.num_samples,
             self.target_bands,
@@ -116,17 +125,13 @@ class Model:
                 tf.config.experimental.set_virtual_device_configuration(gpus[0], config)
             except RuntimeError as e:
                 print(e)
+                traceback.print_exc()
 
     def extract(self) -> Model:
         start_time = timeit.default_timer()
 
         print('[extract] Initializing memory')
-        self.store_extract.input_features = np.memmap(
-            '/run/media/pawel/alpha/input_features',
-            dtype='float32',
-            mode='w+',
-            shape=self.store_extract.input_features_shape,
-        )
+        self.__initialize_extract_memory()
         self.store_extract.actual_widths = np.zeros(self.num_samples)
         self.store_extract.actual_locations = np.zeros(self.num_samples)
         self.store_extract.actual_recordings = ['' for _ in range(self.num_samples)]
@@ -152,7 +157,8 @@ class Model:
                         executor.shutdown(wait=False, cancel_futures=True)
                         raise e
 
-                    self.store_extract.input_features[i] = result.spectrogram
+                    self.input_spectrogram_magnitude[i] = result.input_spectrogram_magnitude
+                    self.input_spectrogram_phase[i] = result.input_spectrogram_phase
                     self.store_extract.actual_widths[i] = result.actual_width
                     self.store_extract.actual_locations[i] = result.actual_location
                     self.store_extract.actual_recordings[i] = result.actual_recording
@@ -168,6 +174,7 @@ class Model:
                 executor.shutdown(wait=False, cancel_futures=True)
                 raise e
 
+        self.__flush_extract_memory()
         self.store_extract.actual_recordings = np.array(self.store_extract.actual_recordings)
         self.store_extract.actual_filenames = np.array(self.store_extract.actual_filenames)
 
@@ -184,6 +191,7 @@ class Model:
         except FileNotFoundError:
             print('[load] Cache does not contain the requested data. Extracting data from scratch')
             self.extract()
+            print('[load] Spectrograms extracted, saving them')
             self.save_extracted()
         try:
             print('[load] Attempting to load the cached split data')
@@ -199,6 +207,7 @@ class Model:
         data_hash = self.__get_split_hash()
         print(f'[load] Split hash: {data_hash}')
         self.store_split = joblib.load(f'state/{data_hash}_store_split.pkl')
+        self.__initialize_split_memory()
         elapsed = timeit.default_timer() - start_time
         print(f'[load] Loaded cached splits in {elapsed:.2f} s')
         return self
@@ -218,6 +227,7 @@ class Model:
         data_hash = self.__get_extract_hash()
         print(f'[load] Extraction hash: {data_hash}')
         self.store_extract = joblib.load(f'state/{data_hash}_store_extract.pkl')
+        self.__initialize_extract_memory()
         elapsed = timeit.default_timer() - start_time
         print(f'[load] Loaded cached spectrograms in {elapsed:.2f} s')
         return self
@@ -232,22 +242,38 @@ class Model:
         print(f'[save] Saved spectrograms in {elapsed:.2f} s')
         return self
 
-    def plot_features(self, sample=50) -> Model:
-        plt.figure(figsize=(20, 5))
-        n_spectrograms = self.store_split.x_train.shape[-1]
+    def plot_features(self) -> Model:
+        output_dir = self.__get_model_output_dir()
+        os.makedirs(output_dir, exist_ok=True)
 
-        for i_spectrogram in range(n_spectrograms):
-            plt.subplot(2, n_spectrograms // 2, i_spectrogram)
-            data = self.store_split.x_train[sample, :, :, i_spectrogram]
-            plt.pcolormesh(data, shading='gouraud')
-            plt.ylabel('Frequency [Hz]')
-            plt.xlabel('Time [s]')
-            # plt.title('Left Channel Spectrogram')
+        start_time = timeit.default_timer()
+        n_samples = self.x_train_mag.shape[0]
+        n_spectrograms_mag = self.x_train_mag.shape[-1]
+        n_spectrograms_phase = self.x_train_phase.shape[-1]
+        n_spectrograms_all = n_spectrograms_mag + n_spectrograms_phase
+        np.random.seed(345)
+        random_samples = np.random.choice(n_samples, size=5, replace=False)
 
-        plt.rcParams.update({'font.size': 20})
-        plt.tight_layout()
-        plt.show()
-        plt.savefig('figures/features.png')
+        for sample in random_samples:
+            plt.figure(figsize=(20, 10))
+
+            for i_spectrogram in range(n_spectrograms_mag):
+                plt.subplot(2, int(np.ceil(n_spectrograms_all / 2)), i_spectrogram + 1)
+                data = self.x_train_mag[sample, :, :, i_spectrogram]
+                plt.pcolormesh(data, shading='gouraud')
+                plt.title(f'Magnitude Spectrogram {i_spectrogram}')
+
+            for i_spectrogram in range(n_spectrograms_phase):
+                plt.subplot(2, int(np.ceil(n_spectrograms_all / 2)), n_spectrograms_mag + i_spectrogram + 1)
+                data = self.x_train_phase[sample, :, :, i_spectrogram]
+                plt.pcolormesh(data, shading='gouraud')
+                plt.title(f'Phase Spectrogram {i_spectrogram}')
+
+            plt.tight_layout()
+            plt.savefig(output_dir / f'features_{sample}.png')
+
+        elapsed = timeit.default_timer() - start_time
+        print(f'[draw] Plotted features in {elapsed} s')
 
         return self
 
@@ -256,71 +282,120 @@ class Model:
         start_time_all = timeit.default_timer()
         print('[split] [1/3] Splitting data into development and testing set')
         start_time = timeit.default_timer()
+
+        x_all = self.input_spectrogram_magnitude
         gss = GroupShuffleSplit(
             n_splits=1,
             test_size=self.dev_test_ratio,
             random_state=self.split_seed
         )
-        idx_dev, idx_test = next(
-            gss.split(
-                self.store_extract.input_features, 
-                self.store_extract.actual_widths,
-                groups=self.store_extract.actual_recordings
-            )
-        )
-        x_dev, x_test = self.store_extract.input_features[idx_dev], self.store_extract.input_features[idx_test]
-        y_dev, y_test = self.store_extract.actual_widths[idx_dev], self.store_extract.actual_widths[idx_test]
+        idx_dev, idx_test = next(gss.split(x_all, groups=self.store_extract.actual_recordings))
+
+        y_dev = self.store_extract.actual_widths[idx_dev]
+        y_test = self.store_extract.actual_widths[idx_test]
         self.store_split.actual_recordings_dev = self.store_extract.actual_recordings[idx_dev]
         self.store_split.actual_recordings_test = self.store_extract.actual_recordings[idx_test]
-        self.store_split.idx_dev = idx_dev
-        self.store_split.idx_test = idx_test
-        elapsed = timeit.default_timer() - start_time
-        print(f'[split] [1/3] Done ({elapsed:.2f} s)')
 
-        print('[split] [2/3] Splitting development set into training and validation set')
-        start_time = timeit.default_timer()
         gss = GroupShuffleSplit(
             n_splits=1,
             test_size=self.train_val_ratio,
             random_state=self.split_seed + 1
         )
-        idx_train, idx_val = next(gss.split(x_dev, y_dev, groups=self.store_split.actual_recordings_dev))
-        x_train, x_val = x_dev[idx_train], x_dev[idx_val]
-        y_train, y_val = y_dev[idx_train], y_dev[idx_val]
+        idx_train, idx_val = next(gss.split(idx_dev, groups=self.store_split.actual_recordings_dev))
+
+        def __shape(samples):
+            return (
+                samples,
+                self.target_bands,
+                self.n_time_frames,
+                self.store_extract.number_of_spectrograms
+            )
+
+        print('[split] [2/5] Initializing memmap memory')
+        self.store_split.x_dev_mag_shape = __shape(len(idx_dev))
+        self.store_split.x_dev_phase_shape = __shape(len(idx_dev))
+        self.store_split.x_train_mag_shape = __shape(len(idx_train))
+        self.store_split.x_train_phase_shape = __shape(len(idx_train))
+        self.store_split.x_val_mag_shape = __shape(len(idx_val))
+        self.store_split.x_val_phase_shape = __shape(len(idx_val))
+        self.store_split.x_test_mag_shape = __shape(len(idx_test))
+        self.store_split.x_test_phase_shape = __shape(len(idx_test))
+        self.__initialize_split_memory()
+
+        elapsed = timeit.default_timer() - start_time
+        print(f'[split] [2/5] Done ({elapsed:.2f} s)')
+        print('[split] [3/5] Assigning allocated mmap')
+        start_time = timeit.default_timer()
+
+        self.x_dev_mag[:] = self.input_spectrogram_magnitude[idx_dev]
+        self.x_dev_phase[:] = self.input_spectrogram_phase[idx_dev]
+        self.x_test_mag[:] = self.input_spectrogram_magnitude[idx_test]
+        self.x_test_phase[:] = self.input_spectrogram_phase[idx_test]
+
+        self.store_split.idx_dev = idx_dev
+        self.store_split.idx_test = idx_test
+
+        elapsed = timeit.default_timer() - start_time
+        print(f'[split] [3/5] Done ({elapsed:.2f} s)')
+        print('[split] [4/5] Splitting development set into training and validation set')
+        start_time = timeit.default_timer()
+
+        self.x_train_mag[:] = self.x_dev_mag[idx_train]
+        self.x_train_phase[:] = self.x_dev_phase[idx_train]
+        self.x_val_mag[:] = self.x_dev_mag[idx_val]
+        self.x_val_phase[:] = self.x_dev_phase[idx_val]
+
+        y_train = y_dev[idx_train]
+        y_val = y_dev[idx_val]
+
         self.store_split.actual_recordings_train = self.store_extract.actual_recordings[idx_train]
         self.store_split.actual_recordings_val = self.store_extract.actual_recordings[idx_val]
         self.store_split.idx_train = idx_train
         self.store_split.idx_val = idx_val
+
         elapsed = timeit.default_timer() - start_time
-        print(f'[split] [2/3] Done ({elapsed:.2f} s)')
-
-        del self.store_extract.input_features
-        del self.store_extract.actual_widths
-        del self.store_extract.actual_locations
-        del self.store_extract.actual_recordings
-
-        print('[split] [3/3] Normalizing data')
+        print(f'[split] [4/5] Done ({elapsed:.2f} s)')
+        print('[split] [5/5] Normalizing data')
         start_time = timeit.default_timer()
-        x_train_mean = np.mean(x_train)
-        x_train_std = np.std(x_train)
-        x_train = (x_train - x_train_mean) / x_train_std
-        x_val = (x_val - x_train_mean) / x_train_std
-        x_test = (x_test - x_train_mean) / x_train_std
+
+        x_train_mag_min = np.min(self.x_train_mag)
+        x_train_mag_max = np.max(self.x_train_mag)
+        x_train_phase_min = np.min(self.x_train_phase)
+        x_train_phase_max = np.max(self.x_train_phase)
+
+        self.x_train_mag[:] = (self.x_train_mag - x_train_mag_min) / (x_train_mag_max - x_train_mag_min)
+        self.x_train_phase[:] = (self.x_train_phase - x_train_phase_min) / (x_train_phase_max - x_train_phase_min)
+
+        self.x_val_mag[:] = (self.x_val_mag - x_train_mag_min) / (x_train_mag_max - x_train_mag_min)
+        self.x_val_phase[:] = (self.x_val_phase - x_train_phase_min) / (x_train_phase_max - x_train_phase_min)
+
+        self.x_test_mag[:] = (self.x_test_mag - x_train_mag_min) / (x_train_mag_max - x_train_mag_min)
+        self.x_test_phase[:] = (self.x_test_phase - x_train_phase_min) / (x_train_phase_max - x_train_phase_min)
+
         y_train = y_train / 45
         y_val = y_val / 45
         y_test = y_test / 45
+
         elapsed = timeit.default_timer() - start_time
-        print(f'[split] [3/3] Done ({elapsed:.2f} s)')
+        print(f'[split] [5/5] Done ({elapsed:.2f} s)')
 
-        self.store_split.x_train, self.store_split.y_train = x_train, y_train
-        self.store_split.x_val, self.store_split.y_val = x_val, y_val
-        self.store_split.x_test, self.store_split.y_test = x_test, y_test
+        self.store_split.y_train = y_train
+        self.store_split.y_val = y_val
+        self.store_split.y_test = y_test
 
-        print(f'[split] x_train shape: {x_train.shape}, y_train shape {y_train.shape}')
-        print(f'[split] x_val shape: {x_val.shape}, y_val shape {y_val.shape}')
-        print(f'[split] x_test shape: {x_test.shape}, y_test shape {y_test.shape}')
+        print(f'[split] x_train_mag shape: {self.x_train_mag.shape}, '
+              f'x_train_phase shape: {self.x_train_phase.shape}, '
+              f'y_train shape {y_train.shape}')
+        print(f'[split] x_val_mag shape: {self.x_val_mag.shape}, '
+              f'x_val_phase shape: {self.x_val_phase.shape}, '
+              f'y_val shape {y_val.shape}')
+        print(f'[split] x_test_mag shape: {self.x_test_mag.shape}, '
+              f'x_test_phase shape: {self.x_test_phase.shape}, '
+              f'y_test shape {y_test.shape}')
 
         self.time_split = timeit.default_timer() - start_time_all
+
+        self.__flush_split_memory()
 
         return self
 
@@ -357,11 +432,12 @@ class Model:
             optimizer=self.train_optimizer
         )
         self.result_history = model.fit(
-            self.store_split.x_train,
+            [self.x_train_mag, self.x_train_phase],
             self.store_split.y_train,
             batch_size=self.train_batch_size,
             epochs=self.train_epochs,
-            validation_data=(self.store_split.x_val, self.store_split.y_val),
+            validation_data=([self.x_val_mag, self.x_val_phase],
+                             self.store_split.y_val),
             callbacks=[early_stop, checkpoint],
         )
 
@@ -374,9 +450,9 @@ class Model:
 
         model.load_weights(dest_model_path)
 
-        self.result_test_mae = model.evaluate(self.store_split.x_test, self.store_split.y_test, verbose=0)
-
-        print('[train] Test loss:', self.result_test_mae)
+        # self.result_test_mae = model.evaluate([self.store_split.x_test_mag, self.store_split.x_test_phase],
+        #                                       self.store_split.y_test, verbose=0)
+        # print('[train] Test loss:', self.result_test_mae)
 
         self.time_train = timeit.default_timer() - start_time
 
@@ -573,11 +649,18 @@ class Model:
             actual_recording = str(filepath).split('_')[0].split(os.sep)[-1]
 
             audio_data, sample_rate = sf.read(filepath)
-            _, _, features = self.__compute_spectrogram(audio_data, sample_rate)
+            _, _, features_left, features_right = self.__compute_spectrogram(audio_data, sample_rate)
             elapsed = timeit.default_timer() - start_time
 
             result = DotMap()
-            result.spectrogram = features
+            result.input_spectrogram_magnitude = np.stack([
+                np.log10(np.abs(features_left)),
+                np.log10(np.abs(features_right))
+            ], axis=-1)
+            result.input_spectrogram_phase = np.stack([
+                np.angle(features_left),
+                np.angle(features_right)
+            ], axis=-1)
             result.actual_width = actual_width
             result.actual_location = actual_location
             result.actual_recording = actual_recording
@@ -590,7 +673,7 @@ class Model:
             self,
             audio_data: np.ndarray,
             sample_rate: int
-    ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    ) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
         nperseg = int(self.time_window_len * sample_rate)
         noverlap = int(nperseg * self.time_window_overlap)
 
@@ -605,31 +688,67 @@ class Model:
 
             freq, zxx = self.__aggregate_spectrogram_to_n_bands(freq, zxx)
 
-            if self.spectrogram_type == 'MAGNITUDE':
-                spectrogram_data = 10 * np.log10(np.abs(zxx))
-            elif self.spectrogram_type == 'PHASE':
-                spectrogram_data = np.unwrap(np.angle(zxx), axis=1)
-            elif self.spectrogram_type == 'MAGNITUDE_PHASE':
-                spectrogram_data = np.stack([
-                    10 * np.log10(np.abs(zxx)),
-                    np.unwrap(np.angle(zxx), axis=1)
-                ], axis=-1)
-            else:
-                raise ValueError(f'Unknown spectrogram type: {self.spectrogram_type}')
-
-            if spectrogram_data.ndim == 2:
-                spectrogram_data = np.expand_dims(spectrogram_data, axis=2)
-
-            return freq, time, spectrogram_data
+            return freq, time, zxx
 
         freq_left, times_left, spectrogram_left = __spectrogram(audio_data[:, 0])
         _, _, spectrogram_right = __spectrogram(audio_data[:, 1])
-        spectrogram_stack = np.concatenate([spectrogram_left, spectrogram_right], axis=2)
 
-        return freq_left, times_left, spectrogram_stack
+        return freq_left, times_left, spectrogram_left, spectrogram_right
 
     def __load_topology(self) -> tensorflow.keras.Sequential:
         input_shape = (self.target_bands, self.n_time_frames, self.store_extract.number_of_spectrograms)
         sys.path.append('architecture')
         module = importlib.import_module(self.model_architecture)
         return module.architecture(input_shape)
+
+    def __initialize_extract_memory(self):
+        self.input_spectrogram_magnitude = self.__get_extract_memory('input_spectrogram_magnitude',
+                                                                     self.store_extract.input_features_shape)
+        self.input_spectrogram_phase = self.__get_extract_memory('input_spectrogram_phase',
+                                                                 self.store_extract.input_features_shape)
+
+    def __initialize_split_memory(self):
+        self.x_dev_mag = self.__get_split_memory('x_dev_mag', self.store_split.x_dev_mag_shape)
+        self.x_dev_phase = self.__get_split_memory('x_dev_phase', self.store_split.x_dev_phase_shape)
+        self.x_train_mag = self.__get_split_memory('x_train_mag', self.store_split.x_train_mag_shape)
+        self.x_train_phase = self.__get_split_memory('x_train_phase', self.store_split.x_train_phase_shape)
+        self.x_val_mag = self.__get_split_memory('x_val_mag', self.store_split.x_val_mag_shape)
+        self.x_val_phase = self.__get_split_memory('x_val_phase', self.store_split.x_val_phase_shape)
+        self.x_test_mag = self.__get_split_memory('x_test_mag', self.store_split.x_test_mag_shape)
+        self.x_test_phase = self.__get_split_memory('x_test_phase', self.store_split.x_test_phase_shape)
+
+    def __get_extract_memory(self, name: str, shape: tuple | np.ndarray) -> np.ndarray:
+        extract_data_hash = self.__get_extract_hash()
+        filename = f'/run/media/pawel/alpha/memmap/{extract_data_hash}_{name}'
+        memory_data = np.memmap(
+            filename,
+            dtype='float32',
+            mode='r+' if os.path.exists(filename) else 'w+',
+            shape=shape,
+        )
+        return memory_data
+
+    def __get_split_memory(self, name: str, shape: tuple | np.ndarray) -> np.ndarray:
+        split_data_hash = self.__get_split_hash()
+        filename = f'/run/media/pawel/alpha/memmap/{split_data_hash}_{name}'
+        memory_data = np.memmap(
+            filename,
+            dtype='float32',
+            mode='r+' if os.path.exists(filename) else 'w+',
+            shape=shape,
+        )
+        return memory_data
+
+    def __flush_extract_memory(self):
+        self.input_spectrogram_magnitude.flush()
+        self.input_spectrogram_phase.flush()
+
+    def __flush_split_memory(self):
+        self.x_dev_mag.flush()
+        self.x_dev_phase.flush()
+        self.x_train_mag.flush()
+        self.x_train_phase.flush()
+        self.x_val_mag.flush()
+        self.x_val_phase.flush()
+        self.x_test_mag.flush()
+        self.x_test_phase.flush()

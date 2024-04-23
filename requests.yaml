@@ -15,44 +15,45 @@ default:
 requests:
   #  - name: 'simple1'
   #    model_architecture: simple1
-  - name: 'simple2_3'
-    model_architecture: simple2
+  - name: simple2_twoinput_bis
+    model_architecture: simple2_twoinput
     run_num_repetitions: 4
-  - name: 'simple2_magnitude_phase'
-    model_architecture: simple2
-    run_num_repetitions: 3
-    train_batch_size: 32
-    spectrogram_type: MAGNITUDE_PHASE
-  - name: 'simple3_magnitude_phase'
-    model_architecture: simple4
-    run_num_repetitions: 3
-    train_batch_size: 32
-    spectrogram_type: MAGNITUDE_PHASE
-  - name: 'simple4_magnitude_phase'
-    model_architecture: simple4
-    run_num_repetitions: 3
-    train_batch_size: 32
-    spectrogram_type: MAGNITUDE_PHASE
-  - name: 'simple2_dropout1_magnitude_phase'
-    model_architecture: simple2_dropout1
-    run_num_repetitions: 3
-    train_batch_size: 32
-    spectrogram_type: MAGNITUDE_PHASE
-  - name: 'simple2_dropout2_magnitude_phase'
-    model_architecture: simple2_dropout2
-    run_num_repetitions: 3
-    train_batch_size: 32
-    spectrogram_type: MAGNITUDE_PHASE
-  - name: 'simple3_dropout2_magnitude_phase'
-    model_architecture: simple3_dropout2
-    run_num_repetitions: 3
-    train_batch_size: 32
-    spectrogram_type: MAGNITUDE_PHASE
-  - name: 'simple3_dropout2_flatten_magnitude_phase'
-    model_architecture: simple3_dropout2_flatten
-    run_num_repetitions: 3
-    train_batch_size: 32
-    spectrogram_type: MAGNITUDE_PHASE
+    spectrogram_type: PHASE
+#  - name: 'simple2_magnitude_phase'
+#    model_architecture: simple2
+#    run_num_repetitions: 3
+#    train_batch_size: 32
+#    spectrogram_type: MAGNITUDE_PHASE
+#  - name: 'simple3_magnitude_phase'
+#    model_architecture: simple4
+#    run_num_repetitions: 3
+#    train_batch_size: 32
+#    spectrogram_type: MAGNITUDE_PHASE
+#  - name: 'simple4_magnitude_phase'
+#    model_architecture: simple4
+#    run_num_repetitions: 3
+#    train_batch_size: 32
+#    spectrogram_type: MAGNITUDE_PHASE
+#  - name: 'simple2_dropout1_magnitude_phase'
+#    model_architecture: simple2_dropout1
+#    run_num_repetitions: 3
+#    train_batch_size: 32
+#    spectrogram_type: MAGNITUDE_PHASE
+#  - name: 'simple2_dropout2_magnitude_phase'
+#    model_architecture: simple2_dropout2
+#    run_num_repetitions: 3
+#    train_batch_size: 32
+#    spectrogram_type: MAGNITUDE_PHASE
+#  - name: 'simple3_dropout2_magnitude_phase'
+#    model_architecture: simple3_dropout2
+#    run_num_repetitions: 3
+#    train_batch_size: 32
+#    spectrogram_type: MAGNITUDE_PHASE
+#  - name: 'simple3_dropout2_flatten_magnitude_phase'
+#    model_architecture: simple3_dropout2_flatten
+#    run_num_repetitions: 3
+#    train_batch_size: 32
+#    spectrogram_type: MAGNITUDE_PHASE
   #  - name: 'simple2_flatten'
   #    model_architecture: simple2_flatten
   #    run_num_repetitions: 5

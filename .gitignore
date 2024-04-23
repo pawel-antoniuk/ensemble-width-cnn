@@ -166,3 +166,4 @@ cython_debug/
 .idea/
 models/
 old/
+scripts1d/
