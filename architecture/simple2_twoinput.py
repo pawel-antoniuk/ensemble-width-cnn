@@ -1,52 +1,36 @@
-from keras.layers import Input, Conv2D, MaxPooling2D, Dense, concatenate, Flatten, \
-    BatchNormalization, Activation, Dropout
-from tensorflow.keras.models import Model
+from keras.layers import Input, Conv2D, MaxPooling2D, Dense, concatenate, Activation, GlobalAveragePooling2D, Conv1D, MaxPooling1D, Dropout, Flatten
+from keras.models import Model
 
 
-def cnn_block(input_shape):
-    input_layer = Input(shape=input_shape)
-
-    x = Conv2D(32, kernel_size=(2, 2))(input_layer)
-    x = Activation('relu')(x)
+def cnn_block(input_layer):
+    x = Conv2D(32, kernel_size=(2, 2), activation='relu')(input_layer)
     x = MaxPooling2D(pool_size=(2, 2))(x)
-
-    x = Conv2D(64, kernel_size=(2, 2))(x)
-    x = Activation('relu')(x)
+    x = Conv2D(64, kernel_size=(2, 2), activation='relu')(x)
     x = MaxPooling2D(pool_size=(2, 2))(x)
-
-    x = Conv2D(128, kernel_size=(2, 2))(x)
-    x = Activation('relu')(x)
+    x = Conv2D(128, kernel_size=(2, 2), activation='relu')(x)
     x = MaxPooling2D(pool_size=(2, 2))(x)
+    x = GlobalAveragePooling2D()(x)
+    x = Dense(128, activation='relu')(x)
+    x = Dense(64, activation='relu')(x)
+    x = Dense(32, activation='relu')(x)
+    x = Dense(16, activation='relu')(x)
+    return x
 
-    x = Flatten()(x)
 
-    x = Dense(128)(x)
-    x = Activation('relu')(x)
-
-    x = Dense(64)(x)
-    x = Activation('relu')(x)
-
-    return Model(inputs=input_layer, outputs=x)
+def gcc_phat_block(input_layer):
+    x = Dense(32, activation='relu')(input_layer)
+    return x
 
 
 def architecture(input_shape):
-    cnn_block1 = cnn_block(input_shape)
-    cnn_block2 = cnn_block(input_shape)
+    mag_input_layer = Input(shape=(150, 349, 2))
+    phase_input_layer = Input(shape=(150, 349, 2))
+    gcc_input_layer = Input(shape=(66,))
+    mag_model = cnn_block(mag_input_layer)
+    # phase_model = cnn_block(phase_input_layer)
+    # gcc_model = gcc_phat_block(gcc_input_layer)
+    # merged = concatenate([mag_model])
 
-    merged = concatenate([cnn_block1.output, cnn_block2.output])
+    output = Dense(1)(mag_model)
 
-    x = Dense(32)(merged)
-    x = Activation('relu')(x)
-
-    x = Dense(16)(x)
-    x = Activation('relu')(x)
-
-    x = Dense(8)(x)
-    x = Activation('relu')(x)
-
-    x = Dense(4)(x)
-    x = Activation('relu')(x)
-
-    output = Dense(1)(x)
-
-    return Model(inputs=[cnn_block1.input, cnn_block2.input], outputs=output)
+    return Model(inputs=[mag_input_layer, phase_input_layer, gcc_input_layer], outputs=output)

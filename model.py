@@ -18,38 +18,43 @@ import numpy as np
 import pandas as pd
 import soundfile as sf
 import tensorflow as tf
-import tensorflow.keras.backend as K
-import tensorflow.keras.callbacks
+import keras
 import yaml
 from dotmap import DotMap
 from scipy.signal import spectrogram
 from scipy.signal.windows import hamming
 from sklearn.model_selection import GroupShuffleSplit
 
+from gcc_phat import gcc_phat_feature, gcc_phat_feature_len
+
 
 @dataclass
 class Request:
-    name: str = 'unknown_model'
-    input_dir: str = 'input'
+    name: str = "unknown_model"
+    input_dir: str = "input"
     num_samples: int = 23040
+    sample_rate: int = 48000
     target_bands: int = 300
     time_window_len: float = 0.04
     time_window_overlap: float = 0.5
     spectrogram_min_freq: int = 100
     spectrogram_max_freq: int = 16000
     recording_time_length: int = 7
-    model_architecture: str = 'default'
+    model_architecture: str = "default"
+    learn_rate: float = 0.001
+    learn_b1: float = 0.9
+    learn_b2: float = 0.999
+    learn_decay: float = 0
     train_batch_size: int = 8
     train_epochs: int = 128
     train_patience: int = 15
-    train_loss: str = 'mean_squared_error'
-    train_optimizer: str = 'adam'
+    train_loss: str = "mean_squared_error"
     dev_test_ratio: float = 1 / 3
     train_val_ratio: float = 1 / 8
     split_seed: int = 2
     train_seed: int = 3
     repetition_iteration: int = 1
-    spectrogram_type: str = 'MAGNITUDE'
+    spectrogram_type: str = "MAGNITUDE"
 
 
 class Model:
@@ -57,9 +62,8 @@ class Model:
         self.result_best_val_mae: Optional[float] = None
         self.result_best_epoch: Optional[int] = None
         self.result_test_mae: Optional[float] = None
-        self.model_trainable_params: Optional[int] = None
-        self.model_non_trainable_params: Optional[int] = None
-        self.result_history: Optional[tensorflow.keras.callbacks.History] = None
+        self.model_n_params: Optional[int] = None
+        self.result_history: Optional[keras.callbacks.History] = None
         self.time_extract: Optional[float] = None
         self.time_split: Optional[float] = None
         self.time_train: Optional[float] = None
@@ -81,20 +85,30 @@ class Model:
         self.name = request.name
         self.input_dir = Path(request.input_dir)
         self.num_samples = request.num_samples
-        self.filepaths = [p for p in self.input_dir.iterdir()][0: self.num_samples]
+        self.sample_rate = request.sample_rate
+        self.filepaths = [p for p in self.input_dir.iterdir()
+                          ][0: self.num_samples]
         self.target_bands = request.target_bands
         self.time_window_len = request.time_window_len
         self.time_window_overlap = request.time_window_overlap
         self.spectrogram_min_freq = request.spectrogram_min_freq
         self.spectrogram_max_freq = request.spectrogram_max_freq
         self.recording_time_length = request.recording_time_length
-        self.n_time_frames = int(self.recording_time_length / self.time_window_len * 2 - 1)
+        self.n_time_frames = int(
+            self.recording_time_length / self.time_window_len * 2 - 1
+        )
         self.model_architecture = request.model_architecture
         self.train_batch_size = request.train_batch_size
         self.train_epochs = request.train_epochs
         self.train_patience = request.train_patience
         self.train_loss = request.train_loss
-        self.train_optimizer = request.train_optimizer
+        # self.train_optimizer = keras.optimizers.Adam(
+        #     learning_rate=request.learn_rate,
+        #     beta_1=request.learn_b1,
+        #     beta_2=request.learn_b2,
+        #     decay=request.learn_decay,
+        # )
+        self.train_optimizer = 'adam'
         self.store_extract.number_of_spectrograms = 2
         self.store_extract.input_features_shape = (
             self.num_samples,
@@ -114,35 +128,41 @@ class Model:
         self.__print_properties_trimmed()
 
         # Configure GPU VRAM
-        gpus = tf.config.experimental.list_physical_devices('GPU')
-        if gpus:
-            try:
-                config = [
-                    tf.config.experimental.VirtualDeviceConfiguration(
-                        memory_limit=20 * 1024
-                    )
-                ]
-                tf.config.experimental.set_virtual_device_configuration(gpus[0], config)
-            except RuntimeError as e:
-                print(e)
-                traceback.print_exc()
+        # gpus = tf.config.experimental.list_physical_devices('GPU')
+        # if gpus:
+        #     try:
+        #         config = [
+        #             tf.config.experimental.VirtualDeviceConfiguration(
+        #                 memory_limit=20 * 1024
+        #             )
+        #         ]
+        #         tf.config.experimental.set_virtual_device_configuration(
+        #             gpus[0], config)
+        #     except RuntimeError as e:
+        #         print(e)
+        #         traceback.print_exc()
 
     def extract(self) -> Model:
         start_time = timeit.default_timer()
 
-        print('[extract] Initializing memory')
+        print("[extract] Initializing memory")
         self.__initialize_extract_memory()
         self.store_extract.actual_widths = np.zeros(self.num_samples)
         self.store_extract.actual_locations = np.zeros(self.num_samples)
-        self.store_extract.actual_recordings = ['' for _ in range(self.num_samples)]
-        self.store_extract.actual_filenames = ['' for _ in range(self.num_samples)]
+        self.store_extract.actual_recordings = [
+            "" for _ in range(self.num_samples)]
+        self.store_extract.actual_filenames = [
+            "" for _ in range(self.num_samples)]
+        self.store_extract.gcc_phat_fvec = np.zeros(
+            (self.num_samples, gcc_phat_feature_len(self.sample_rate))
+        )
 
-        print('[extract] Memory initialized')
+        print("[extract] Memory initialized")
 
         with ThreadPoolExecutor(max_workers=2) as executor:
             try:
                 futures = [
-                    executor.submit(self.__load_spectrogram, filepath)
+                    executor.submit(self._extract_features, filepath)
                     for filepath in self.filepaths
                 ]
 
@@ -157,17 +177,23 @@ class Model:
                         executor.shutdown(wait=False, cancel_futures=True)
                         raise e
 
-                    self.input_spectrogram_magnitude[i] = result.input_spectrogram_magnitude
+                    self.input_spectrogram_magnitude[i] = (
+                        result.input_spectrogram_magnitude
+                    )
                     self.input_spectrogram_phase[i] = result.input_spectrogram_phase
                     self.store_extract.actual_widths[i] = result.actual_width
                     self.store_extract.actual_locations[i] = result.actual_location
                     self.store_extract.actual_recordings[i] = result.actual_recording
                     self.store_extract.actual_filenames[i] = result.actual_filename
+                    self.store_extract.gcc_phat_fvec[i,
+                                                     :] = result.gcc_phat_fvec
                     last_results_elapsed.append(result.elapsed)
 
                     # if i % 10 == 0:
-                    mean_elapsed = sum(last_results_elapsed) / len(last_results_elapsed)
-                    print(f'[extract] [{i}] Average spectrogram extraction time per sample: {mean_elapsed:.3f} s')
+                    mean_elapsed = sum(last_results_elapsed) / \
+                        len(last_results_elapsed)
+                    print(f"[extract] [{i}] Average spectrogram extraction time per sample: {
+                          mean_elapsed:.3f} s [samples: {len(last_results_elapsed)}]")
                     last_results_elapsed.clear()
 
             except KeyboardInterrupt as e:
@@ -175,29 +201,37 @@ class Model:
                 raise e
 
         self.__flush_extract_memory()
-        self.store_extract.actual_recordings = np.array(self.store_extract.actual_recordings)
-        self.store_extract.actual_filenames = np.array(self.store_extract.actual_filenames)
+        self.store_extract.actual_recordings = np.array(
+            self.store_extract.actual_recordings
+        )
+        self.store_extract.actual_filenames = np.array(
+            self.store_extract.actual_filenames
+        )
 
         elapsed = timeit.default_timer() - start_time
-        print(f'[extract] Loaded all spectrograms in {elapsed:.2f} s')
+        print(f"[extract] Loaded all spectrograms in {elapsed:.2f} s")
         self.time_extract = elapsed
 
         return self
 
     def try_load_or_compute_input_data(self) -> Model:
         try:
-            print('[load] Attempting to load the cached input features')
+            print("[load] Attempting to load the cached input features")
             self.load_extracted()
         except FileNotFoundError:
-            print('[load] Cache does not contain the requested data. Extracting data from scratch')
+            print(
+                "[load] Cache does not contain the requested data. Extracting data from scratch"
+            )
             self.extract()
-            print('[load] Spectrograms extracted, saving them')
+            print("[load] Spectrograms extracted, saving them")
             self.save_extracted()
         try:
-            print('[load] Attempting to load the cached split data')
+            print("[load] Attempting to load the cached split data")
             self.load_split()
         except FileNotFoundError:
-            print('[load] Cache does not contain the requested split data. Splitting data from scratch')
+            print(
+                "[load] Cache does not contain the requested split data. Splitting data from scratch"
+            )
             self.split()
             self.save_split()
         return self
@@ -205,41 +239,42 @@ class Model:
     def load_split(self) -> Model:
         start_time = timeit.default_timer()
         data_hash = self.__get_split_hash()
-        print(f'[load] Split hash: {data_hash}')
-        self.store_split = joblib.load(f'state/{data_hash}_store_split.pkl')
+        print(f"[load] Split hash: {data_hash}")
+        self.store_split = joblib.load(f"state/{data_hash}_store_split.pkl")
         self.__initialize_split_memory()
         elapsed = timeit.default_timer() - start_time
-        print(f'[load] Loaded cached splits in {elapsed:.2f} s')
+        print(f"[load] Loaded cached splits in {elapsed:.2f} s")
         return self
 
     def save_split(self) -> Model:
         start_time = timeit.default_timer()
         data_hash = self.__get_split_hash()
-        print(f'[save] Split hash: {data_hash}')
-        os.makedirs(f'state', exist_ok=True)
-        joblib.dump(self.store_split, f'state/{data_hash}_store_split.pkl')
+        print(f"[save] Split hash: {data_hash}")
+        os.makedirs(f"state", exist_ok=True)
+        joblib.dump(self.store_split, f"state/{data_hash}_store_split.pkl")
         elapsed = timeit.default_timer() - start_time
-        print(f'[save] Saved cached splits in {elapsed:.2f} s')
+        print(f"[save] Saved cached splits in {elapsed:.2f} s")
         return self
 
     def load_extracted(self) -> Model:
         start_time = timeit.default_timer()
         data_hash = self.__get_extract_hash()
-        print(f'[load] Extraction hash: {data_hash}')
-        self.store_extract = joblib.load(f'state/{data_hash}_store_extract.pkl')
+        print(f"[load] Extraction hash: {data_hash}")
+        self.store_extract = joblib.load(
+            f"state/{data_hash}_store_extract.pkl")
         self.__initialize_extract_memory()
         elapsed = timeit.default_timer() - start_time
-        print(f'[load] Loaded cached spectrograms in {elapsed:.2f} s')
+        print(f"[load] Loaded cached spectrograms in {elapsed:.2f} s")
         return self
 
     def save_extracted(self) -> Model:
         start_time = timeit.default_timer()
         data_hash = self.__get_extract_hash()
-        print(f'[save] Extraction hash: {data_hash}')
-        os.makedirs(f'state/', exist_ok=True)
-        joblib.dump(self.store_extract, f'state/{data_hash}_store_extract.pkl')
+        print(f"[save] Extraction hash: {data_hash}")
+        os.makedirs(f"state/", exist_ok=True)
+        joblib.dump(self.store_extract, f"state/{data_hash}_store_extract.pkl")
         elapsed = timeit.default_timer() - start_time
-        print(f'[save] Saved spectrograms in {elapsed:.2f} s')
+        print(f"[save] Saved spectrograms in {elapsed:.2f} s")
         return self
 
     def plot_features(self) -> Model:
@@ -258,60 +293,69 @@ class Model:
             plt.figure(figsize=(20, 10))
 
             for i_spectrogram in range(n_spectrograms_mag):
-                plt.subplot(2, int(np.ceil(n_spectrograms_all / 2)), i_spectrogram + 1)
+                plt.subplot(2, int(np.ceil(n_spectrograms_all / 2)),
+                            i_spectrogram + 1)
                 data = self.x_train_mag[sample, :, :, i_spectrogram]
-                plt.pcolormesh(data, shading='gouraud')
-                plt.title(f'Magnitude Spectrogram {i_spectrogram}')
+                plt.pcolormesh(data, shading="gouraud")
+                plt.title(f"Magnitude Spectrogram {i_spectrogram}")
 
             for i_spectrogram in range(n_spectrograms_phase):
-                plt.subplot(2, int(np.ceil(n_spectrograms_all / 2)), n_spectrograms_mag + i_spectrogram + 1)
+                plt.subplot(
+                    2,
+                    int(np.ceil(n_spectrograms_all / 2)),
+                    n_spectrograms_mag + i_spectrogram + 1,
+                )
                 data = self.x_train_phase[sample, :, :, i_spectrogram]
-                plt.pcolormesh(data, shading='gouraud')
-                plt.title(f'Phase Spectrogram {i_spectrogram}')
+                plt.pcolormesh(data, shading="gouraud")
+                plt.title(f"Phase Spectrogram {i_spectrogram}")
 
             plt.tight_layout()
-            plt.savefig(output_dir / f'features_{sample}.png')
+            plt.savefig(output_dir / f"features_{sample}.png")
 
         elapsed = timeit.default_timer() - start_time
-        print(f'[draw] Plotted features in {elapsed} s')
+        print(f"[draw] Plotted features in {elapsed} s")
 
         return self
 
     # Split data into training, validation and testing
     def split(self) -> Model:
         start_time_all = timeit.default_timer()
-        print('[split] [1/3] Splitting data into development and testing set')
+        print("[split] [1/3] Splitting data into development and testing set")
         start_time = timeit.default_timer()
 
         x_all = self.input_spectrogram_magnitude
         gss = GroupShuffleSplit(
-            n_splits=1,
-            test_size=self.dev_test_ratio,
-            random_state=self.split_seed
+            n_splits=1, test_size=self.dev_test_ratio, random_state=self.split_seed
         )
-        idx_dev, idx_test = next(gss.split(x_all, groups=self.store_extract.actual_recordings))
+        idx_dev, idx_test = next(
+            gss.split(x_all, groups=self.store_extract.actual_recordings)
+        )
 
         y_dev = self.store_extract.actual_widths[idx_dev]
-        y_test = self.store_extract.actual_widths[idx_test]
-        self.store_split.actual_recordings_dev = self.store_extract.actual_recordings[idx_dev]
-        self.store_split.actual_recordings_test = self.store_extract.actual_recordings[idx_test]
+        self.store_split.y_test = self.store_extract.actual_widths[idx_test]
+        self.store_split.actual_recordings_dev = self.store_extract.actual_recordings[
+            idx_dev
+        ]
+        self.store_split.actual_recordings_test = self.store_extract.actual_recordings[
+            idx_test
+        ]
 
         gss = GroupShuffleSplit(
-            n_splits=1,
-            test_size=self.train_val_ratio,
-            random_state=self.split_seed + 1
+            n_splits=1, test_size=self.train_val_ratio, random_state=self.split_seed + 1
         )
-        idx_train, idx_val = next(gss.split(idx_dev, groups=self.store_split.actual_recordings_dev))
+        idx_train, idx_val = next(
+            gss.split(idx_dev, groups=self.store_split.actual_recordings_dev)
+        )
 
         def __shape(samples):
             return (
                 samples,
                 self.target_bands,
                 self.n_time_frames,
-                self.store_extract.number_of_spectrograms
+                self.store_extract.number_of_spectrograms,
             )
 
-        print('[split] [2/5] Initializing memmap memory')
+        print("[split] [2/5] Initializing memmap memory")
         self.store_split.x_dev_mag_shape = __shape(len(idx_dev))
         self.store_split.x_dev_phase_shape = __shape(len(idx_dev))
         self.store_split.x_train_mag_shape = __shape(len(idx_train))
@@ -323,75 +367,115 @@ class Model:
         self.__initialize_split_memory()
 
         elapsed = timeit.default_timer() - start_time
-        print(f'[split] [2/5] Done ({elapsed:.2f} s)')
-        print('[split] [3/5] Assigning allocated mmap')
+        print(f"[split] [2/5] Done ({elapsed:.2f} s)")
+        print("[split] [3/5] Assigning allocated mmap")
         start_time = timeit.default_timer()
 
         self.x_dev_mag[:] = self.input_spectrogram_magnitude[idx_dev]
         self.x_dev_phase[:] = self.input_spectrogram_phase[idx_dev]
+        self.store_split.x_dev_gcc_phat = self.store_extract.gcc_phat_fvec[idx_dev, :]
+
         self.x_test_mag[:] = self.input_spectrogram_magnitude[idx_test]
         self.x_test_phase[:] = self.input_spectrogram_phase[idx_test]
+        self.store_split.x_test_gcc_phat = self.store_extract.gcc_phat_fvec[idx_test, :]
 
         self.store_split.idx_dev = idx_dev
         self.store_split.idx_test = idx_test
 
         elapsed = timeit.default_timer() - start_time
-        print(f'[split] [3/5] Done ({elapsed:.2f} s)')
-        print('[split] [4/5] Splitting development set into training and validation set')
+        print(f"[split] [3/5] Done ({elapsed:.2f} s)")
+        print(
+            "[split] [4/5] Splitting development set into training and validation set"
+        )
         start_time = timeit.default_timer()
 
         self.x_train_mag[:] = self.x_dev_mag[idx_train]
         self.x_train_phase[:] = self.x_dev_phase[idx_train]
+        self.store_split.x_train_gcc_phat = self.store_split.x_dev_gcc_phat[
+            idx_train, :
+        ]
+
         self.x_val_mag[:] = self.x_dev_mag[idx_val]
         self.x_val_phase[:] = self.x_dev_phase[idx_val]
+        self.store_split.x_val_gcc_phat = self.store_split.x_dev_gcc_phat[idx_val, :]
 
-        y_train = y_dev[idx_train]
-        y_val = y_dev[idx_val]
+        self.store_split.y_train = y_dev[idx_train]
+        self.store_split.y_val = y_dev[idx_val]
 
-        self.store_split.actual_recordings_train = self.store_extract.actual_recordings[idx_train]
-        self.store_split.actual_recordings_val = self.store_extract.actual_recordings[idx_val]
+        self.store_split.actual_recordings_train = self.store_extract.actual_recordings[
+            idx_train
+        ]
+        self.store_split.actual_recordings_val = self.store_extract.actual_recordings[
+            idx_val
+        ]
         self.store_split.idx_train = idx_train
         self.store_split.idx_val = idx_val
 
         elapsed = timeit.default_timer() - start_time
-        print(f'[split] [4/5] Done ({elapsed:.2f} s)')
-        print('[split] [5/5] Normalizing data')
+        print(f"[split] [4/5] Done ({elapsed:.2f} s)")
+        print("[split] [5/5] Normalizing data")
         start_time = timeit.default_timer()
 
         x_train_mag_min = np.min(self.x_train_mag)
         x_train_mag_max = np.max(self.x_train_mag)
+        x_train_mag_mean = np.mean(self.x_train_mag)
+        x_train_mag_std = np.std(self.x_train_mag)
         x_train_phase_min = np.min(self.x_train_phase)
         x_train_phase_max = np.max(self.x_train_phase)
+        x_train_gcc_phat_min = np.min(self.store_split.x_train_gcc_phat)
+        x_train_gcc_phat_max = np.max(self.store_split.x_train_gcc_phat)
+        x_train_gcc_phat_mean = np.mean(self.store_split.x_train_gcc_phat)
+        x_train_gcc_phat_std = np.std(self.store_split.x_train_gcc_phat)
 
-        self.x_train_mag[:] = (self.x_train_mag - x_train_mag_min) / (x_train_mag_max - x_train_mag_min)
-        self.x_train_phase[:] = (self.x_train_phase - x_train_phase_min) / (x_train_phase_max - x_train_phase_min)
+        self.x_train_mag[:] = (
+            self.x_train_mag - x_train_mag_mean) / x_train_mag_std
+        self.x_val_mag[:] = (
+            self.x_val_mag - x_train_mag_mean) / x_train_mag_std
+        self.x_test_mag[:] = (
+            self.x_test_mag - x_train_mag_mean) / x_train_mag_std
 
-        self.x_val_mag[:] = (self.x_val_mag - x_train_mag_min) / (x_train_mag_max - x_train_mag_min)
-        self.x_val_phase[:] = (self.x_val_phase - x_train_phase_min) / (x_train_phase_max - x_train_phase_min)
+        self.x_train_phase[:] = (self.x_train_phase - x_train_phase_min) / (
+            x_train_phase_max - x_train_phase_min
+        )
+        self.x_val_phase[:] = (self.x_val_phase - x_train_phase_min) / (
+            x_train_phase_max - x_train_phase_min
+        )
+        self.x_test_phase[:] = (self.x_test_phase - x_train_phase_min) / (
+            x_train_phase_max - x_train_phase_min
+        )
 
-        self.x_test_mag[:] = (self.x_test_mag - x_train_mag_min) / (x_train_mag_max - x_train_mag_min)
-        self.x_test_phase[:] = (self.x_test_phase - x_train_phase_min) / (x_train_phase_max - x_train_phase_min)
+        self.store_split.x_train_gcc_phat = (
+            self.store_split.x_train_gcc_phat - x_train_gcc_phat_mean
+        ) / x_train_gcc_phat_std
+        self.store_split.x_val_gcc_phat = (
+            self.store_split.x_val_gcc_phat - x_train_gcc_phat_mean
+        ) / x_train_gcc_phat_std
+        self.store_split.x_test_gcc_phat = (
+            self.store_split.x_test_gcc_phat - x_train_gcc_phat_mean
+        ) / x_train_gcc_phat_std
 
-        y_train = y_train / 45
-        y_val = y_val / 45
-        y_test = y_test / 45
+        self.store_split.y_train = self.store_split.y_train / 45
+        self.store_split.y_val = self.store_split.y_val / 45
+        self.store_split.y_test = self.store_split.y_test / 45
 
         elapsed = timeit.default_timer() - start_time
-        print(f'[split] [5/5] Done ({elapsed:.2f} s)')
+        print(f"[split] [5/5] Done ({elapsed:.2f} s)")
 
-        self.store_split.y_train = y_train
-        self.store_split.y_val = y_val
-        self.store_split.y_test = y_test
-
-        print(f'[split] x_train_mag shape: {self.x_train_mag.shape}, '
-              f'x_train_phase shape: {self.x_train_phase.shape}, '
-              f'y_train shape {y_train.shape}')
-        print(f'[split] x_val_mag shape: {self.x_val_mag.shape}, '
-              f'x_val_phase shape: {self.x_val_phase.shape}, '
-              f'y_val shape {y_val.shape}')
-        print(f'[split] x_test_mag shape: {self.x_test_mag.shape}, '
-              f'x_test_phase shape: {self.x_test_phase.shape}, '
-              f'y_test shape {y_test.shape}')
+        print(
+            f"[split] x_train_mag shape: {self.x_train_mag.shape}, "
+            f"x_train_phase shape: {self.x_train_phase.shape}, "
+            f"y_train shape {self.store_split.y_train.shape}"
+        )
+        print(
+            f"[split] x_val_mag shape: {self.x_val_mag.shape}, "
+            f"x_val_phase shape: {self.x_val_phase.shape}, "
+            f"y_val shape {self.store_split.y_val.shape}"
+        )
+        print(
+            f"[split] x_test_mag shape: {self.x_test_mag.shape}, "
+            f"x_test_phase shape: {self.x_test_phase.shape}, "
+            f"y_test shape {self.store_split.y_test.shape}"
+        )
 
         self.time_split = timeit.default_timer() - start_time_all
 
@@ -407,7 +491,7 @@ class Model:
         np.random.seed(self.train_seed)
         random.seed(self.train_seed)
 
-        dest_model_path = self.__get_model_output_dir() / 'model.h5'
+        dest_model_path = self.__get_model_output_dir() / "model.keras"
         os.makedirs(os.path.dirname(dest_model_path), exist_ok=True)
 
         model = self.__load_topology()
@@ -415,44 +499,47 @@ class Model:
 
         self.__save_model_params(model)
 
-        early_stop = tensorflow.keras.callbacks.EarlyStopping(
-            monitor='val_loss',
-            patience=self.train_patience,
-            restore_best_weights=False
+        early_stop = keras.callbacks.EarlyStopping(
+            monitor="val_loss", patience=self.train_patience, restore_best_weights=False
         )
-        checkpoint = tensorflow.keras.callbacks.ModelCheckpoint(
+        checkpoint = keras.callbacks.ModelCheckpoint(
             dest_model_path,
-            monitor='val_loss',
-            mode='min',
+            monitor="val_loss",
+            mode="min",
             save_best_only=True,
             verbose=1,
         )
-        model.compile(
-            loss=self.train_loss,
-            optimizer=self.train_optimizer
-        )
+        model.compile(loss=self.train_loss, optimizer=self.train_optimizer)
         self.result_history = model.fit(
-            [self.x_train_mag, self.x_train_phase],
+            self.x_train_mag,
             self.store_split.y_train,
             batch_size=self.train_batch_size,
             epochs=self.train_epochs,
-            validation_data=([self.x_val_mag, self.x_val_phase],
-                             self.store_split.y_val),
+            validation_data=(
+                self.x_val_mag,
+                self.store_split.y_val,
+            ),
             callbacks=[early_stop, checkpoint],
         )
 
-        self.result_best_val_mae = min(self.result_history.history['val_loss'])
+        self.result_best_val_mae = min(self.result_history.history["val_loss"])
         self.result_best_epoch = (
-                self.result_history.history['val_loss'].index(self.result_best_val_mae) + 1
+            self.result_history.history["val_loss"].index(
+                self.result_best_val_mae) + 1
         )
 
-        print('[train] The training procedure ended with validation loss:', self.result_best_val_mae)
+        print(
+            "[train] The training procedure ended with validation loss:",
+            self.result_best_val_mae,
+        )
 
         model.load_weights(dest_model_path)
 
-        # self.result_test_mae = model.evaluate([self.store_split.x_test_mag, self.store_split.x_test_phase],
-        #                                       self.store_split.y_test, verbose=0)
-        # print('[train] Test loss:', self.result_test_mae)
+        test_data = (self.x_test_mag, self.x_test_phase,
+                     self.store_split.x_test_gcc_phat),
+        self.result_test_mae = model.evaluate(
+            test_data, self.store_split.y_test, verbose=0)
+        print('[train] Test loss:', self.result_test_mae)
 
         self.time_train = timeit.default_timer() - start_time
 
@@ -461,8 +548,8 @@ class Model:
     # Plot Training History
 
     def plot_history(self) -> Model:
-        loss = self.result_history.history['loss']
-        val_loss = self.result_history.history['val_loss']
+        loss = self.result_history.history["loss"]
+        val_loss = self.result_history.history["val_loss"]
         # mae = self.result_history.history['mae']
         # val_mae = self.result_history.history['val_mae']
         epochs = range(1, len(loss) + 1)
@@ -471,11 +558,11 @@ class Model:
 
         # Plotting training and validation loss
         # plt.subplot(1, 2, 1)
-        plt.plot(epochs, loss, 'bo', label='Training loss')
-        plt.plot(epochs, val_loss, 'b', label='Validation loss')
-        plt.title('Training and Validation Loss')
-        plt.xlabel('Epochs')
-        plt.ylabel('Loss')
+        plt.plot(epochs, loss, "bo", label="Training loss")
+        plt.plot(epochs, val_loss, "b", label="Validation loss")
+        plt.title("Training and Validation Loss")
+        plt.xlabel("Epochs")
+        plt.ylabel("Loss")
         plt.legend()
 
         # Plotting training and validation MAE
@@ -497,54 +584,54 @@ class Model:
         os.makedirs(dest_dir, exist_ok=True)
 
         # save request
-        joblib.dump(self.request, dest_dir / 'request.pkl')
-        with open(dest_dir / 'request.yaml', 'w') as f:
+        joblib.dump(self.request, dest_dir / "request.pkl")
+        with open(dest_dir / "request.yaml", "w") as f:
             yaml.dump(asdict(self.request), f)
 
         # save source
         current_script_path = os.path.abspath(__file__)
-        with open(current_script_path, 'r') as current_script_source:
-            with open(dest_dir / 'source.pyarch', 'w') as dest_script_source:
+        with open(current_script_path, "r") as current_script_source:
+            with open(dest_dir / "source.pyarch", "w") as dest_script_source:
                 dest_script_source.write(current_script_source.read())
 
         # save splits
-        pd.DataFrame({
-            'recordings': np.unique(self.store_split.actual_recordings_dev)
-        }).to_csv(dest_dir / 'recordings_dev.csv')
-        pd.DataFrame({
-            'recordings': np.unique(self.store_split.actual_recordings_train)
-        }).to_csv(dest_dir / 'recordings_train.csv')
-        pd.DataFrame({
-            'recordings': np.unique(self.store_split.actual_recordings_val)
-        }).to_csv(dest_dir / 'recordings_val.csv')
-        pd.DataFrame({
-            'recordings': np.unique(self.store_split.actual_recordings_test)
-        }).to_csv(dest_dir / 'recordings_test.csv')
+        pd.DataFrame(
+            {"recordings": np.unique(self.store_split.actual_recordings_dev)}
+        ).to_csv(dest_dir / "recordings_dev.csv")
+        pd.DataFrame(
+            {"recordings": np.unique(self.store_split.actual_recordings_train)}
+        ).to_csv(dest_dir / "recordings_train.csv")
+        pd.DataFrame(
+            {"recordings": np.unique(self.store_split.actual_recordings_val)}
+        ).to_csv(dest_dir / "recordings_val.csv")
+        pd.DataFrame(
+            {"recordings": np.unique(self.store_split.actual_recordings_test)}
+        ).to_csv(dest_dir / "recordings_test.csv")
 
         # save architecture source
         architecture_script_path = (
-                Path('architecture') / f'{self.model_architecture}.py'
+            Path("architecture") / f"{self.model_architecture}.py"
         )
-        with open(architecture_script_path, 'r') as architecture_script_source:
-            with open(dest_dir / 'architecture.pyarch', 'w') as dest_script_source:
+        with open(architecture_script_path, "r") as architecture_script_source:
+            with open(dest_dir / "architecture.pyarch", "w") as dest_script_source:
                 dest_script_source.write(architecture_script_source.read())
 
         # save metadata
         metadata = DotMap()
         metadata.history = self.result_history.history
-        joblib.dump(metadata, dest_dir / 'metadata.pkl')
+        joblib.dump(metadata, dest_dir / "metadata.pkl")
 
         # delete old score if exists and save actual scores
-        for score_filename in dest_dir.glob('score_*.csv'):
+        for score_filename in dest_dir.glob("score_*.csv"):
             score_filename.unlink()
         pd.DataFrame(
             {
-                'best_val_mae': [self.result_best_val_mae],
-                'test_score': [self.result_test_mae],
-                'best_epoch': [self.result_best_epoch],
-                'params': [self.model_trainable_params],
+                "best_val_mae": [self.result_best_val_mae],
+                "test_score": [self.result_test_mae],
+                "best_epoch": [self.result_best_epoch],
+                "params": [self.model_n_params],
             }
-        ).to_csv(dest_dir / f'score_{self.result_best_val_mae:0.4f}.csv')
+        ).to_csv(dest_dir / f"score_{self.result_best_val_mae:0.4f}.csv")
 
         # save properties
         max_value_len = 100
@@ -553,57 +640,56 @@ class Model:
         for prop, value in vars(self).items():
             value = str(value)
             if len(value) > max_value_len:
-                value = value[:max_value_len] + ' ...'
+                value = value[:max_value_len] + " ..."
             properties.append(prop)
             values.append(value)
-        pd.DataFrame({'property': properties, 'value': values}).to_csv(
-            dest_dir / 'properties.csv'
+        pd.DataFrame({"property": properties, "value": values}).to_csv(
+            dest_dir / "properties.csv"
         )
 
         return self
 
     def predict_test_data(self):
         output_dir = self.__get_model_output_dir()
-        model_path = output_dir / 'model.h5'
-        model = tensorflow.keras.models.load_model(model_path)
+        model_path = output_dir / "model.keras"
+        model = keras.models.load_model(model_path)
         predictions = model.predict(self.store_split.x_test)
         test_filenames = self.store_extract.actual_filenames[self.store_split.idx_test]
 
-        return pd.DataFrame({
-            'filename': test_filenames,
-            'actual_width': self.store_split.y_test,
-            'predicted_width': predictions[:, 0]
-        })
+        return pd.DataFrame(
+            {
+                "filename": test_filenames,
+                "actual_width": self.store_split.y_test,
+                "predicted_width": predictions[:, 0],
+            }
+        )
 
     def __get_extract_hash(self) -> str:
-        args = [self.input_dir,
-                self.target_bands,
-                self.time_window_len,
-                self.time_window_overlap,
-                self.spectrogram_type]
-        combined_string = '|'.join(str(arg) for arg in args)
-        encoded_string = combined_string.encode('utf-8')
+        args = [
+            self.input_dir,
+            self.target_bands,
+            self.time_window_len,
+            self.time_window_overlap,
+            self.spectrogram_type,
+        ]
+        combined_string = "|".join(str(arg) for arg in args)
+        encoded_string = combined_string.encode("utf-8")
         hash_obj = hashlib.sha256(encoded_string)
         return hash_obj.hexdigest()[:8]
 
     def __get_split_hash(self) -> str:
-        args = [self.__get_extract_hash(),
-                self.split_seed]
-        combined_string = '|'.join(str(arg) for arg in args)
-        encoded_string = combined_string.encode('utf-8')
+        args = [self.__get_extract_hash(), self.split_seed]
+        combined_string = "|".join(str(arg) for arg in args)
+        encoded_string = combined_string.encode("utf-8")
         hash_obj = hashlib.sha256(encoded_string)
         return hash_obj.hexdigest()[:8]
 
-    def __save_model_params(self, model):
-        self.model_trainable_params = np.sum(
-            [K.count_params(w) for w in model.trainable_weights]
-        )
-        self.model_non_trainable_params = np.sum(
-            [K.count_params(w) for w in model.non_trainable_weights]
-        )
+    def __save_model_params(self, model: keras.Model):
+        model.count_params()
+        self.model_n_params = model.count_params()
 
     def __get_model_output_dir(self) -> Path:
-        return Path('models') / self.name / str(self.repetition_iteration)
+        return Path("models") / self.name / str(self.repetition_iteration)
 
     def __print_properties_trimmed(self) -> None:
         n = 100
@@ -612,26 +698,32 @@ class Model:
                 continue
             value = str(value)
             if isinstance(value, str) and len(value) > n:
-                value = value[:n] + ' ...'
-            print(f'\t{prop}: {value}')
+                value = value[:n] + " ..."
+            print(f"\t{prop}: {value}")
 
-    def __aggregate_spectrogram_to_n_bands(self, frequencies: np.ndarray, sxx: np.ndarray) \
-            -> tuple[np.ndarray, np.ndarray]:
-        mask = (frequencies >= self.spectrogram_min_freq) & (frequencies <= self.spectrogram_max_freq)
+    def __aggregate_spectrogram_to_n_bands(
+        self, frequencies: np.ndarray, sxx: np.ndarray
+    ) -> tuple[np.ndarray, np.ndarray]:
+        mask = (frequencies >= self.spectrogram_min_freq) & (
+            frequencies <= self.spectrogram_max_freq
+        )
         valid_freq_indices = np.where(mask)[0]
         frequencies = frequencies[valid_freq_indices]
         sxx = sxx[valid_freq_indices, :]
         total_freq_range = frequencies[-1] - frequencies[0]
         band_freq_range = total_freq_range / self.target_bands
-        aggregated_sxx = np.zeros((self.target_bands, sxx.shape[1]), dtype=np.complex128)
-        new_freq = np.linspace(self.spectrogram_min_freq,
-                               self.spectrogram_max_freq,
-                               num=self.target_bands)
+        aggregated_sxx = np.zeros(
+            (self.target_bands, sxx.shape[1]), dtype=np.complex128
+        )
+        new_freq = np.linspace(
+            self.spectrogram_min_freq, self.spectrogram_max_freq, num=self.target_bands
+        )
 
         for i in range(self.target_bands):
             band_start_freq = self.spectrogram_min_freq + i * band_freq_range
             band_end_freq = band_start_freq + band_freq_range
-            mask = (frequencies >= band_start_freq) & (frequencies < band_end_freq)
+            mask = (frequencies >= band_start_freq) & (
+                frequencies < band_end_freq)
             freq_indices = np.where(mask)[0]
 
             if len(freq_indices) > 0:
@@ -639,40 +731,54 @@ class Model:
 
         return new_freq, aggregated_sxx
 
-    def __load_spectrogram(self, filepath: Path) -> DotMap:
-        if filepath.is_file():
-            start_time = timeit.default_timer()
-            actual_width = float(str(filepath).split('_')[-4].replace('width', ''))
-            actual_location = float(
-                str(filepath).split('_')[-2].replace('azoffset', '')
-            )
-            actual_recording = str(filepath).split('_')[0].split(os.sep)[-1]
+    def _extract_features(self, filepath: Path) -> DotMap:
+        if not filepath.is_file():
+            raise ValueError("Invalid file path")
 
-            audio_data, sample_rate = sf.read(filepath)
-            _, _, features_left, features_right = self.__compute_spectrogram(audio_data, sample_rate)
-            elapsed = timeit.default_timer() - start_time
+        start_time = timeit.default_timer()
 
-            result = DotMap()
-            result.input_spectrogram_magnitude = np.stack([
-                np.log10(np.abs(features_left)),
-                np.log10(np.abs(features_right))
-            ], axis=-1)
-            result.input_spectrogram_phase = np.stack([
-                np.angle(features_left),
+        actual_width = float(str(filepath).split("_")[-4].replace("width", ""))
+        actual_location = float(str(filepath).split(
+            "_")[-2].replace("azoffset", ""))
+        actual_recording = str(filepath).split("_")[0].split(os.sep)[-1]
+
+        audio_data, sample_rate = sf.read(filepath)
+        assert self.sample_rate == sample_rate
+        _, _, features_left, features_right = self.__compute_spectrogram(
+            audio_data, sample_rate
+        )
+
+        gcc_phat_fvec = gcc_phat_feature(audio_data, sample_rate)
+
+        elapsed = timeit.default_timer() - start_time
+
+        result = DotMap()
+        result.input_spectrogram_magnitude = np.stack(
+            [
+                np.log10(features_left * np.conjugate(features_left)),
+                np.log10(features_right * np.conjugate(features_right)),
+            ],
+            axis=-1,
+        )
+        result.input_spectrogram_phase = np.stack(
+            [
+                np.angle(features_left), 
                 np.angle(features_right)
-            ], axis=-1)
-            result.actual_width = actual_width
-            result.actual_location = actual_location
-            result.actual_recording = actual_recording
-            result.actual_filename = str(filepath)
-            result.elapsed = elapsed
+            ],
+            axis=-1
+        )
 
-            return result
+        result.gcc_phat_fvec = gcc_phat_fvec
+        result.actual_width = actual_width
+        result.actual_location = actual_location
+        result.actual_recording = actual_recording
+        result.actual_filename = str(filepath)
+        result.elapsed = elapsed
+
+        return result
 
     def __compute_spectrogram(
-            self,
-            audio_data: np.ndarray,
-            sample_rate: int
+        self, audio_data: np.ndarray, sample_rate: int
     ) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
         nperseg = int(self.time_window_len * sample_rate)
         noverlap = int(nperseg * self.time_window_overlap)
@@ -683,58 +789,81 @@ class Model:
                 fs=sample_rate,
                 window=hamming(nperseg),
                 noverlap=noverlap,
-                mode='complex'
+                mode="complex",
             )
 
             freq, zxx = self.__aggregate_spectrogram_to_n_bands(freq, zxx)
 
             return freq, time, zxx
 
-        freq_left, times_left, spectrogram_left = __spectrogram(audio_data[:, 0])
+        freq_left, times_left, spectrogram_left = __spectrogram(
+            audio_data[:, 0])
         _, _, spectrogram_right = __spectrogram(audio_data[:, 1])
 
         return freq_left, times_left, spectrogram_left, spectrogram_right
 
-    def __load_topology(self) -> tensorflow.keras.Sequential:
-        input_shape = (self.target_bands, self.n_time_frames, self.store_extract.number_of_spectrograms)
-        sys.path.append('architecture')
+    def __load_topology(self):
+        input_shape = (
+            self.target_bands,
+            self.n_time_frames,
+            self.store_extract.number_of_spectrograms,
+        )
+        sys.path.append("architecture")
         module = importlib.import_module(self.model_architecture)
         return module.architecture(input_shape)
 
     def __initialize_extract_memory(self):
-        self.input_spectrogram_magnitude = self.__get_extract_memory('input_spectrogram_magnitude',
-                                                                     self.store_extract.input_features_shape)
-        self.input_spectrogram_phase = self.__get_extract_memory('input_spectrogram_phase',
-                                                                 self.store_extract.input_features_shape)
+        self.input_spectrogram_magnitude = self.__get_extract_memory(
+            "input_spectrogram_magnitude", self.store_extract.input_features_shape
+        )
+        self.input_spectrogram_phase = self.__get_extract_memory(
+            "input_spectrogram_phase", self.store_extract.input_features_shape
+        )
 
     def __initialize_split_memory(self):
-        self.x_dev_mag = self.__get_split_memory('x_dev_mag', self.store_split.x_dev_mag_shape)
-        self.x_dev_phase = self.__get_split_memory('x_dev_phase', self.store_split.x_dev_phase_shape)
-        self.x_train_mag = self.__get_split_memory('x_train_mag', self.store_split.x_train_mag_shape)
-        self.x_train_phase = self.__get_split_memory('x_train_phase', self.store_split.x_train_phase_shape)
-        self.x_val_mag = self.__get_split_memory('x_val_mag', self.store_split.x_val_mag_shape)
-        self.x_val_phase = self.__get_split_memory('x_val_phase', self.store_split.x_val_phase_shape)
-        self.x_test_mag = self.__get_split_memory('x_test_mag', self.store_split.x_test_mag_shape)
-        self.x_test_phase = self.__get_split_memory('x_test_phase', self.store_split.x_test_phase_shape)
+        self.x_dev_mag = self.__get_split_memory(
+            "x_dev_mag", self.store_split.x_dev_mag_shape
+        )
+        self.x_dev_phase = self.__get_split_memory(
+            "x_dev_phase", self.store_split.x_dev_phase_shape
+        )
+        self.x_train_mag = self.__get_split_memory(
+            "x_train_mag", self.store_split.x_train_mag_shape
+        )
+        self.x_train_phase = self.__get_split_memory(
+            "x_train_phase", self.store_split.x_train_phase_shape
+        )
+        self.x_val_mag = self.__get_split_memory(
+            "x_val_mag", self.store_split.x_val_mag_shape
+        )
+        self.x_val_phase = self.__get_split_memory(
+            "x_val_phase", self.store_split.x_val_phase_shape
+        )
+        self.x_test_mag = self.__get_split_memory(
+            "x_test_mag", self.store_split.x_test_mag_shape
+        )
+        self.x_test_phase = self.__get_split_memory(
+            "x_test_phase", self.store_split.x_test_phase_shape
+        )
 
     def __get_extract_memory(self, name: str, shape: tuple | np.ndarray) -> np.ndarray:
         extract_data_hash = self.__get_extract_hash()
-        filename = f'/run/media/pawel/alpha/memmap/{extract_data_hash}_{name}'
+        filename = f"/run/media/pawel/alpha/memmap/{extract_data_hash}_{name}"
         memory_data = np.memmap(
             filename,
-            dtype='float32',
-            mode='r+' if os.path.exists(filename) else 'w+',
+            dtype="float32",
+            mode="r+" if os.path.exists(filename) else "w+",
             shape=shape,
         )
         return memory_data
 
     def __get_split_memory(self, name: str, shape: tuple | np.ndarray) -> np.ndarray:
         split_data_hash = self.__get_split_hash()
-        filename = f'/run/media/pawel/alpha/memmap/{split_data_hash}_{name}'
+        filename = f"/run/media/pawel/alpha/memmap/{split_data_hash}_{name}"
         memory_data = np.memmap(
             filename,
-            dtype='float32',
-            mode='r+' if os.path.exists(filename) else 'w+',
+            dtype="float32",
+            mode="r+" if os.path.exists(filename) else "w+",
             shape=shape,
         )
         return memory_data
