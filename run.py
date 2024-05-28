@@ -19,7 +19,7 @@ def execute_request(evaluation_request, iteration):
         evaluation_request.split_seed = iteration
         evaluation_request.train_seed = iteration + 1
         m = Model(Request(**evaluation_request))
-        m.try_load_or_compute_input_data().plot_features().train().save_results()
+        m.try_load_or_compute_input_data().train().save_results()
     except Exception as e:
         print(f'[{evaluation_request.name}] Error while executing request: {e}')
         traceback.print_exc()

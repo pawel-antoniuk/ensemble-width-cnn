@@ -11,17 +11,13 @@ default:
   train_patience: 20
   train_batch_size: 32
   train_epochs: 256
-  learn_rate: 0.001
-  learn_b1: 0.9
-  learn_b2: 0.999
-  learn_decay: 0
 requests:
   #  - name: 'simple1'
   #    model_architecture: simple1
-  - name: simple2_twoinput_bis
-    model_architecture: simple2_twoinput
-    run_num_repetitions: 1
-    spectrogram_type: PHASE
+  - name: multi_inout_1_model_final_3_nogcc
+    model_architecture: multi_inout_1
+    run_num_repetitions: 5
+    learn_decay: 0.000001
 #  - name: 'simple2_magnitude_phase'
 #    model_architecture: simple2
 #    run_num_repetitions: 3

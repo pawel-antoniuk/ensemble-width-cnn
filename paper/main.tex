@@ -1,0 +1,214 @@
+\documentclass{article}
+
+\usepackage[english]{babel}
+\usepackage{authblk}
+\usepackage[a4paper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{gensymb}
+
+\title{Automatic Prediction of Ensemble Width and Location in Binaural Recordings of Music Using Convolutional Neural Network}
+\author[1]{Paweł Antoniuk*}
+\author[1]{Sławomir Zieliński}
+\affil[1]{Faculty of Computer Science, Białystok University of Technology, 15-351 Białystok, Poland; pawel.antoniuk@sd.pb.edu.pl}
+\affil[*]{Corresponding author: pawel.antoniuk@sd.pb.edu.pl}
+
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Binaural audio technology has been around for many years, but its popularity has dramatically increased over the past decade due to advancements in virtual reality and streaming technologies. Along with its growing popularity, the quantity of publicly accessible binaural audio materials has also expanded. Consequently, there is now a need for automated and objective measurements of spatial content information, with ensemble width and location being the most important. In this study, 30 head-related transfer functions and 192 binaural music recordings from publicly accessible multi-track recording repositories were used to synthesize 23,040 binaural recordings. The synthesised recordings were then used to train a convolutional neural network prediction model, the aim of which was to predict the width and location of the ensemble for unseen recordings. The results indicate that models of ensemble breadth and position can be successfully constructed with low prediction errors—9.3 degrees for ensemble location and 8.4 degrees for ensemble width. This approach is the first of its kind to predict both ensemble width and location, offering a more accurate representation of spatial properties. This suggests significant potential for advancing spatial audio applications in virtual reality and streaming technologies, by providing audio engineers with tools that can leverage these methods to enhance spatial audio experiences.
+\end{abstract}
+
+
+\section{Introduction}
+\section{Related studies}
+\section{Methodology}
+
+Experiments in this study were conducted on 2340 binaural recordings of music. The binaural recordings were synthesized semi-automatically using 192 multi-track publicly-available music recordings and 30 HRTF databases. For each multi-track recording and HRTF database pair, four binaural recordings were synthesized for different random ensemble parameters --- its location $\phi$ and width $\theta$ --- as defined in figure X. Both parameters were drawn from uniform random distribution.
+
+\subsection{Ensemble location and width definition}
+\subsection{Synthesis of binaural music recordings}
+\subsection{Spectrogram conversions of binaural music recordings}
+
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]{sample.png}
+\caption{\label{fig:sample}Example spectrograms}
+\end{figure}
+
+
+
+Figure \ref{fig:sample} shows spectrograms for four different binaural recordings of music. The spectrograms were used as the input of the convolutional neural network that used in this study.
+
+\subsection{Convolutional neural network topology}
+\subsection{Model training and evaluation}
+\section{Results}
+
+\begin{figure}[ht]
+  \centering
+  \begin{minipage}[t]{0.45\linewidth}
+    \includegraphics[width=\linewidth]{actual_vs_predicted_width.pdf}
+    \caption{\label{fig:actual_vs_predicted_width}A comparison between the actual and the predicted ensemble width for a single iteration (of the total five) }
+  \end{minipage}
+  \hspace{0.5cm} 
+  \begin{minipage}[t]{0.45\linewidth}
+    \includegraphics[width=\linewidth]{mae_width.pdf}
+    \caption{\label{fig:mae_width}The impact of the actual ensemble width on the mean absolute prediction error, averaged across all five iterations, with indicated standard deviation.}
+  \end{minipage}
+\end{figure}
+
+Figure \ref{fig:actual_vs_predicted_width} illustrates the comparison between the actual and the predicted ensemble width. The results demonstrate that the model exhibits optimal prediction quality for narrower ensemble widths ($X\degree$ for $Y\degree$) and that its performance deteriorates with the increase of the ensemble width ($Z\degree$ for $W\degree$). Figure \ref{fig:mae_width} further demonstrates that the relationship between the prediction error and the actual width is not linear, exhibiting a depression between 60 and 75 degrees. This suggests, that the ensemble width has a significant impact on the ensemble width estimation.
+
+\begin{figure}[ht]
+  \centering
+  \begin{minipage}[t]{0.45\linewidth}
+    \includegraphics[width=\linewidth]{actual_vs_predicted_location.pdf}
+    \caption{\label{fig:actual_vs_predicted_location}A comparison between the actual and the predicted ensemble location for a single iteration (of the total five) }
+  \end{minipage}
+  \hspace{0.5cm} 
+  \begin{minipage}[t]{0.45\linewidth}
+    \includegraphics[width=\linewidth]{mae_location.pdf}
+    \caption{\label{fig:mae_location}The impact of the actual ensemble width on the mean absolute prediction error, averaged across all five iterations, with indicated standard deviation.}
+  \end{minipage}
+\end{figure}
+
+In contrast to the correlation between ensemble width and its prediction error, there is no relationship between the actual location and its prediction error, as illustrated in Figures \ref{fig:actual_vs_predicted_location} and \ref{fig:mae_location}. This finding indicates that the model's capabilities for localizing the center of the ensemble is robust, unaffected by the actual spatial positioning of the ensemble, including lateral locations.
+
+
+
+% \begin{figure}
+% \centering
+% \includegraphics[width=0.5\linewidth]{topology.png}
+% \caption{\label{fig:topology}Topology of model}
+% \end{figure}
+
+% \begin{figure}
+% \centering
+% \includegraphics[width=\linewidth]{train-history.png}
+% \caption{\label{fig:train-history}History of model training}
+% \end{figure}
+
+% \begin{figure}
+% \centering
+% \includegraphics[width=\linewidth]{width-err.png}
+% \caption{\label{fig:width-err}Ensemble width vs. error}
+% \end{figure}
+
+\section{Conclusions}
+\section{References}
+
+\bibliographystyle{alpha}
+\bibliography{references}
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% Your introduction goes here! Simply start writing your document and use the Recompile button to view the updated PDF preview. Examples of commonly used commands and features are listed below, to help you get started.
+
+% Once you're familiar with the editor, you can find various project settings in the Overleaf menu, accessed via the button in the very top left of the editor. To view tutorials, user guides, and further documentation, please visit our \href{https://www.overleaf.com/learn}{help library}, or head to our plans page to \href{https://www.overleaf.com/user/subscription/plans}{choose your plan}.
+
+% \section{Some examples to get started}
+
+% \subsection{How to create Sections and Subsections}
+
+% Simply use the section and subsection commands, as in this example document! With Overleaf, all the formatting and numbering is handled automatically according to the template you've chosen. If you're using the Visual Editor, you can also create new section and subsections via the buttons in the editor toolbar.
+
+% \subsection{How to include Figures}
+
+% First you have to upload the image file from your computer using the upload link in the file-tree menu. Then use the includegraphics command to include it in your document. Use the figure environment and the caption command to add a number and a caption to your figure. See the code for Figure \ref{fig:frog} in this section for an example.
+
+% Note that your figure will automatically be placed in the most appropriate place for it, given the surrounding text and taking into account other figures or tables that may be close by. You can find out more about adding images to your documents in this help article on \href{https://www.overleaf.com/learn/how-to/Including_images_on_Overleaf}{including images on Overleaf}.
+
+% \begin{figure}
+% \centering
+% \includegraphics[width=0.25\linewidth]{frog.jpg}
+% \caption{\label{fig:frog}This frog was uploaded via the file-tree menu.}
+% \end{figure}
+
+% \subsection{How to add Tables}
+
+% Use the table and tabular environments for basic tables --- see Table~\ref{tab:widgets}, for example. For more information, please see this help article on \href{https://www.overleaf.com/learn/latex/tables}{tables}. 
+
+% \begin{table}
+% \centering
+% \begin{tabular}{l|r}
+% Item & Quantity \\\hline
+% Widgets & 42 \\
+% Gadgets & 13
+% \end{tabular}
+% \caption{\label{tab:widgets}An example table.}
+% \end{table}
+
+% \subsection{How to add Comments and Track Changes}
+
+% Comments can be added to your project by highlighting some text and clicking ``Add comment'' in the top right of the editor pane. To view existing comments, click on the Review menu in the toolbar above. To reply to a comment, click on the Reply button in the lower right corner of the comment. You can close the Review pane by clicking its name on the toolbar when you're done reviewing for the time being.
+
+% Track changes are available on all our \href{https://www.overleaf.com/user/subscription/plans}{premium plans}, and can be toggled on or off using the option at the top of the Review pane. Track changes allow you to keep track of every change made to the document, along with the person making the change. 
+
+% \subsection{How to add Lists}
+
+% You can make lists with automatic numbering \dots
+
+% \begin{enumerate}
+% \item Like this,
+% \item and like this.
+% \end{enumerate}
+% \dots or bullet points \dots
+% \begin{itemize}
+% \item Like this,
+% \item and like this.
+% \end{itemize}
+
+% \subsection{How to write Mathematics}
+
+% \LaTeX{} is great at typesetting mathematics. Let $X_1, X_2, \ldots, X_n$ be a sequence of independent and identically distributed random variables with $\text{E}[X_i] = \mu$ and $\text{Var}[X_i] = \sigma^2 < \infty$, and let
+% \[S_n = \frac{X_1 + X_2 + \cdots + X_n}{n}
+%       = \frac{1}{n}\sum_{i}^{n} X_i\]
+% denote their mean. Then as $n$ approaches infinity, the random variables $\sqrt{n}(S_n - \mu)$ converge in distribution to a normal $\mathcal{N}(0, \sigma^2)$.
+
+
+% \subsection{How to change the margins and paper size}
+
+% Usually the template you're using will have the page margins and paper size set correctly for that use-case. For example, if you're using a journal article template provided by the journal publisher, that template will be formatted according to their requirements. In these cases, it's best not to alter the margins directly.
+
+% If however you're using a more general template, such as this one, and would like to alter the margins, a common way to do so is via the geometry package. You can find the geometry package loaded in the preamble at the top of this example file, and if you'd like to learn more about how to adjust the settings, please visit this help article on \href{https://www.overleaf.com/learn/latex/page_size_and_margins}{page size and margins}.
+
+% \subsection{How to change the document language and spell check settings}
+
+% Overleaf supports many different languages, including multiple different languages within one document. 
+
+% To configure the document language, simply edit the option provided to the babel package in the preamble at the top of this example project. To learn more about the different options, please visit this help article on \href{https://www.overleaf.com/learn/latex/International_language_support}{international language support}.
+
+% To change the spell check language, simply open the Overleaf menu at the top left of the editor window, scroll down to the spell check setting, and adjust accordingly.
+
+% \subsection{How to add Citations and a References List}
+
+% You can simply upload a \verb|.bib| file containing your BibTeX entries, created with a tool such as JabRef. You can then cite entries from it, like this: \cite{greenwade93}. Just remember to specify a bibliography style, as well as the filename of the \verb|.bib|. You can find a \href{https://www.overleaf.com/help/97-how-to-include-a-bibliography-using-bibtex}{video tutorial here} to learn more about BibTeX.
+
+% If you have an \href{https://www.overleaf.com/user/subscription/plans}{upgraded account}, you can also import your Mendeley or Zotero library directly as a \verb|.bib| file, via the upload menu in the file-tree.
+
+% \subsection{Good luck!}
+
+% We hope you find Overleaf useful, and do take a look at our \href{https://www.overleaf.com/learn}{help library} for more tutorials and user guides! Please also let us know if you have any feedback using the Contact Us link at the bottom of the Overleaf menu --- or use the contact form at \url{https://www.overleaf.com/contact}.
+
+% \bibliographystyle{alpha}
+% \bibliography{sample}
+
+% \end{document}
