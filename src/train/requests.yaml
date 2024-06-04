@@ -4,7 +4,8 @@ default:
   time_window_overlap: 0.5
   spectrogram_min_freq: 100
   spectrogram_max_freq: 16000
-  input_dir: '/run/media/pawel/alpha/spatresults/spat'
+  input_dir: '/spat/'
+  memmap_dir: '/memmap/'
   split_seed: 1
   model_architecture: simple1
   train_loss: mean_absolute_error
@@ -16,7 +17,7 @@ requests:
   #    model_architecture: simple1
   - name: multi_inout_1_model_final_3_nogcc
     model_architecture: multi_inout_1
-    run_num_repetitions: 5
+    run_num_repetitions: 10
     learn_decay: 0.000001
 #  - name: 'simple2_magnitude_phase'
 #    model_architecture: simple2

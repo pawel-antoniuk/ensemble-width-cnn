@@ -15,25 +15,18 @@ def cnn_block(input_layer):
     return x
 
 
-def gcc_phat_block(input_layer):
-    x = l.Dense(32, activation='relu')(input_layer)
-    return x
-
-
 def architecture(input_shape):
+    # input
     mag_input_layer = l.Input(shape=input_shape, name='in_mag')
-    # phase_input_layer = l.Input(shape=input_shape, name='in_phase')
-    # gcc_input_layer = l.Input(shape=(66,), name='in_gcc')
-
-    mag_model = cnn_block(mag_input_layer)
-    # phase_model = cnn_block(phase_input_layer)
-    # gcc_model = gcc_phat_block(gcc_input_layer)
-    merged = l.concatenate([mag_model])
-
-    x = l.Dense(64, activation='relu')(merged)
+    
+    # inner layers
+    mag_model = cnn_block(mag_input_layer)    
+    x = l.Dense(128, activation='relu')(mag_model)
+    x = l.Dense(64, activation='relu')(x)
     x = l.Dense(32, activation='relu')(x)
     x = l.Dense(16, activation='relu')(x)
-
+    
+    # output
     output_width = l.Dense(1, name='out_width')(x)
     output_location = l.Dense(1, name='out_location')(x)
 

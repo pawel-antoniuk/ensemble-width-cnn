@@ -33,6 +33,7 @@ from gcc_phat import gcc_phat_feature, gcc_phat_feature_nsamples
 class Request:
     name: str = "unknown_model"
     input_dir: str = "input"
+    memmap_dir: str = "memmap"
     num_samples: int = 23040
     sample_rate: int = 48000
     target_bands: int = 300
@@ -87,9 +88,11 @@ class Model:
         self.request: Request = request
         self.name = request.name
         self.input_dir = Path(request.input_dir)
+        self.memmap_dir = Path(request.memmap_dir)
         self.num_samples = request.num_samples
         self.sample_rate = request.sample_rate
-        self.filepaths = [p for p in self.input_dir.iterdir()][0 : self.num_samples]
+        self.filepaths = [p for p in self.input_dir.iterdir()
+                          ][0: self.num_samples]
         self.target_bands = request.target_bands
         self.time_window_len = request.time_window_len
         self.time_window_overlap = request.time_window_overlap
@@ -106,6 +109,10 @@ class Model:
         self.train_epochs = request.train_epochs
         self.train_patience = request.train_patience
         self.train_loss = request.train_loss
+        # self.train_learn_schedule = keras.optimizers.schedules.ExponentialDecay(
+        #     initial_learning_rate=request.learn_rate,
+        #     decay_steps=10000,
+        #     decay_rate=request.learn_decay)
         self.train_optimizer = keras.optimizers.Adam(
             learning_rate=request.learn_rate,
             beta_1=request.learn_b1,
@@ -154,12 +161,17 @@ class Model:
 
         print("[extract] Initializing memory")
         self.__initialize_extract_memory()
-        self.store_extract.actual_widths = np.zeros(self.num_samples, dtype=self.dtype)
-        self.store_extract.actual_locations = np.zeros(self.num_samples, dtype=self.dtype)
-        self.store_extract.actual_recordings = ["" for _ in range(self.num_samples)]
-        self.store_extract.actual_filenames = ["" for _ in range(self.num_samples)]
+        self.store_extract.actual_widths = np.zeros(
+            self.num_samples, dtype=self.dtype)
+        self.store_extract.actual_locations = np.zeros(
+            self.num_samples, dtype=self.dtype)
+        self.store_extract.actual_recordings = [
+            "" for _ in range(self.num_samples)]
+        self.store_extract.actual_filenames = [
+            "" for _ in range(self.num_samples)]
         self.store_extract.gcc_phat_fvec = np.zeros(
-            (self.num_samples, gcc_phat_feature_nsamples(self.sample_rate, self.gcc_phat_len)),
+            (self.num_samples, gcc_phat_feature_nsamples(
+                self.sample_rate, self.gcc_phat_len)),
             dtype=self.dtype
         )
 
@@ -178,10 +190,9 @@ class Model:
             last_results_elapsed.append(result.elapsed)
 
             # if i % 10 == 0:
-            mean_elapsed = sum(last_results_elapsed) / len(last_results_elapsed)
-            print(
-                f"[extract] [{i}] Average spectrogram extraction time per sample: {mean_elapsed:.3f} s [samples: {len(last_results_elapsed)}]"
-            )
+            mean_elapsed = sum(last_results_elapsed) / \
+                len(last_results_elapsed)
+            print(f"[extract] [{i}] Average spectrogram extraction time per sample: {mean_elapsed:.3f} s [samples: {len(last_results_elapsed)}]")
             last_results_elapsed.clear()
 
         self.__execute_results_extraction(extraction, multithread=True)
@@ -250,7 +261,7 @@ class Model:
         start_time = timeit.default_timer()
         data_hash = self.__get_split_hash()
         print(f"[load] Split hash: {data_hash}")
-        self.store_split = joblib.load(f"state/{data_hash}_store_split.pkl")
+        self.store_split = joblib.load(f"/data/state/{data_hash}_store_split.pkl")
         self.__initialize_split_memory()
         elapsed = timeit.default_timer() - start_time
         print(f"[load] Loaded cached splits in {elapsed:.2f} s")
@@ -260,8 +271,8 @@ class Model:
         start_time = timeit.default_timer()
         data_hash = self.__get_split_hash()
         print(f"[save] Split hash: {data_hash}")
-        os.makedirs(f"state", exist_ok=True)
-        joblib.dump(self.store_split, f"state/{data_hash}_store_split.pkl")
+        os.makedirs("/data/state", exist_ok=True)
+        joblib.dump(self.store_split, f"/data/state/{data_hash}_store_split.pkl")
         elapsed = timeit.default_timer() - start_time
         print(f"[save] Saved cached splits in {elapsed:.2f} s")
         return self
@@ -270,7 +281,8 @@ class Model:
         start_time = timeit.default_timer()
         data_hash = self.__get_extract_hash()
         print(f"[load] Extraction hash: {data_hash}")
-        self.store_extract = joblib.load(f"state/{data_hash}_store_extract.pkl")
+        self.store_extract = joblib.load(
+            f"/data/state/{data_hash}_store_extract.pkl")
         self.__initialize_extract_memory()
         elapsed = timeit.default_timer() - start_time
         print(f"[load] Loaded cached spectrograms in {elapsed:.2f} s")
@@ -280,8 +292,8 @@ class Model:
         start_time = timeit.default_timer()
         data_hash = self.__get_extract_hash()
         print(f"[save] Extraction hash: {data_hash}")
-        os.makedirs(f"state/", exist_ok=True)
-        joblib.dump(self.store_extract, f"state/{data_hash}_store_extract.pkl")
+        os.makedirs("/data/state/", exist_ok=True)
+        joblib.dump(self.store_extract, f"/data/state/{data_hash}_store_extract.pkl")
         elapsed = timeit.default_timer() - start_time
         print(f"[save] Saved spectrograms in {elapsed:.2f} s")
         return self
@@ -302,7 +314,8 @@ class Model:
             plt.figure(figsize=(20, 10))
 
             for i_spectrogram in range(n_spectrograms_mag):
-                plt.subplot(2, int(np.ceil(n_spectrograms_all / 2)), i_spectrogram + 1)
+                plt.subplot(2, int(np.ceil(n_spectrograms_all / 2)),
+                            i_spectrogram + 1)
                 data = self.x_train_mag[sample, :, :, i_spectrogram]
                 plt.pcolormesh(data, shading="gouraud")
                 plt.title(f"Magnitude Spectrogram {i_spectrogram}")
@@ -440,9 +453,12 @@ class Model:
         x_train_gcc_phat_mean = np.mean(self.store_split.x_train_gcc_phat)
         x_train_gcc_phat_std = np.std(self.store_split.x_train_gcc_phat)
 
-        self.x_train_mag[:] = (self.x_train_mag - x_train_mag_mean) / x_train_mag_std
-        self.x_val_mag[:] = (self.x_val_mag - x_train_mag_mean) / x_train_mag_std
-        self.x_test_mag[:] = (self.x_test_mag - x_train_mag_mean) / x_train_mag_std
+        self.x_train_mag[:] = (
+            self.x_train_mag - x_train_mag_mean) / x_train_mag_std
+        self.x_val_mag[:] = (
+            self.x_val_mag - x_train_mag_mean) / x_train_mag_std
+        self.x_test_mag[:] = (
+            self.x_test_mag - x_train_mag_mean) / x_train_mag_std
 
         self.x_train_phase[:] = (self.x_train_phase - x_train_phase_min) / (
             x_train_phase_max - x_train_phase_min
@@ -529,7 +545,8 @@ class Model:
         )
         model.compile(
             optimizer=self.train_optimizer,
-            loss={"out_width": self.train_loss, "out_location": self.train_loss},
+            loss={"out_width": self.train_loss,
+                  "out_location": self.train_loss},
             metrics={"out_width": ["mae"], "out_location": ["mae"]},
         )
         model_inout = self.__get_model_inout()
@@ -545,7 +562,8 @@ class Model:
 
         self.result_best_val_mae = min(self.result_history.history["val_loss"])
         self.result_best_epoch = (
-            self.result_history.history["val_loss"].index(self.result_best_val_mae) + 1
+            self.result_history.history["val_loss"].index(
+                self.result_best_val_mae) + 1
         )
 
         print(
@@ -668,7 +686,7 @@ class Model:
 
         # save architecture source
         architecture_script_path = (
-            Path("architecture") / f"{self.model_architecture}.py"
+            Path("/src/train/architecture") / f"{self.model_architecture}.py"
         )
         with open(architecture_script_path, "r") as architecture_script_source:
             with open(dest_dir / "architecture.pyarch", "w") as dest_script_source:
@@ -754,7 +772,7 @@ class Model:
         self.model_n_params = model.count_params()
 
     def __get_model_output_dir(self) -> Path:
-        return Path("models") / self.name / str(self.repetition_iteration)
+        return Path("/data/out_models") / self.name / str(self.repetition_iteration)
 
     def __print_properties_trimmed(self) -> None:
         n = 100
@@ -787,7 +805,8 @@ class Model:
         for i in range(self.target_bands):
             band_start_freq = self.spectrogram_min_freq + i * band_freq_range
             band_end_freq = band_start_freq + band_freq_range
-            mask = (frequencies >= band_start_freq) & (frequencies < band_end_freq)
+            mask = (frequencies >= band_start_freq) & (
+                frequencies < band_end_freq)
             freq_indices = np.where(mask)[0]
 
             if len(freq_indices) > 0:
@@ -802,7 +821,8 @@ class Model:
         start_time = timeit.default_timer()
 
         actual_width = float(str(filepath).split("_")[-4].replace("width", ""))
-        actual_location = float(str(filepath).split("_")[-2].replace("azoffset", ""))
+        actual_location = float(str(filepath).split(
+            "_")[-2].replace("azoffset", ""))
         actual_recording = str(filepath).split("_")[0].split(os.sep)[-1]
 
         audio_data, sample_rate = sf.read(filepath)
@@ -811,7 +831,8 @@ class Model:
             audio_data, sample_rate
         )
 
-        gcc_phat_fvec = gcc_phat_feature(audio_data, sample_rate, self.gcc_phat_len)
+        gcc_phat_fvec = gcc_phat_feature(
+            audio_data, sample_rate, self.gcc_phat_len)
 
         elapsed = timeit.default_timer() - start_time
 
@@ -855,7 +876,8 @@ class Model:
 
             return freq, time, zxx
 
-        freq_left, times_left, spectrogram_left = __spectrogram(audio_data[:, 0])
+        freq_left, times_left, spectrogram_left = __spectrogram(
+            audio_data[:, 0])
         _, _, spectrogram_right = __spectrogram(audio_data[:, 1])
 
         return freq_left, times_left, spectrogram_left, spectrogram_right
@@ -866,7 +888,7 @@ class Model:
             self.n_time_frames,
             self.store_extract.number_of_spectrograms,
         )
-        sys.path.append("architecture")
+        sys.path.append("/src/train/architecture")
         module = importlib.import_module(self.model_architecture)
         return module.architecture(input_shape)
 
@@ -906,7 +928,7 @@ class Model:
 
     def __get_extract_memory(self, name: str, shape: tuple | np.ndarray) -> np.ndarray:
         extract_data_hash = self.__get_extract_hash()
-        filename = f"/run/media/pawel/alpha/memmap/{extract_data_hash}_{name}"
+        filename = f"{self.memmap_dir}/{extract_data_hash}_{name}"
         memory_data = np.memmap(
             filename,
             dtype=self.dtype,
@@ -917,7 +939,7 @@ class Model:
 
     def __get_split_memory(self, name: str, shape: tuple | np.ndarray) -> np.ndarray:
         split_data_hash = self.__get_split_hash()
-        filename = f"/run/media/pawel/alpha/memmap/{split_data_hash}_{name}"
+        filename = f"{self.memmap_dir}/{split_data_hash}_{name}"
         memory_data = np.memmap(
             filename,
             dtype=self.dtype,

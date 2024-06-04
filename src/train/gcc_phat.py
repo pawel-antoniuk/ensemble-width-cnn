@@ -55,18 +55,3 @@ def plot_gcc_phat_feature(filename: str, base_path: str, len: float = 0.0007):
     plt.savefig(f'gcc_phat/gcc_phat_{filename}.png')
     plt.close()
 
-
-if __name__ == "__main__":
-    base_path = '/run/media/pawel/alpha/spatresults/spat'
-
-    # List all files in the directory
-    all_files = os.listdir(base_path)
-
-    # Filter to get only .wav files
-    wav_files = [f for f in all_files if f.endswith('.wav')]
-
-    # Select 5 random files
-    random_files = random.sample(wav_files, 10)
-
-    for filename in random_files:
-        plot_gcc_phat_feature(filename, base_path)
