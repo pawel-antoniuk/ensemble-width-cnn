@@ -3,13 +3,13 @@ from keras import models as m
 
 
 def cnn_block(input_layer):
-    x = l.Conv2D(32, kernel_size=(2, 2), activation='relu', padding='same')(input_layer)
+    x = l.Conv2D(32, kernel_size=(2, 2), activation='relu')(input_layer)
     x = l.MaxPooling2D(pool_size=(2, 3))(x)
-    x = l.Conv2D(64, kernel_size=(2, 2), activation='relu', padding='same')(x)
+    x = l.Conv2D(64, kernel_size=(2, 2), activation='relu')(x)
     x = l.MaxPooling2D(pool_size=(2, 3))(x)
-    x = l.Conv2D(128, kernel_size=(2, 2), activation='relu', padding='same')(x)
+    x = l.Conv2D(128, kernel_size=(2, 2), activation='relu')(x)
     x = l.MaxPooling2D(pool_size=(2, 2))(x)
-    x = l.Conv2D(256, kernel_size=(2, 2), activation='relu', padding='same')(x)
+    x = l.Conv2D(256, kernel_size=(2, 2), activation='relu')(x)
     x = l.MaxPooling2D(pool_size=(2, 2))(x)
     x = l.GlobalAveragePooling2D()(x)
     return x

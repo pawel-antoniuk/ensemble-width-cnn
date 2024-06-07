@@ -7,7 +7,7 @@ from dotmap import DotMap
 
 from model import Model, Request
 
-with open('/src/train/requests.yaml') as f:
+with open('/app/src/train/requests.yaml') as f:
     data = yaml.safe_load(f)
     settings = DotMap(data, _dynamic=False)
 

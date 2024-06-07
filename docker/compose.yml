@@ -1,0 +1,23 @@
+services:
+  tf:
+    privileged: true
+    build:
+      context: .
+    command: tail -F anything
+    volumes:
+      - ../src:/app/src
+      - ../data/:/app/data
+      - ../paper/:/app/paper
+      - ../figures/:/app/figures
+      - ../pictures/:/app/pictures
+      - /run/media/pawel/alpha/spatresults/spat:/app/spat
+      - /run/media/pawel/alpha/memmap/:/app/memmap
+    environment:
+      - PYTHONPATH=/app/src/train
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

@@ -1,89 +1,21 @@
 import os
-import sys
 from pathlib import Path
-
 import joblib
+
 import numpy as np
-import pandas as pd
 from dotmap import DotMap
 from matplotlib import pyplot as plt
 from matplotlib.ticker import FuncFormatter
 import tensorflow as tf
 import colormaps
 import matplotlib.colors as mcolors
-
 from model import Model
+from results import get_results
 
-model_name = "multi_inout_1_model_final_3_nogcc"
-model_dir = Path("/data/train/out_models") / model_name
+
 out_img_format = "pdf"
-
-
-def load_results():
-    prediction_results = []
-    for path_rep_it in model_dir.glob("*"):
-        request = joblib.load(path_rep_it / "request.pkl")
-        model = Model(request).try_load_or_compute_input_data()
-        prediction_result = model.predict_test_data()
-        errors_width = (
-            prediction_result.predicted_width - prediction_result.actual_width
-        )
-        errors_location = (
-            prediction_result.predicted_location - prediction_result.actual_location
-        )
-        score_test_width = np.mean(np.abs(errors_width))
-        score_test_location = np.mean(np.abs(errors_location))
-
-        # assertions
-        score_path = next(path_rep_it.glob("score_*.csv"))
-        score_df = pd.read_csv(score_path)
-        score_file_test_width = score_df["test_score_width"]
-        score_file_test_location = score_df["test_score_location"]
-        assert np.all(np.abs(score_file_test_width - score_test_width) < 1e-6)
-        assert np.all(np.abs(score_file_test_location -
-                      score_test_location) < 1e-6)
-
-        test_filenames = prediction_result.filename
-        actual_widths_test = [
-            float(x.split("_")[-4].replace("width", "")) for x in test_filenames
-        ]
-        stored_actual_widths_test = np.array(
-            model.store_split.y_test_width * 45.0)
-        assert np.all(abs(stored_actual_widths_test -
-                      actual_widths_test) < 1e-5)
-
-        actual_recordings = [
-            os.path.basename(x.split("_")[-7].replace("width", ""))
-            for x in test_filenames
-        ]
-        assert np.all(model.store_split.actual_recordings_test ==
-                      actual_recordings)
-
-        prediction_results.append(
-            DotMap(
-                {
-                    "filename": prediction_result.filename,
-                    "actual_width": prediction_result.actual_width * 90,
-                    "predicted_width": prediction_result.predicted_width * 90,
-                    "errors_width": errors_width * 90,
-                    "actual_location": prediction_result.actual_location * 45,
-                    "predicted_location": prediction_result.predicted_location * 45,
-                    "errors_location": errors_location * 45,
-                }
-            )
-        )
-
-    return prediction_results
-
-
-def get_results():
-    results_filename = f"/data/analyze/state/analyze_results_{model_name}.pkl"
-    try:
-        return joblib.load(results_filename)
-    except FileNotFoundError:
-        prediction_results = load_results()
-        joblib.dump(prediction_results, results_filename)
-        return prediction_results
+model_name = "multi_inout_1_model_final_3_nogcc_nosame"
+model_dir = Path("/app/data/train/out_models") / model_name
 
 
 def load_sample_data():
@@ -115,7 +47,7 @@ def load_sample_data():
 
 
 def get_sample_data():
-    sample_data_filename = "analyze_sample_data.pkl"
+    sample_data_filename = "/app/data/analyze/state/analyze_sample_data.pkl"
     try:
         return joblib.load(sample_data_filename)
     except FileNotFoundError:
@@ -134,21 +66,8 @@ def get_train_history():
 
 
 # %% Summary statistics
-results = get_results()
-mean_width = np.mean([np.mean(np.abs(result.errors_width))
-                     for result in results])
-std_width = np.std([np.mean(np.abs(result.errors_width))
-                   for result in results])
-print(f"Width MAE: {mean_width:0.2f} (std: {std_width:0.2f})")
-
-mean_location = np.mean(
-    [np.mean(np.abs(result.errors_location)) for result in results])
-std_location = np.std([np.mean(np.abs(result.errors_location))
-                      for result in results])
-print(f"Location MAE: {mean_location:0.2f} (std: {std_location:0.2f})")
-
-os.makedirs("figures", exist_ok=True)
-
+results = get_results(model_name)
+os.makedirs("/app/figures", exist_ok=True)
 
 # %% Plot input samples (spectrograms)
 samples = get_sample_data()
@@ -174,7 +93,7 @@ for i_sample in range(1, 5):
     plt.title("Recording: " + title.split('_')[0])
     plt.grid()
 plt.tight_layout()
-plt.savefig(f"figures/samples.{out_img_format}")
+plt.savefig(f"/app/figures/samples.{out_img_format}")
 # plt.show()
 
 
@@ -196,15 +115,15 @@ for i_history, history in enumerate(histories[0:4]):
     plt.legend(["Training Loss", "Validation Loss",
                "Optimal Validation Checkpoint"])
 plt.tight_layout()
-plt.savefig(f"figures/history.{out_img_format}")
+plt.savefig(f"/app/figures/history.{out_img_format}")
 # plt.show()
 
 
 # %% Draw model
-model = tf.keras.models.load_model( model_dir / "0" / "model.keras")
+model = tf.keras.models.load_model(model_dir / "0" / "model.keras")
 tf.keras.utils.plot_model(
     model,
-    to_file=f"figures/model.{out_img_format}",
+    to_file=f"/app/figures/model.{out_img_format}",
     show_shapes=True,
     show_layer_names=True,
 )
@@ -220,8 +139,8 @@ plt.scatter(
     edgecolor="none",
     rasterized=True,
 )
-plt.xlabel("Actual Width")
-plt.ylabel("Predicted Width")
+plt.xlabel(r"Actual Width $\omega$")
+plt.ylabel(r"Predicted Width $\omega'$")
 plt.grid()
 plt.xticks(np.linspace(0, 90, 7))
 plt.yticks(np.linspace(0, 90, 7))
@@ -230,7 +149,7 @@ plt.ylim([0, 90])
 plt.gca().xaxis.set_major_formatter(FuncFormatter(lambda x, pos: f"{x}°"))
 plt.gca().yaxis.set_major_formatter(FuncFormatter(lambda x, pos: f"{x}°"))
 plt.tight_layout()
-plt.savefig(f"figures/actual_vs_predicted_width.{out_img_format}")
+plt.savefig(f"/app/figures/actual_vs_predicted_width.{out_img_format}")
 # plt.show()
 
 
@@ -244,8 +163,8 @@ plt.scatter(
     edgecolor="none",
     rasterized=True,
 )
-plt.xlabel("Actual Location")
-plt.ylabel("Predicted Location")
+plt.xlabel(r"Actual Location $\theta$")
+plt.ylabel(r"Predicted Location $\theta'$")
 plt.grid()
 plt.xticks(np.linspace(-45, 45, 7))
 plt.yticks(np.linspace(-45, 45, 7))
@@ -254,7 +173,7 @@ plt.ylim([-45, 45])
 plt.gca().xaxis.set_major_formatter(FuncFormatter(lambda x, pos: f"{x}°"))
 plt.gca().yaxis.set_major_formatter(FuncFormatter(lambda x, pos: f"{x}°"))
 plt.tight_layout()
-plt.savefig(f"figures/actual_vs_predicted_location.{out_img_format}")
+plt.savefig(f"/app/figures/actual_vs_predicted_location.{out_img_format}")
 # plt.show()
 
 
@@ -289,7 +208,7 @@ plt.fill_between(
     alpha=0.3,
     edgecolor="none",
 )
-plt.xlabel("Actual Width")
+plt.xlabel(r"Actual Width $\omega$")
 plt.ylabel("Mean Absolute Error")
 plt.grid()
 plt.xticks(np.linspace(0, 90, 7))
@@ -300,7 +219,7 @@ plt.gca().xaxis.set_major_formatter(FuncFormatter(lambda x, pos: f"{x}°"))
 plt.gca().yaxis.set_major_formatter(FuncFormatter(lambda x, pos: f"{x}°"))
 plt.legend(["Mean Absolute Error", "Standard Deviation"])
 plt.tight_layout()
-plt.savefig(f"figures/mae_width.{out_img_format}")
+plt.savefig(f"/app/figures/mae_width.{out_img_format}")
 # plt.show()
 
 
@@ -336,7 +255,7 @@ plt.fill_between(
     alpha=0.3,
     edgecolor="none",
 )
-plt.xlabel("Actual Location")
+plt.xlabel(r"Actual Location $\theta$")
 plt.ylabel("Mean Absolute Error")
 plt.grid()
 plt.xticks(np.linspace(-45, 45, 7))
@@ -347,7 +266,7 @@ plt.gca().xaxis.set_major_formatter(FuncFormatter(lambda x, pos: f"{x}°"))
 plt.gca().yaxis.set_major_formatter(FuncFormatter(lambda x, pos: f"{x}°"))
 plt.legend(["Mean Absolute Error", "Standard Deviation"])
 plt.tight_layout()
-plt.savefig(f"figures/mae_location.{out_img_format}")
+plt.savefig(f"/app/figures/mae_location.{out_img_format}")
 # plt.show()
 
 
@@ -390,7 +309,7 @@ for i_actual_wdith, actual_width in enumerate(actual_widths):
 cm = colormaps.parula
 norm = mcolors.Normalize(vmin=0, vmax=15)
 plt.figure(figsize=(8, 4))
-plt.imshow(mae_map_location, 
+plt.imshow(mae_map_location,
            cmap=cm,
            interpolation='nearest',
            aspect='auto',
@@ -404,7 +323,7 @@ tick_labels[-1] = f'>{tick_labels[-1]}'
 cbar.set_ticks(cbar.get_ticks())
 cbar.set_ticklabels(tick_labels)
 
-plt.xlabel('Ensemble Location')
+plt.xlabel(r'Ensemble Location $\theta$')
 plt.ylabel('Ensemble Width')
 xticks = np.linspace(0, mae_map_location.shape[1] - 1, 7)
 yticks = np.linspace(0, mae_map_location.shape[0] - 1, 4)
@@ -415,12 +334,12 @@ plt.yticks(yticks, ylabels)
 plt.grid(color='black')
 plt.xlim([0, 90])
 plt.ylim([0, 90])
-plt.savefig(f"figures/map_mae_location.{out_img_format}")
+plt.savefig(f"/app/figures/map_mae_location.{out_img_format}")
 
 # Width MAE
 norm = mcolors.Normalize(vmin=0, vmax=30)
 plt.figure(figsize=(8, 4))
-plt.imshow(mae_map_width, 
+plt.imshow(mae_map_width,
            cmap=cm,
            interpolation='nearest',
            aspect='auto',
@@ -445,6 +364,6 @@ plt.yticks(yticks, ylabels)
 plt.grid(color='black')
 plt.xlim([0, 90])
 plt.ylim([0, 90])
-plt.savefig(f"figures/map_mae_width.{out_img_format}")
+plt.savefig(f"/app/figures/map_mae_width.{out_img_format}")
 
 # %%

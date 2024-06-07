@@ -4,8 +4,8 @@ default:
   time_window_overlap: 0.5
   spectrogram_min_freq: 100
   spectrogram_max_freq: 16000
-  input_dir: '/spat/'
-  memmap_dir: '/memmap/'
+  input_dir: '/app/spat/'
+  memmap_dir: '/app/memmap/'
   split_seed: 1
   model_architecture: simple1
   train_loss: mean_absolute_error
@@ -15,7 +15,7 @@ default:
 requests:
   #  - name: 'simple1'
   #    model_architecture: simple1
-  - name: multi_inout_1_model_final_3_nogcc
+  - name: multi_inout_1_model_final_3_nogcc_nosame
     model_architecture: multi_inout_1
     run_num_repetitions: 10
     learn_decay: 0.000001

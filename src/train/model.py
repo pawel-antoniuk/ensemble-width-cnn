@@ -261,7 +261,7 @@ class Model:
         start_time = timeit.default_timer()
         data_hash = self.__get_split_hash()
         print(f"[load] Split hash: {data_hash}")
-        self.store_split = joblib.load(f"/data/state/{data_hash}_store_split.pkl")
+        self.store_split = joblib.load(f"/app/data/train/state/{data_hash}_store_split.pkl")
         self.__initialize_split_memory()
         elapsed = timeit.default_timer() - start_time
         print(f"[load] Loaded cached splits in {elapsed:.2f} s")
@@ -271,8 +271,8 @@ class Model:
         start_time = timeit.default_timer()
         data_hash = self.__get_split_hash()
         print(f"[save] Split hash: {data_hash}")
-        os.makedirs("/data/state", exist_ok=True)
-        joblib.dump(self.store_split, f"/data/state/{data_hash}_store_split.pkl")
+        os.makedirs("/app/data/train/state", exist_ok=True)
+        joblib.dump(self.store_split, f"/app/data/train/state/{data_hash}_store_split.pkl")
         elapsed = timeit.default_timer() - start_time
         print(f"[save] Saved cached splits in {elapsed:.2f} s")
         return self
@@ -282,7 +282,7 @@ class Model:
         data_hash = self.__get_extract_hash()
         print(f"[load] Extraction hash: {data_hash}")
         self.store_extract = joblib.load(
-            f"/data/state/{data_hash}_store_extract.pkl")
+            f"/app/data/train/state/{data_hash}_store_extract.pkl")
         self.__initialize_extract_memory()
         elapsed = timeit.default_timer() - start_time
         print(f"[load] Loaded cached spectrograms in {elapsed:.2f} s")
@@ -292,8 +292,8 @@ class Model:
         start_time = timeit.default_timer()
         data_hash = self.__get_extract_hash()
         print(f"[save] Extraction hash: {data_hash}")
-        os.makedirs("/data/state/", exist_ok=True)
-        joblib.dump(self.store_extract, f"/data/state/{data_hash}_store_extract.pkl")
+        os.makedirs("/app/data/train/state/", exist_ok=True)
+        joblib.dump(self.store_extract, f"/app/data/train/state/{data_hash}_store_extract.pkl")
         elapsed = timeit.default_timer() - start_time
         print(f"[save] Saved spectrograms in {elapsed:.2f} s")
         return self
@@ -686,7 +686,7 @@ class Model:
 
         # save architecture source
         architecture_script_path = (
-            Path("/src/train/architecture") / f"{self.model_architecture}.py"
+            Path("/app/src/train/architecture") / f"{self.model_architecture}.py"
         )
         with open(architecture_script_path, "r") as architecture_script_source:
             with open(dest_dir / "architecture.pyarch", "w") as dest_script_source:
@@ -772,7 +772,7 @@ class Model:
         self.model_n_params = model.count_params()
 
     def __get_model_output_dir(self) -> Path:
-        return Path("/data/out_models") / self.name / str(self.repetition_iteration)
+        return Path("/app/data/train/out_models") / self.name / str(self.repetition_iteration)
 
     def __print_properties_trimmed(self) -> None:
         n = 100
@@ -888,7 +888,7 @@ class Model:
             self.n_time_frames,
             self.store_extract.number_of_spectrograms,
         )
-        sys.path.append("/src/train/architecture")
+        sys.path.append("/app/src/train/architecture")
         module = importlib.import_module(self.model_architecture)
         return module.architecture(input_shape)
 
