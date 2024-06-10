@@ -24,7 +24,6 @@ from dotmap import DotMap
 from scipy.signal import spectrogram
 from scipy.signal.windows import hamming
 from sklearn.model_selection import GroupShuffleSplit
-from keras import mixed_precision
 
 from gcc_phat import gcc_phat_feature, gcc_phat_feature_nsamples
 
@@ -91,8 +90,7 @@ class Model:
         self.memmap_dir = Path(request.memmap_dir)
         self.num_samples = request.num_samples
         self.sample_rate = request.sample_rate
-        self.filepaths = [p for p in self.input_dir.iterdir()
-                          ][0: self.num_samples]
+        self.filepaths = [p for p in self.input_dir.iterdir()][0 : self.num_samples]
         self.target_bands = request.target_bands
         self.time_window_len = request.time_window_len
         self.time_window_overlap = request.time_window_overlap
@@ -134,45 +132,26 @@ class Model:
         self.spectrogram_type = request.spectrogram_type
         self.dtype = request.dtype
         self.gcc_phat_len = request.gcc_phat_len
-
-        # self.log_buffer = io.StringIO()
-
         self.__print_properties_trimmed()
-
         keras.config.set_dtype_policy(self.dtype)
-
-        # Configure GPU VRAM
-        # gpus = tf.config.experimental.list_physical_devices('GPU')
-        # if gpus:
-        #     try:
-        #         config = [
-        #             tf.config.experimental.VirtualDeviceConfiguration(
-        #                 memory_limit=20 * 1024
-        #             )
-        #         ]
-        #         tf.config.experimental.set_virtual_device_configuration(
-        #             gpus[0], config)
-        #     except RuntimeError as e:
-        #         print(e)
-        #         traceback.print_exc()
 
     def extract(self) -> Model:
         start_time = timeit.default_timer()
 
         print("[extract] Initializing memory")
         self.__initialize_extract_memory()
-        self.store_extract.actual_widths = np.zeros(
-            self.num_samples, dtype=self.dtype)
+        self.store_extract.actual_widths = np.zeros(self.num_samples, dtype=self.dtype)
         self.store_extract.actual_locations = np.zeros(
-            self.num_samples, dtype=self.dtype)
-        self.store_extract.actual_recordings = [
-            "" for _ in range(self.num_samples)]
-        self.store_extract.actual_filenames = [
-            "" for _ in range(self.num_samples)]
+            self.num_samples, dtype=self.dtype
+        )
+        self.store_extract.actual_recordings = ["" for _ in range(self.num_samples)]
+        self.store_extract.actual_filenames = ["" for _ in range(self.num_samples)]
         self.store_extract.gcc_phat_fvec = np.zeros(
-            (self.num_samples, gcc_phat_feature_nsamples(
-                self.sample_rate, self.gcc_phat_len)),
-            dtype=self.dtype
+            (
+                self.num_samples,
+                gcc_phat_feature_nsamples(self.sample_rate, self.gcc_phat_len),
+            ),
+            dtype=self.dtype,
         )
 
         print("[extract] Memory initialized")
@@ -190,9 +169,10 @@ class Model:
             last_results_elapsed.append(result.elapsed)
 
             # if i % 10 == 0:
-            mean_elapsed = sum(last_results_elapsed) / \
-                len(last_results_elapsed)
-            print(f"[extract] [{i}] Average spectrogram extraction time per sample: {mean_elapsed:.3f} s [samples: {len(last_results_elapsed)}]")
+            mean_elapsed = sum(last_results_elapsed) / len(last_results_elapsed)
+            print(
+                f"[extract] [{i}] Average spectrogram extraction time per sample: {mean_elapsed:.3f} s [samples: {len(last_results_elapsed)}]"
+            )
             last_results_elapsed.clear()
 
         self.__execute_results_extraction(extraction, multithread=True)
@@ -261,7 +241,9 @@ class Model:
         start_time = timeit.default_timer()
         data_hash = self.__get_split_hash()
         print(f"[load] Split hash: {data_hash}")
-        self.store_split = joblib.load(f"/app/data/train/state/{data_hash}_store_split.pkl")
+        self.store_split = joblib.load(
+            f"/app/data/train/state/{data_hash}_store_split.pkl"
+        )
         self.__initialize_split_memory()
         elapsed = timeit.default_timer() - start_time
         print(f"[load] Loaded cached splits in {elapsed:.2f} s")
@@ -272,7 +254,9 @@ class Model:
         data_hash = self.__get_split_hash()
         print(f"[save] Split hash: {data_hash}")
         os.makedirs("/app/data/train/state", exist_ok=True)
-        joblib.dump(self.store_split, f"/app/data/train/state/{data_hash}_store_split.pkl")
+        joblib.dump(
+            self.store_split, f"/app/data/train/state/{data_hash}_store_split.pkl"
+        )
         elapsed = timeit.default_timer() - start_time
         print(f"[save] Saved cached splits in {elapsed:.2f} s")
         return self
@@ -282,7 +266,8 @@ class Model:
         data_hash = self.__get_extract_hash()
         print(f"[load] Extraction hash: {data_hash}")
         self.store_extract = joblib.load(
-            f"/app/data/train/state/{data_hash}_store_extract.pkl")
+            f"/app/data/train/state/{data_hash}_store_extract.pkl"
+        )
         self.__initialize_extract_memory()
         elapsed = timeit.default_timer() - start_time
         print(f"[load] Loaded cached spectrograms in {elapsed:.2f} s")
@@ -293,7 +278,9 @@ class Model:
         data_hash = self.__get_extract_hash()
         print(f"[save] Extraction hash: {data_hash}")
         os.makedirs("/app/data/train/state/", exist_ok=True)
-        joblib.dump(self.store_extract, f"/app/data/train/state/{data_hash}_store_extract.pkl")
+        joblib.dump(
+            self.store_extract, f"/app/data/train/state/{data_hash}_store_extract.pkl"
+        )
         elapsed = timeit.default_timer() - start_time
         print(f"[save] Saved spectrograms in {elapsed:.2f} s")
         return self
@@ -314,8 +301,7 @@ class Model:
             plt.figure(figsize=(20, 10))
 
             for i_spectrogram in range(n_spectrograms_mag):
-                plt.subplot(2, int(np.ceil(n_spectrograms_all / 2)),
-                            i_spectrogram + 1)
+                plt.subplot(2, int(np.ceil(n_spectrograms_all / 2)), i_spectrogram + 1)
                 data = self.x_train_mag[sample, :, :, i_spectrogram]
                 plt.pcolormesh(data, shading="gouraud")
                 plt.title(f"Magnitude Spectrogram {i_spectrogram}")
@@ -453,12 +439,9 @@ class Model:
         x_train_gcc_phat_mean = np.mean(self.store_split.x_train_gcc_phat)
         x_train_gcc_phat_std = np.std(self.store_split.x_train_gcc_phat)
 
-        self.x_train_mag[:] = (
-            self.x_train_mag - x_train_mag_mean) / x_train_mag_std
-        self.x_val_mag[:] = (
-            self.x_val_mag - x_train_mag_mean) / x_train_mag_std
-        self.x_test_mag[:] = (
-            self.x_test_mag - x_train_mag_mean) / x_train_mag_std
+        self.x_train_mag[:] = (self.x_train_mag - x_train_mag_mean) / x_train_mag_std
+        self.x_val_mag[:] = (self.x_val_mag - x_train_mag_mean) / x_train_mag_std
+        self.x_test_mag[:] = (self.x_test_mag - x_train_mag_mean) / x_train_mag_std
 
         self.x_train_phase[:] = (self.x_train_phase - x_train_phase_min) / (
             x_train_phase_max - x_train_phase_min
@@ -545,8 +528,7 @@ class Model:
         )
         model.compile(
             optimizer=self.train_optimizer,
-            loss={"out_width": self.train_loss,
-                  "out_location": self.train_loss},
+            loss={"out_width": self.train_loss, "out_location": self.train_loss},
             metrics={"out_width": ["mae"], "out_location": ["mae"]},
         )
         model_inout = self.__get_model_inout()
@@ -562,8 +544,7 @@ class Model:
 
         self.result_best_val_mae = min(self.result_history.history["val_loss"])
         self.result_best_epoch = (
-            self.result_history.history["val_loss"].index(
-                self.result_best_val_mae) + 1
+            self.result_history.history["val_loss"].index(self.result_best_val_mae) + 1
         )
 
         print(
@@ -753,7 +734,7 @@ class Model:
             self.time_window_overlap,
             self.spectrogram_type,
             self.dtype,
-            self.gcc_phat_len
+            self.gcc_phat_len,
         ]
         combined_string = "|".join(str(arg) for arg in args)
         encoded_string = combined_string.encode("utf-8")
@@ -772,7 +753,11 @@ class Model:
         self.model_n_params = model.count_params()
 
     def __get_model_output_dir(self) -> Path:
-        return Path("/app/data/train/out_models") / self.name / str(self.repetition_iteration)
+        return (
+            Path("/app/data/train/out_models")
+            / self.name
+            / str(self.repetition_iteration)
+        )
 
     def __print_properties_trimmed(self) -> None:
         n = 100
@@ -805,8 +790,7 @@ class Model:
         for i in range(self.target_bands):
             band_start_freq = self.spectrogram_min_freq + i * band_freq_range
             band_end_freq = band_start_freq + band_freq_range
-            mask = (frequencies >= band_start_freq) & (
-                frequencies < band_end_freq)
+            mask = (frequencies >= band_start_freq) & (frequencies < band_end_freq)
             freq_indices = np.where(mask)[0]
 
             if len(freq_indices) > 0:
@@ -821,8 +805,7 @@ class Model:
         start_time = timeit.default_timer()
 
         actual_width = float(str(filepath).split("_")[-4].replace("width", ""))
-        actual_location = float(str(filepath).split(
-            "_")[-2].replace("azoffset", ""))
+        actual_location = float(str(filepath).split("_")[-2].replace("azoffset", ""))
         actual_recording = str(filepath).split("_")[0].split(os.sep)[-1]
 
         audio_data, sample_rate = sf.read(filepath)
@@ -831,8 +814,7 @@ class Model:
             audio_data, sample_rate
         )
 
-        gcc_phat_fvec = gcc_phat_feature(
-            audio_data, sample_rate, self.gcc_phat_len)
+        gcc_phat_fvec = gcc_phat_feature(audio_data, sample_rate, self.gcc_phat_len)
 
         elapsed = timeit.default_timer() - start_time
 
@@ -876,8 +858,7 @@ class Model:
 
             return freq, time, zxx
 
-        freq_left, times_left, spectrogram_left = __spectrogram(
-            audio_data[:, 0])
+        freq_left, times_left, spectrogram_left = __spectrogram(audio_data[:, 0])
         _, _, spectrogram_right = __spectrogram(audio_data[:, 1])
 
         return freq_left, times_left, spectrogram_left, spectrogram_right

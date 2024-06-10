@@ -1,0 +1,1585 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global}
+    \entry{blauert_spatial_1996}{book}{}
+      \name{author}{1}{}{%
+        {{hash=72eeeae6cc10aacbef1120ffab7b6f6e}{%
+           family={Blauert},
+           familyi={B\bibinitperiod},
+           given={Jens},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {The MIT Press}%
+      }
+      \strng{namehash}{72eeeae6cc10aacbef1120ffab7b6f6e}
+      \strng{fullhash}{72eeeae6cc10aacbef1120ffab7b6f6e}
+      \strng{bibnamehash}{72eeeae6cc10aacbef1120ffab7b6f6e}
+      \strng{authorbibnamehash}{72eeeae6cc10aacbef1120ffab7b6f6e}
+      \strng{authornamehash}{72eeeae6cc10aacbef1120ffab7b6f6e}
+      \strng{authorfullhash}{72eeeae6cc10aacbef1120ffab7b6f6e}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The field of spatial hearing has exploded in the decade or so since Jens Blauert's classic work on acoustics was first published in English. This revised edition adds a new chapter that describes developments in such areas as auditory virtual reality (an important field of application that is based mainly on the physics of spatial hearing), binaural technology (modeling speech enhancement by binaural hearing), and spatial sound-field mapping. The chapter also includes recent research on the precedence effect that provides clear experimental evidence that cognition plays a significant role in spatial hearing. The remaining four chapters in this comprehensive reference cover auditory research procedures and psychometric methods, spatial hearing with one sound source, spatial hearing with multiple sound sources and in enclosed spaces, and progress and trends from 1972 (the first German edition) to 1983 (the first English edition)—work that includes research on the physics of the external ear, and the application of signal processing theory to modeling the spatial hearing process. There is an extensive bibliography of more than 900 items.}
+      \field{isbn}{978-0-262-26868-4}
+      \field{month}{10}
+      \field{title}{Spatial {Hearing}: {The} {Psychophysics} of {Human} {Sound} {Localization}}
+      \field{year}{1996}
+      \verb{doi}
+      \verb 10.7551/mitpress/6391.001.0001
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.7551/mitpress/6391.001.0001
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.7551/mitpress/6391.001.0001
+      \endverb
+    \endentry
+    \entry{cherry_experiments_1953}{article}{}
+      \name{author}{1}{}{%
+        {{hash=c293bf3e2995baf349c18c7ac49b63b3}{%
+           family={Cherry},
+           familyi={C\bibinitperiod},
+           given={E.\bibnamedelimi Colin},
+           giveni={E\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+      }
+      \strng{namehash}{c293bf3e2995baf349c18c7ac49b63b3}
+      \strng{fullhash}{c293bf3e2995baf349c18c7ac49b63b3}
+      \strng{bibnamehash}{c293bf3e2995baf349c18c7ac49b63b3}
+      \strng{authorbibnamehash}{c293bf3e2995baf349c18c7ac49b63b3}
+      \strng{authornamehash}{c293bf3e2995baf349c18c7ac49b63b3}
+      \strng{authorfullhash}{c293bf3e2995baf349c18c7ac49b63b3}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Experiments are described which examine the separation of two speech signals by human operators. 3 procedures were employed: presentation of both messages to both ears; presentation of one message to one ear with simultaneous presentation of the second message to the other ear; and presentation of a single message alternately to the two ears. Of particular current interest is the second procedure. Here, a listener is able to separate the messages exceedingly well despite the fact that he can only identify the general statistical properties of the rejected message. ({PsycINFO} Database Record (c) 2016 {APA}, all rights reserved)}
+      \field{issn}{0001-4966(Print)}
+      \field{journaltitle}{Journal of the Acoustical Society of America}
+      \field{note}{Place: {US} Publisher: Acoustical Society of American}
+      \field{title}{Some experiments on the recognition of speech, with one and with two ears.}
+      \field{volume}{25}
+      \field{year}{1953}
+      \field{dateera}{ce}
+      \field{pages}{975\bibrangedash 979}
+      \range{pages}{5}
+      \verb{doi}
+      \verb 10.1121/1.1907229
+      \endverb
+    \endentry
+    \entry{zhang_surround_2017}{article}{}
+      \name{author}{4}{}{%
+        {{hash=3fa0b98bdb0330cc0ea22e655fd964c2}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Wen},
+           giveni={W\bibinitperiod}}}%
+        {{hash=9ade3cb1e0a7e8284fca38d3e90135c2}{%
+           family={Samarasinghe},
+           familyi={S\bibinitperiod},
+           given={Parasanga\bibnamedelima N.},
+           giveni={P\bibinitperiod\bibinitdelim N\bibinitperiod}}}%
+        {{hash=71fbb76b73ac3e704b70533e80605c2e}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Hanchi},
+           giveni={H\bibinitperiod}}}%
+        {{hash=63baacfeb0128db6195531efd5b55099}{%
+           family={Abhayapala},
+           familyi={A\bibinitperiod},
+           given={Thushara\bibnamedelima D.},
+           giveni={T\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \strng{namehash}{6842b5fbca42689fb0276e5d0ca4a2a4}
+      \strng{fullhash}{13f666b838cdf981966802da926757e8}
+      \strng{bibnamehash}{13f666b838cdf981966802da926757e8}
+      \strng{authorbibnamehash}{13f666b838cdf981966802da926757e8}
+      \strng{authornamehash}{6842b5fbca42689fb0276e5d0ca4a2a4}
+      \strng{authorfullhash}{13f666b838cdf981966802da926757e8}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{In this article, a systematic overview of various recording and reproduction techniques for spatial audio is presented. While binaural recording and rendering is designed to resemble the human two-ear auditory system and reproduce sounds specifically for a listener’s two ears, soundfield recording and reproduction using a large number of microphones and loudspeakers replicate an acoustic scene within a region. These two fundamentally different types of techniques are discussed in the paper. A recent popular area, multi-zone reproduction, is also briefly reviewed in the paper. The paper is concluded with a discussion of the current state of the field and open problems.}
+      \field{issn}{2076-3417}
+      \field{journaltitle}{Applied Sciences}
+      \field{month}{5}
+      \field{note}{Number: 5 Publisher: Multidisciplinary Digital Publishing Institute}
+      \field{number}{5}
+      \field{shorttitle}{Surround by {Sound}}
+      \field{title}{Surround by {Sound}: {A} {Review} of {Spatial} {Audio} {Recording} and {Reproduction}}
+      \field{urlday}{7}
+      \field{urlmonth}{6}
+      \field{urlyear}{2024}
+      \field{volume}{7}
+      \field{year}{2017}
+      \field{urldateera}{ce}
+      \field{pages}{532}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.3390/app7050532
+      \endverb
+      \verb{file}
+      \verb Full Text PDF:/Users/pawel/Zotero/storage/8AJ5DLMH/Zhang et al. - 2017 - Surround by Sound A Review of Spatial Audio Recor.pdf:application/pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.mdpi.com/2076-3417/7/5/532
+      \endverb
+      \verb{url}
+      \verb https://www.mdpi.com/2076-3417/7/5/532
+      \endverb
+      \keyw{binaural recording,binaural rendering,multi-zone reproduction,soundfield recording,soundfield reproduction,spatial audio}
+    \endentry
+    \entry{thiemann_speech_2016}{article}{}
+      \name{author}{5}{}{%
+        {{hash=1f5ffdd0f478e16fd042ef7d550cc264}{%
+           family={Thiemann},
+           familyi={T\bibinitperiod},
+           given={Joachim},
+           giveni={J\bibinitperiod}}}%
+        {{hash=28c765657da3a93ef91cad6817ebab3f}{%
+           family={Müller},
+           familyi={M\bibinitperiod},
+           given={Menno},
+           giveni={M\bibinitperiod}}}%
+        {{hash=fc3f4e6ea75c65c0ab0fbe963d608418}{%
+           family={Marquardt},
+           familyi={M\bibinitperiod},
+           given={Daniel},
+           giveni={D\bibinitperiod}}}%
+        {{hash=dd004cfd0c0feeb261ad0f703e2bbc8c}{%
+           family={Doclo},
+           familyi={D\bibinitperiod},
+           given={Simon},
+           giveni={S\bibinitperiod}}}%
+        {{hash=ed4d810aedd1c67697714e13a4d3573b}{%
+           family={Par},
+           familyi={P\bibinitperiod},
+           given={Steven},
+           giveni={S\bibinitperiod},
+           prefix={van\bibnamedelima de},
+           prefixi={v\bibinitperiod\bibinitdelim d\bibinitperiod}}}%
+      }
+      \strng{namehash}{b6c6be5145f8265399211b85b86f06d3}
+      \strng{fullhash}{617c87d8c04985002c1c4d5a637ed37b}
+      \strng{bibnamehash}{617c87d8c04985002c1c4d5a637ed37b}
+      \strng{authorbibnamehash}{617c87d8c04985002c1c4d5a637ed37b}
+      \strng{authornamehash}{b6c6be5145f8265399211b85b86f06d3}
+      \strng{authorfullhash}{617c87d8c04985002c1c4d5a637ed37b}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Modern binaural hearing aids utilize multimicrophone speech enhancement algorithms to enhance signals in terms of signal-to-noise ratio, but they may distort the interaural cues that allow the user to localize sources, in particular, suppressed interfering sources or background noise. In this paper, we present a novel algorithm that enhances the target signal while aiming to maintain the correct spatial rendering of both the target signal as well as the background noise. We use a bimodal approach, where a signal-to-noise ratio (SNR) estimator controls a binary decision mask, switching between the output signals of a binaural minimum variance distortionless response (MVDR) beamformer and scaled reference microphone signals. We show that the proposed selective binaural beamformer (SBB) can enhance the target signal while maintaining the overall spatial rendering of the acoustic scene.}
+      \field{issn}{1687-6180}
+      \field{journaltitle}{EURASIP Journal on Advances in Signal Processing}
+      \field{month}{2}
+      \field{number}{1}
+      \field{title}{Speech enhancement for multimicrophone binaural hearing aids aiming to preserve the spatial auditory scene}
+      \field{urlday}{7}
+      \field{urlmonth}{6}
+      \field{urlyear}{2024}
+      \field{volume}{2016}
+      \field{year}{2016}
+      \field{urldateera}{ce}
+      \field{pages}{12}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1186/s13634-016-0314-6
+      \endverb
+      \verb{file}
+      \verb Full Text PDF:/Users/pawel/Zotero/storage/HK2UGN3E/Thiemann et al. - 2016 - Speech enhancement for multimicrophone binaural he.pdf:application/pdf;Snapshot:/Users/pawel/Zotero/storage/MPJJ7SUT/s13634-016-0314-6.html:text/html
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1186/s13634-016-0314-6
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1186/s13634-016-0314-6
+      \endverb
+      \keyw{Bilateral hearing aids,Binaural hearing aids,Binaural MVDR,Hearing aids}
+    \endentry
+    \entry{yang_deepear_2022}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=55242d2a60270145342841e4d4238da0}{%
+           family={Yang},
+           familyi={Y\bibinitperiod},
+           given={Qiang},
+           giveni={Q\bibinitperiod}}}%
+        {{hash=124d6abeaddbcd28f90e637a266faed6}{%
+           family={Zheng},
+           familyi={Z\bibinitperiod},
+           given={Yuanqing},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \strng{namehash}{28472b2a6d3ab72ea80cb6ada89a8d43}
+      \strng{fullhash}{28472b2a6d3ab72ea80cb6ada89a8d43}
+      \strng{bibnamehash}{28472b2a6d3ab72ea80cb6ada89a8d43}
+      \strng{authorbibnamehash}{28472b2a6d3ab72ea80cb6ada89a8d43}
+      \strng{authornamehash}{28472b2a6d3ab72ea80cb6ada89a8d43}
+      \strng{authorfullhash}{28472b2a6d3ab72ea80cb6ada89a8d43}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Binaural microphones, referring to two microphones with artificial human-shaped ears, are pervasively used in humanoid robots and hearing aids improving sound quality. In many applications, it is crucial for such robots to interact with humans by finding the voice direction. However, sound source localization with binaural microphones remains challenging, especially in multi-source scenarios. Prior works utilize microphone arrays to deal with the multi-source localization problem. Extra arrays yet incur higher deployment costs and take up more space. However, human brains have evolved to locate multiple sound sources with only two ears. Inspired by this fact, we propose DeepEar, a binaural microphone-based localization system that can locate multiple sounds. To this end, we develop a neural network to mimic the acoustic signal processing pipeline of the human auditory system. Different from hand-crafted features used in prior works, DeepEar can automatically extract useful features for localization. More importantly, the trained neural networks can be extended and adapted to new environments with a minimum amount of extra training data. Experiment results show that DeepEar can substantially outperform the state-of-the-art deep learning approach, with a sound detection accuracy of 93.3\% and an azimuth estimation error of 7.4 degrees in multisource scenarios.}
+      \field{booktitle}{{IEEE} {INFOCOM} 2022 - {IEEE} {Conference} on {Computer} {Communications}}
+      \field{month}{5}
+      \field{note}{ISSN: 2641-9874}
+      \field{shorttitle}{{DeepEar}}
+      \field{title}{{DeepEar}: {Sound} {Localization} with {Binaural} {Microphones}}
+      \field{urlday}{7}
+      \field{urlmonth}{6}
+      \field{urlyear}{2024}
+      \field{year}{2022}
+      \field{urldateera}{ce}
+      \field{pages}{960\bibrangedash 969}
+      \range{pages}{10}
+      \verb{doi}
+      \verb 10.1109/INFOCOM48880.2022.9796850
+      \endverb
+      \verb{file}
+      \verb IEEE Xplore Abstract Record:/Users/pawel/Zotero/storage/IN9CQI5D/9796850.html:text/html
+      \endverb
+      \verb{urlraw}
+      \verb https://ieeexplore.ieee.org/document/9796850
+      \endverb
+      \verb{url}
+      \verb https://ieeexplore.ieee.org/document/9796850
+      \endverb
+      \keyw{Auditory system,Binaural localization,Deep learning,Ear,Earable computing,Feature extraction,Location awareness,Multi-source localization,Training data,Transfer learning}
+    \endentry
+    \entry{vera-diaz_towards_2018}{article}{}
+      \name{author}{3}{}{%
+        {{hash=2f436749ac56ef83f981f1f136ac6ab8}{%
+           family={Vera-Diaz},
+           familyi={V\bibinithyphendelim D\bibinitperiod},
+           given={Juan\bibnamedelima Manuel},
+           giveni={J\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=688214d07bf58f2c70a1687eb96b152c}{%
+           family={Pizarro},
+           familyi={P\bibinitperiod},
+           given={Daniel},
+           giveni={D\bibinitperiod}}}%
+        {{hash=da7e2e93106543998c55fdde339f7460}{%
+           family={Macias-Guarasa},
+           familyi={M\bibinithyphendelim G\bibinitperiod},
+           given={Javier},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \strng{namehash}{c4883035c38b3126265735ffe52e988a}
+      \strng{fullhash}{66cad649c3e2462c3be1928092d78848}
+      \strng{bibnamehash}{66cad649c3e2462c3be1928092d78848}
+      \strng{authorbibnamehash}{66cad649c3e2462c3be1928092d78848}
+      \strng{authornamehash}{c4883035c38b3126265735ffe52e988a}
+      \strng{authorfullhash}{66cad649c3e2462c3be1928092d78848}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{This paper presents a novel approach for indoor acoustic source localization using microphone arrays, based on a Convolutional Neural Network (CNN). In the proposed solution, the CNN is designed to directly estimate the three-dimensional position of a single acoustic source using the raw audio signal as the input information and avoiding the use of hand-crafted audio features. Given the limited amount of available localization data, we propose, in this paper, a training strategy based on two steps. We first train our network using semi-synthetic data generated from close talk speech recordings. We simulate the time delays and distortion suffered in the signal that propagate from the source to the array of microphones. We then fine tune this network using a small amount of real data. Our experimental results, evaluated on a publicly available dataset recorded in a real room, show that this approach is able to produce networks that significantly improve existing localization methods based on SRP-PHAT strategies and also those presented in very recent proposals based on Convolutional Recurrent Neural Networks (CRNN). In addition, our experiments show that the performance of our CNN method does not show a relevant dependency on the speaker’s gender, nor on the size of the signal window being used.}
+      \field{issn}{1424-8220}
+      \field{journaltitle}{Sensors}
+      \field{month}{10}
+      \field{note}{Number: 10 Publisher: Multidisciplinary Digital Publishing Institute}
+      \field{number}{10}
+      \field{shorttitle}{Towards {End}-to-{End} {Acoustic} {Localization} {Using} {Deep} {Learning}}
+      \field{title}{Towards {End}-to-{End} {Acoustic} {Localization} {Using} {Deep} {Learning}: {From} {Audio} {Signals} to {Source} {Position} {Coordinates}}
+      \field{urlday}{7}
+      \field{urlmonth}{6}
+      \field{urlyear}{2024}
+      \field{volume}{18}
+      \field{year}{2018}
+      \field{urldateera}{ce}
+      \field{pages}{3418}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.3390/s18103418
+      \endverb
+      \verb{file}
+      \verb Full Text PDF:/Users/pawel/Zotero/storage/QWRE2HZA/Vera-Diaz et al. - 2018 - Towards End-to-End Acoustic Localization Using Dee.pdf:application/pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.mdpi.com/1424-8220/18/10/3418
+      \endverb
+      \verb{url}
+      \verb https://www.mdpi.com/1424-8220/18/10/3418
+      \endverb
+      \keyw{acoustic source localization,convolutional neural networks,deep learning,microphone arrays}
+    \endentry
+    \entry{pang_multitask_2019}{article}{}
+      \name{author}{3}{}{%
+        {{hash=1f7d3450b7db4cfe1c10baea8e7141cf}{%
+           family={Pang},
+           familyi={P\bibinitperiod},
+           given={Cheng},
+           giveni={C\bibinitperiod}}}%
+        {{hash=44a453a69684789133e3b3393f75ef31}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Hong},
+           giveni={H\bibinitperiod}}}%
+        {{hash=4c142d712e762cc45c88046b8de422c0}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Xiaofei},
+           giveni={X\bibinitperiod}}}%
+      }
+      \strng{namehash}{32b0ccc80983b9263a24724cb08d9504}
+      \strng{fullhash}{773549cc332fb20a6c3d29a6ba8cc067}
+      \strng{bibnamehash}{773549cc332fb20a6c3d29a6ba8cc067}
+      \strng{authorbibnamehash}{773549cc332fb20a6c3d29a6ba8cc067}
+      \strng{authornamehash}{32b0ccc80983b9263a24724cb08d9504}
+      \strng{authorfullhash}{773549cc332fb20a6c3d29a6ba8cc067}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Sound source localization (SSL) is an important technique for many audio processing systems, such as speech enhancement/recognition and human-robot interaction. Although many methods have been proposed for SSL, it still remains a challenging task to achieve accurate localization under adverse acoustic scenarios. In this paper, a novel binaural SSL method based on time-frequency convolutional neural network (TF-CNN) with multitask learning is proposed to simultaneously localize azimuth and elevation under unknown acoustic conditions. First, the interaural phase difference and interaural level difference are extracted from the received binaural signals, which are taken as the input of the proposed SSL neural network. Then, an SSL neural network is designed to map the interaural cues to sound direction, which consists of TF-CNN module and multitask neural network. The TF-CNN module learns and combines the time-frequency information of extracted interaural cues to generate the shared feature for multitask SSL. With the shared feature, a multitask neural network is designed to simultaneously estimate azimuth and elevation through multitask learning, which generates the posterior probability for candidate directions. Finally, the candidate direction with the highest probability is taken as the final direction estimation. The experiments based on public head-related transfer function (HRTF) database demonstrate that the proposed method achieves preferable localization performance compared with other popular methods.}
+      \field{issn}{2169-3536}
+      \field{journaltitle}{IEEE Access}
+      \field{note}{Conference Name: IEEE Access}
+      \field{title}{Multitask {Learning} of {Time}-{Frequency} {CNN} for {Sound} {Source} {Localization}}
+      \field{urlday}{7}
+      \field{urlmonth}{6}
+      \field{urlyear}{2024}
+      \field{volume}{7}
+      \field{year}{2019}
+      \field{urldateera}{ce}
+      \field{pages}{40725\bibrangedash 40737}
+      \range{pages}{13}
+      \verb{doi}
+      \verb 10.1109/ACCESS.2019.2905617
+      \endverb
+      \verb{urlraw}
+      \verb https://ieeexplore.ieee.org/document/8668414
+      \endverb
+      \verb{url}
+      \verb https://ieeexplore.ieee.org/document/8668414
+      \endverb
+      \keyw{Acoustics,Azimuth,convolutional neural network,Estimation,Feature extraction,multitask learning,Neural networks,Noise measurement,Sound source localization,time-frequency,Time-frequency analysis}
+    \endentry
+    \entry{bregman_auditory_1990}{incollection}{}
+      \name{author}{1}{}{%
+        {{hash=51930ef3803ace57c0abead7f63071c3}{%
+           family={Bregman},
+           familyi={B\bibinitperiod},
+           given={Albert},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {MIT Press}%
+      }
+      \strng{namehash}{51930ef3803ace57c0abead7f63071c3}
+      \strng{fullhash}{51930ef3803ace57c0abead7f63071c3}
+      \strng{bibnamehash}{51930ef3803ace57c0abead7f63071c3}
+      \strng{authorbibnamehash}{51930ef3803ace57c0abead7f63071c3}
+      \strng{authornamehash}{51930ef3803ace57c0abead7f63071c3}
+      \strng{authorfullhash}{51930ef3803ace57c0abead7f63071c3}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Scitation is the online home of leading journals and conference proceedings from AIP Publishing and AIP Member Societies}
+      \field{booktitle}{Journal of {The} {Acoustical} {Society} of {America} - {J} {ACOUST} {SOC} {AMER}}
+      \field{month}{1}
+      \field{note}{Journal Abbreviation: Journal of The Acoustical Society of America - J ACOUST SOC AMER}
+      \field{shorttitle}{Auditory {Scene} {Analysis}}
+      \field{title}{Auditory {Scene} {Analysis}: {The} {Perceptual} {Organization} of {Sound}}
+      \field{volume}{95}
+      \field{year}{1990}
+      \verb{doi}
+      \verb 10.1121/1.408434
+      \endverb
+      \verb{file}
+      \verb Full Text PDF:/Users/pawel/Zotero/storage/SR53ZIS7/Bregman - 1990 - Auditory Scene Analysis The Perceptual Organizati.pdf:application/pdf
+      \endverb
+    \endentry
+    \entry{rumsey_spatial_2002}{article}{}
+      \name{author}{1}{}{%
+        {{hash=28f5fb444dbefd9ef75d97d49e2e7a11}{%
+           family={Rumsey},
+           familyi={R\bibinitperiod},
+           given={Francis},
+           giveni={F\bibinitperiod}}}%
+      }
+      \strng{namehash}{28f5fb444dbefd9ef75d97d49e2e7a11}
+      \strng{fullhash}{28f5fb444dbefd9ef75d97d49e2e7a11}
+      \strng{bibnamehash}{28f5fb444dbefd9ef75d97d49e2e7a11}
+      \strng{authorbibnamehash}{28f5fb444dbefd9ef75d97d49e2e7a11}
+      \strng{authornamehash}{28f5fb444dbefd9ef75d97d49e2e7a11}
+      \strng{authorfullhash}{28f5fb444dbefd9ef75d97d49e2e7a11}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Spatial quality in reproduced sound is a subset of the broad topic of sound quality. In the past it has been studied less rigorously than other aspects of reproduced sound quality, leading to a lack of clarity in standard definitions of subjective attributes. Rigor in the physical measurement of sound signals should be matched by equal rigor in semantics relating to subjective evaluation. A scene-based paradigm for the description and assessment of spatial quality is described, which enables clear distinctions to be made between elements of a reproduced sound scene and will assist in the search for related physical parameters.}
+      \field{day}{1}
+      \field{journaltitle}{Journal of the Audio Engineering Society}
+      \field{month}{9}
+      \field{shortjournal}{Journal of the Audio Engineering Society}
+      \field{shorttitle}{Spatial Quality Evaluation for Reproduced Sound}
+      \field{title}{Spatial Quality Evaluation for Reproduced Sound: Terminology, Meaning, and a Scene-Based Paradigm}
+      \field{volume}{50}
+      \field{year}{2002}
+      \field{dateera}{ce}
+      \field{pages}{651\bibrangedash 666}
+      \range{pages}{16}
+    \endentry
+    \entry{kaveh_statistical_1986}{article}{}
+      \name{author}{2}{}{%
+        {{hash=e4dfdb3b9932151e9bc9aab6109e2bd2}{%
+           family={Kaveh},
+           familyi={K\bibinitperiod},
+           given={M.},
+           giveni={M\bibinitperiod}}}%
+        {{hash=fc0cdaa107f6eb96d3c987343c2b7640}{%
+           family={Barabell},
+           familyi={B\bibinitperiod},
+           given={A.},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{4c571bfbcc0f052f1c3d4d6606191441}
+      \strng{fullhash}{4c571bfbcc0f052f1c3d4d6606191441}
+      \strng{bibnamehash}{4c571bfbcc0f052f1c3d4d6606191441}
+      \strng{authorbibnamehash}{4c571bfbcc0f052f1c3d4d6606191441}
+      \strng{authornamehash}{4c571bfbcc0f052f1c3d4d6606191441}
+      \strng{authorfullhash}{4c571bfbcc0f052f1c3d4d6606191441}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{This paper presents an asymptotic statistical analysis of the null-spectra of two eigen-assisted methods, {MUSIC} [1] and Minimum-Norm [2], for resolving independent closely spaced plane waves in noise. Particular attention is paid to the average deviation of the null-spectra from zero at the true angles of arrival for the plane waves. These deviations are expressed as functions of signal-to-noise ratios, number of array elements, angular separation of emitters, and the number of snapshots. In the case of {MUSIC}. an approximate expression is derived for the resolution threshold of two plane waves with equal power in noise. This result is validated by Monte Carlo simulations.}
+      \field{issn}{0096-3518}
+      \field{journaltitle}{{IEEE} Transactions on Acoustics, Speech, and Signal Processing}
+      \field{month}{4}
+      \field{note}{Conference Name: {IEEE} Transactions on Acoustics, Speech, and Signal Processing}
+      \field{number}{2}
+      \field{title}{The statistical performance of the {MUSIC} and the minimum-norm algorithms in resolving plane waves in noise}
+      \field{urlday}{7}
+      \field{urlmonth}{6}
+      \field{urlyear}{2024}
+      \field{volume}{34}
+      \field{year}{1986}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{331\bibrangedash 341}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.1109/TASSP.1986.1164815
+      \endverb
+      \verb{urlraw}
+      \verb https://ieeexplore.ieee.org/document/1164815
+      \endverb
+      \verb{url}
+      \verb https://ieeexplore.ieee.org/document/1164815
+      \endverb
+      \keyw{Covariance matrix,Direction of arrival estimation,Monte Carlo methods,Multiple signal classification,Narrowband,Signal resolution,Signal to noise ratio,Spatial resolution,Spectral analysis,Statistical analysis}
+    \endentry
+    \entry{pavlidi_real-time_2012}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{hash=ce41077d0c7ff5f13f6ad5950ed7da4f}{%
+           family={Pavlidi},
+           familyi={P\bibinitperiod},
+           given={Despoina},
+           giveni={D\bibinitperiod}}}%
+        {{hash=309b667b2eb9e7c7ef9729c4627a5bb7}{%
+           family={Puigt},
+           familyi={P\bibinitperiod},
+           given={Matthieu},
+           giveni={M\bibinitperiod}}}%
+        {{hash=dcabc8007736b7781481c464d9a8d076}{%
+           family={Griffin},
+           familyi={G\bibinitperiod},
+           given={Anthony},
+           giveni={A\bibinitperiod}}}%
+        {{hash=a7ec2ff0e227539444a272f917e98ca2}{%
+           family={Mouchtaris},
+           familyi={M\bibinitperiod},
+           given={Athanasios},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{222f5e3d5aea109f4e0c1fd142bbf9d9}
+      \strng{fullhash}{a4aee0ed2f54af47223a1e4ec2a72a9b}
+      \strng{bibnamehash}{a4aee0ed2f54af47223a1e4ec2a72a9b}
+      \strng{authorbibnamehash}{a4aee0ed2f54af47223a1e4ec2a72a9b}
+      \strng{authornamehash}{222f5e3d5aea109f4e0c1fd142bbf9d9}
+      \strng{authorfullhash}{a4aee0ed2f54af47223a1e4ec2a72a9b}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We propose a novel real-time adaptative localization approach for multiple sources using a circular array, in order to suppress the localization ambiguities faced with linear arrays, and assuming a weak sound source sparsity which is derived from blind source separation methods. Our proposed method performs very well both in simulations and in real conditions at 50\% real-time.}
+      \field{booktitle}{2012 {IEEE} International Conference on Acoustics, Speech and Signal Processing ({ICASSP})}
+      \field{eventtitle}{2012 {IEEE} International Conference on Acoustics, Speech and Signal Processing ({ICASSP})}
+      \field{month}{3}
+      \field{note}{{ISSN}: 2379-190X}
+      \field{title}{Real-time multiple sound source localization using a circular microphone array based on single-source confidence measures}
+      \field{urlday}{7}
+      \field{urlmonth}{6}
+      \field{urlyear}{2024}
+      \field{year}{2012}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{2625\bibrangedash 2628}
+      \range{pages}{4}
+      \verb{doi}
+      \verb 10.1109/ICASSP.2012.6288455
+      \endverb
+      \verb{file}
+      \verb Full Text:/Users/pawel/Zotero/storage/FXAAV3EW/Pavlidi et al. - 2012 - Real-time multiple sound source localization using.pdf:application/pdf;IEEE Xplore Abstract Record:/Users/pawel/Zotero/storage/RI3ZVKSY/6288455.html:text/html
+      \endverb
+      \verb{urlraw}
+      \verb https://ieeexplore.ieee.org/document/6288455
+      \endverb
+      \verb{url}
+      \verb https://ieeexplore.ieee.org/document/6288455
+      \endverb
+      \keyw{Array signal processing,Arrays,direction of arrival estimation,Direction of arrival estimation,Estimation,Microphones,multiple source localization,Real time systems,Speech,Time frequency analysis}
+    \endentry
+    \entry{pan_multi-tone_2021}{article}{}
+      \name{author}{5}{}{%
+        {{hash=3e268f8b3015c8c1e15220388b8e6695}{%
+           family={Pan},
+           familyi={P\bibinitperiod},
+           given={Zihan},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=3dac66e08d525d33721786bb7c8dc77b}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Malu},
+           giveni={M\bibinitperiod}}}%
+        {{hash=dc50f1bbfa42a577b5868615c7c55ade}{%
+           family={Wu},
+           familyi={W\bibinitperiod},
+           given={Jibin},
+           giveni={J\bibinitperiod}}}%
+        {{hash=b98fe8d59bba1ea85e482bb0551e165e}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Jiadong},
+           giveni={J\bibinitperiod}}}%
+        {{hash=f397ee85433a25b75738faa0b764e496}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Haizhou},
+           giveni={H\bibinitperiod}}}%
+      }
+      \strng{namehash}{0ec26c86fdd002eb74f730668321f7b8}
+      \strng{fullhash}{66ca05c73e797af3bf13ea2862f044c4}
+      \strng{bibnamehash}{66ca05c73e797af3bf13ea2862f044c4}
+      \strng{authorbibnamehash}{66ca05c73e797af3bf13ea2862f044c4}
+      \strng{authornamehash}{0ec26c86fdd002eb74f730668321f7b8}
+      \strng{authorfullhash}{66ca05c73e797af3bf13ea2862f044c4}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Mammals exhibit remarkable capability of detecting and localizing sound sources in complex acoustic environments by using binaural cues in the spiking manner. Emulating the auditory process for sound source localization ({SSL}) by mammals, we propose a computational model for accurate and robust {SSL} under the neuromorphic spiking neural network ({SNN}) framework. The center of this model is a Multi-Tone Phase Coding ({MTPC}) scheme, which encodes the interaural time difference ({ITD}) between binaural pure tones into discriminative spike patterns that can be directly classified by {SNNs}. As such, {SSL} can be implemented as an event-driven task on highly efficient, neuromorphic parallel processors. We evaluate the proposed computational model on a directional audio dataset recorded from a microphone array in a realistic acoustic environment with background noise, obstruction, reflection, and other interferences. We report superior localization capability with a mean absolute error ({MAE}) of 1.02° or 100\% classification accuracy with an angle resolution of 5°, which surpasses other {SNN}-based biologically plausible neuromorphic approaches by a relatively large margin and on par with human performance in similar tasks. This study opens up many application opportunities in human-robot interaction where energy efficiency is crucial. As a case study, we successfully deploy the proposed {SSL} system in a robotic platform to track the speaker and orient the robot's attention.}
+      \field{issn}{2329-9304}
+      \field{journaltitle}{{IEEE}/{ACM} Transactions on Audio, Speech, and Language Processing}
+      \field{note}{Conference Name: {IEEE}/{ACM} Transactions on Audio, Speech, and Language Processing}
+      \field{title}{Multi-Tone Phase Coding of Interaural Time Difference for Sound Source Localization With Spiking Neural Networks}
+      \field{urlday}{7}
+      \field{urlmonth}{6}
+      \field{urlyear}{2024}
+      \field{volume}{29}
+      \field{year}{2021}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{2656\bibrangedash 2670}
+      \range{pages}{15}
+      \verb{doi}
+      \verb 10.1109/TASLP.2021.3100684
+      \endverb
+      \verb{file}
+      \verb IEEE Xplore Abstract Record:/Users/pawel/Zotero/storage/8CJB3YFJ/9502013.html:text/html
+      \endverb
+      \verb{urlraw}
+      \verb https://ieeexplore.ieee.org/document/9502013
+      \endverb
+      \verb{url}
+      \verb https://ieeexplore.ieee.org/document/9502013
+      \endverb
+      \keyw{Acoustics,Biological neural networks,Computational modeling,Ear,Encoding,Location awareness,Neural phase coding,Neurons,sound source localization,spiking neural network}
+    \endentry
+    \entry{hahmann_sound_2022}{article}{}
+      \name{author}{4}{}{%
+        {{hash=462effa97cee565bbd73d62c8de447f6}{%
+           family={Hahmann},
+           familyi={H\bibinitperiod},
+           given={Manuel},
+           giveni={M\bibinitperiod}}}%
+        {{hash=7db6887530f3c844ba77d04c48e013e6}{%
+           family={Fernandez-Grande},
+           familyi={F\bibinithyphendelim G\bibinitperiod},
+           given={Efren},
+           giveni={E\bibinitperiod}}}%
+        {{hash=bbde32c810b210de5d8021fde06c7003}{%
+           family={Gunawan},
+           familyi={G\bibinitperiod},
+           given={Henrry},
+           giveni={H\bibinitperiod}}}%
+        {{hash=656ee498925f8094095f667d1dea6b55}{%
+           family={Gerstoft},
+           familyi={G\bibinitperiod},
+           given={Peter},
+           giveni={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{cd1fb091d0ef2ef9a1cd8397d605307b}
+      \strng{fullhash}{1da1aa7980c1d36aefe1e6939e60ff34}
+      \strng{bibnamehash}{1da1aa7980c1d36aefe1e6939e60ff34}
+      \strng{authorbibnamehash}{1da1aa7980c1d36aefe1e6939e60ff34}
+      \strng{authornamehash}{cd1fb091d0ef2ef9a1cd8397d605307b}
+      \strng{authorfullhash}{1da1aa7980c1d36aefe1e6939e60ff34}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Sound source localization is crucial for communication and sound scene analysis. This study uses direction-of-arrival estimates of multiple ad hoc distributed microphone arrays to localize sound sources in a room. An affine mapping between the independent array estimates and the source coordinates is derived from a set of calibration points. Experiments show that the affine model is sufficient to locate a source and can be calibrated to physical dimensions. A projection of the local array estimates increases localization accuracy, particularly further away from the calibrated region. Localization tests in three dimensions compare the affine approach to a nonlinear neural network.}
+      \field{issn}{2691-1191}
+      \field{journaltitle}{{JASA} express letters}
+      \field{month}{7}
+      \field{number}{7}
+      \field{shortjournal}{{JASA} Express Lett}
+      \field{title}{Sound source localization using multiple ad hoc distributed microphone arrays}
+      \field{volume}{2}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \field{pages}{074801}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1121/10.0011811
+      \endverb
+      \verb{file}
+      \verb Full Text:/Users/pawel/Zotero/storage/5MD884GP/Hahmann et al. - 2022 - Sound source localization using multiple ad hoc di.pdf:application/pdf
+      \endverb
+      \keyw{Acoustics,Sound,Sound Localization}
+    \endentry
+    \entry{chung_sound_2022}{article}{}
+      \name{author}{3}{}{%
+        {{hash=d2858cf75bbc599eb93e546fdba33a88}{%
+           family={Chung},
+           familyi={C\bibinitperiod},
+           given={Ming-An},
+           giveni={M\bibinithyphendelim A\bibinitperiod}}}%
+        {{hash=32595a352be28d8357df4725616e62c6}{%
+           family={Chou},
+           familyi={C\bibinitperiod},
+           given={Hung-Chi},
+           giveni={H\bibinithyphendelim C\bibinitperiod}}}%
+        {{hash=77470cfec474923e449b355144ae5dd8}{%
+           family={Lin},
+           familyi={L\bibinitperiod},
+           given={Chia-Wei},
+           giveni={C\bibinithyphendelim W\bibinitperiod}}}%
+      }
+      \strng{namehash}{029fc3f27f14ea1c30a940310b130bd4}
+      \strng{fullhash}{7389c3168ed5a652eb147d04e2dc5c65}
+      \strng{bibnamehash}{7389c3168ed5a652eb147d04e2dc5c65}
+      \strng{authorbibnamehash}{7389c3168ed5a652eb147d04e2dc5c65}
+      \strng{authornamehash}{029fc3f27f14ea1c30a940310b130bd4}
+      \strng{authorfullhash}{7389c3168ed5a652eb147d04e2dc5c65}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Sound signals have been widely applied in various fields. One of the popular applications is sound localization, where the location and direction of a sound source are determined by analyzing the sound signal. In this study, two microphone linear arrays were used to locate the sound source in an indoor environment. The {TDOA} is also designed to deal with the problem of delay in the reception of sound signals from two microphone arrays by using the generalized cross-correlation algorithm to calculate the {TDOA}. The proposed microphone array system with the algorithm can successfully estimate the sound source’s location. The test was performed in a standardized chamber. This experiment used two microphone arrays, each with two microphones. The experimental results prove that the proposed method can detect the sound source and obtain good performance with a position error of about 2.0{\textasciitilde}2.3 cm and angle error of about 0.74 degrees. Therefore, the experimental results demonstrate the feasibility of the system.}
+      \field{issn}{2079-9292}
+      \field{journaltitle}{Electronics}
+      \field{langid}{english}
+      \field{month}{1}
+      \field{note}{Number: 6 Publisher: Multidisciplinary Digital Publishing Institute}
+      \field{number}{6}
+      \field{title}{Sound Localization Based on Acoustic Source Using Multiple Microphone Array in an Indoor Environment}
+      \field{urlday}{7}
+      \field{urlmonth}{6}
+      \field{urlyear}{2024}
+      \field{volume}{11}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{890}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.3390/electronics11060890
+      \endverb
+      \verb{file}
+      \verb Full Text PDF:/Users/pawel/Zotero/storage/PX2QWICQ/Chung et al. - 2022 - Sound Localization Based on Acoustic Source Using .pdf:application/pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.mdpi.com/2079-9292/11/6/890
+      \endverb
+      \verb{url}
+      \verb https://www.mdpi.com/2079-9292/11/6/890
+      \endverb
+      \keyw{generalized cross-correlation algorithm,indoor localization,microphone array,sound localization,time difference of arrival}
+    \endentry
+    \entry{liu_sound_2022}{article}{}
+      \name{author}{5}{}{%
+        {{hash=4d4148139979b7758963ba11cb70142c}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Mengran},
+           giveni={M\bibinitperiod}}}%
+        {{hash=180fcc4a2bd4ddf6d1cec5f764615e72}{%
+           family={Hu},
+           familyi={H\bibinitperiod},
+           given={Junhao},
+           giveni={J\bibinitperiod}}}%
+        {{hash=cbc415fc36c599555cb13b0e962f1c25}{%
+           family={Zeng},
+           familyi={Z\bibinitperiod},
+           given={Qiang},
+           giveni={Q\bibinitperiod}}}%
+        {{hash=ebe4da51d11cda6425b1b66ec3051050}{%
+           family={Jian},
+           familyi={J\bibinitperiod},
+           given={Zeming},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=f1f055060e271e0e54de057aad92a0df}{%
+           family={Nie},
+           familyi={N\bibinitperiod},
+           given={Lei},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{d41c630f43e49f649bdfae6533c60aed}
+      \strng{fullhash}{8b184f02f5a2f58e5529a18ff4c7edaa}
+      \strng{bibnamehash}{8b184f02f5a2f58e5529a18ff4c7edaa}
+      \strng{authorbibnamehash}{8b184f02f5a2f58e5529a18ff4c7edaa}
+      \strng{authornamehash}{d41c630f43e49f649bdfae6533c60aed}
+      \strng{authorfullhash}{8b184f02f5a2f58e5529a18ff4c7edaa}
+      \field{extraname}{1}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Beamforming and its applications in steered-response power ({SRP}) technology, such as steered-response power delay and sum ({SRP}-{DAS}) and steered-response power phase transform ({SRP}-{PHAT}), are widely used in sound source localization. However, their resolution and accuracy still need improvement. A novel beamforming method combining {SRP} and multi-channel cross-correlation coefficient ({MCCC}), {SRP}-{MCCC}, is proposed in this paper to improve the accuracy of direction of arrival ({DOA}). Directional weight ({DW}) is obtained by calculating the {MCCC}. Based on {DW}, suppressed the non-incoming wave direction and gained the incoming wave direction to improve the beamforming capabilities. Then, sound source localizations based on the dual linear array under different conditions were simulated. Compared with {SRP}-{PHAT}, {SRP}-{MCCC} has the advantages of high positioning accuracy, strong spatial directivity and robustness under the different signal–noise ratios ({SNRs}). When the {SNR} is −10 {dB}, the average positioning error of the single-frequency sound source at different coordinates decreases by 5.69\%, and that of the mixed frequency sound sources at the same coordinate decreases by 5.77\%. Finally, the experimental verification was carried out. The results show that the average error of {SRP}-{MCCC} has been reduced by 8.14\% and the positioning accuracy has been significantly improved, which is consistent with the simulation results. This research provides a new idea for further engineering applications of sound source localization based on beamforming.}
+      \field{issn}{2072-666X}
+      \field{journaltitle}{Micromachines}
+      \field{langid}{english}
+      \field{month}{7}
+      \field{note}{Number: 7 Publisher: Multidisciplinary Digital Publishing Institute}
+      \field{number}{7}
+      \field{title}{Sound Source Localization Based on Multi-Channel Cross-Correlation Weighted Beamforming}
+      \field{urlday}{7}
+      \field{urlmonth}{6}
+      \field{urlyear}{2024}
+      \field{volume}{13}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{1010}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.3390/mi13071010
+      \endverb
+      \verb{file}
+      \verb Full Text PDF:/Users/pawel/Zotero/storage/J597NXKN/Liu et al. - 2022 - Sound Source Localization Based on Multi-Channel C.pdf:application/pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.mdpi.com/2072-666X/13/7/1010
+      \endverb
+      \verb{url}
+      \verb https://www.mdpi.com/2072-666X/13/7/1010
+      \endverb
+      \keyw{beamforming,microphone array,multi-channel cross-correlation coefficient,sound source localization}
+    \endentry
+    \entry{dietz_auditory_2011}{article}{}
+      \name{author}{3}{}{%
+        {{hash=0fff3eaffb14ecf4d97558717c928bb0}{%
+           family={Dietz},
+           familyi={D\bibinitperiod},
+           given={Mathias},
+           giveni={M\bibinitperiod}}}%
+        {{hash=050737b9308ff0c4cb360df0537314a5}{%
+           family={Ewert},
+           familyi={E\bibinitperiod},
+           given={Stephan\bibnamedelima D.},
+           giveni={S\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+        {{hash=9b5db11c0c442086b33b5c9b37a78d15}{%
+           family={Hohmann},
+           familyi={H\bibinitperiod},
+           given={Volker},
+           giveni={V\bibinitperiod}}}%
+      }
+      \strng{namehash}{3f58be53a6babc8796060fe8ff170067}
+      \strng{fullhash}{d272fb94f0bc3fd0c70ef312ffc729af}
+      \strng{bibnamehash}{d272fb94f0bc3fd0c70ef312ffc729af}
+      \strng{authorbibnamehash}{d272fb94f0bc3fd0c70ef312ffc729af}
+      \strng{authornamehash}{3f58be53a6babc8796060fe8ff170067}
+      \strng{authorfullhash}{d272fb94f0bc3fd0c70ef312ffc729af}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Humans show a very robust ability to localize sounds in adverse conditions. Computational models of binaural sound localization and technical approaches of direction-of-arrival (DOA) estimation also show good performance, however, both their binaural feature extraction and the strategies for further analysis partly differ from what is currently known about the human auditory system. This study investigates auditory model based DOA estimation emphasizing known features and limitations of the auditory binaural processing such as (i) high temporal resolution, (ii) restricted frequency range to exploit temporal fine-structure, (iii) use of temporal envelope disparities, and (iv) a limited range to compensate for interaural time delay. DOA estimation performance was investigated for up to five concurrent speakers in free field and for up to three speakers in the presence of noise. The DOA errors in these conditions were always smaller than 5°. A condition with moving speakers was also tested and up to three moving speakers could be tracked simultaneously. Analysis of DOA performance as a function of the binaural temporal resolution showed that short time constants of about 5ms employed by the auditory model were crucial for robustness against concurrent sources.}
+      \field{issn}{0167-6393}
+      \field{journaltitle}{Speech Communication}
+      \field{month}{5}
+      \field{number}{5}
+      \field{series}{Perceptual and {Statistical} {Audition}}
+      \field{title}{Auditory model based direction estimation of concurrent speakers from binaural signals}
+      \field{urlday}{7}
+      \field{urlmonth}{6}
+      \field{urlyear}{2024}
+      \field{volume}{53}
+      \field{year}{2011}
+      \field{urldateera}{ce}
+      \field{pages}{592\bibrangedash 605}
+      \range{pages}{14}
+      \verb{doi}
+      \verb 10.1016/j.specom.2010.05.006
+      \endverb
+      \verb{file}
+      \verb ScienceDirect Snapshot:/Users/pawel/Zotero/storage/B6MXZWGK/S016763931000097X.html:text/html
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/S016763931000097X
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/S016763931000097X
+      \endverb
+      \keyw{Auditory modeling,Binaural processing,Direction estimation}
+    \endentry
+    \entry{may_probabilistic_2011}{article}{}
+      \name{author}{3}{}{%
+        {{hash=2a5132ceaf8d99a9f7e5a2646bd2a24d}{%
+           family={May},
+           familyi={M\bibinitperiod},
+           given={Tobias},
+           giveni={T\bibinitperiod}}}%
+        {{hash=ed4d810aedd1c67697714e13a4d3573b}{%
+           family={Par},
+           familyi={P\bibinitperiod},
+           given={Steven},
+           giveni={S\bibinitperiod},
+           prefix={van\bibnamedelima de},
+           prefixi={v\bibinitperiod\bibinitdelim d\bibinitperiod}}}%
+        {{hash=0973c5121defb9080da8617ef19641f2}{%
+           family={Kohlrausch},
+           familyi={K\bibinitperiod},
+           given={Armin},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{eee598b8bc0119d5883b990d271c6bcd}
+      \strng{fullhash}{fa2cd709d65b45f32c673018401a4171}
+      \strng{bibnamehash}{fa2cd709d65b45f32c673018401a4171}
+      \strng{authorbibnamehash}{fa2cd709d65b45f32c673018401a4171}
+      \strng{authornamehash}{eee598b8bc0119d5883b990d271c6bcd}
+      \strng{authorfullhash}{fa2cd709d65b45f32c673018401a4171}
+      \field{extraname}{1}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Although extensive research has been done in the field of machine-based localization, the degrading effect of reverberation and the presence of multiple sources on localization performance has remained a major problem. Motivated by the ability of the human auditory system to robustly analyze complex acoustic scenes, the associated peripheral stage is used in this paper as a front-end to estimate the azimuth of sound sources based on binaural signals. One classical approach to localize an acoustic source in the horizontal plane is to estimate the interaural time difference (ITD) between both ears by searching for the maximum in the cross-correlation function. Apart from ITDs, the interaural level difference (ILD) can contribute to localization, especially at higher frequencies where the wavelength becomes smaller than the diameter of the head, leading to ambiguous ITD information. The interdependency of ITD and ILD on azimuth is a complex pattern that depends also on the room acoustics, and is therefore learned by azimuth-dependent Gaussian mixture models (GMMs). Multiconditional training is performed to take into account the variability of the binaural features which results from multiple sources and the effect of reverberation. The proposed localization model outperforms state-of-the-art localization techniques in simulated adverse acoustic conditions.}
+      \field{issn}{1558-7924}
+      \field{journaltitle}{IEEE Transactions on Audio, Speech, and Language Processing}
+      \field{month}{1}
+      \field{note}{Conference Name: IEEE Transactions on Audio, Speech, and Language Processing}
+      \field{number}{1}
+      \field{title}{A {Probabilistic} {Model} for {Robust} {Localization} {Based} on a {Binaural} {Auditory} {Front}-{End}}
+      \field{urlday}{7}
+      \field{urlmonth}{6}
+      \field{urlyear}{2024}
+      \field{volume}{19}
+      \field{year}{2011}
+      \field{urldateera}{ce}
+      \field{pages}{1\bibrangedash 13}
+      \range{pages}{13}
+      \verb{doi}
+      \verb 10.1109/TASL.2010.2042128
+      \endverb
+      \verb{urlraw}
+      \verb https://ieeexplore.ieee.org/document/5406118
+      \endverb
+      \verb{url}
+      \verb https://ieeexplore.ieee.org/document/5406118
+      \endverb
+      \keyw{auditory scene analysis (ASA),Auditory system,Azimuth,binaural,Degradation,Ear,Frequency,Humans,interaural level difference (ILD),interaural time difference (ITD),Layout,Localization,reverberation,Reverberation,Robustness,Signal analysis}
+    \endentry
+    \entry{may_binaural_2012}{article}{}
+      \name{author}{3}{}{%
+        {{hash=2a5132ceaf8d99a9f7e5a2646bd2a24d}{%
+           family={May},
+           familyi={M\bibinitperiod},
+           given={Tobias},
+           giveni={T\bibinitperiod}}}%
+        {{hash=ed4d810aedd1c67697714e13a4d3573b}{%
+           family={Par},
+           familyi={P\bibinitperiod},
+           given={Steven},
+           giveni={S\bibinitperiod},
+           prefix={van\bibnamedelima de},
+           prefixi={v\bibinitperiod\bibinitdelim d\bibinitperiod}}}%
+        {{hash=0973c5121defb9080da8617ef19641f2}{%
+           family={Kohlrausch},
+           familyi={K\bibinitperiod},
+           given={Armin},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{eee598b8bc0119d5883b990d271c6bcd}
+      \strng{fullhash}{fa2cd709d65b45f32c673018401a4171}
+      \strng{bibnamehash}{fa2cd709d65b45f32c673018401a4171}
+      \strng{authorbibnamehash}{fa2cd709d65b45f32c673018401a4171}
+      \strng{authornamehash}{eee598b8bc0119d5883b990d271c6bcd}
+      \strng{authorfullhash}{fa2cd709d65b45f32c673018401a4171}
+      \field{extraname}{2}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{In this study, we present a binaural scene analyzer that is able to simultaneously localize, detect and identify a known number of target speakers in the presence of spatially positioned noise sources and reverberation. In contrast to many other binaural cocktail party processors, the proposed system does not require a priori knowledge about the azimuth position of the target speakers. The proposed system consists of three main building blocks: binaural localization, speech source detection, and automatic speaker identification. First, a binaural front-end is used to robustly localize relevant sound source activity. Second, a speech detection module based on missing data classification is employed to determine whether detected sound source activity corresponds to a speaker or to an interfering noise source using a binary mask that is based on spatial evidence supplied by the binaural front-end. Third, a second missing data classifier is used to recognize the speaker identities of all detected speech sources. The proposed system is systematically evaluated in simulated adverse acoustic scenarios. Compared to state-of-the art MFCC recognizers, the proposed model achieves significant speaker recognition accuracy improvements.}
+      \field{issn}{1558-7924}
+      \field{journaltitle}{IEEE Transactions on Audio, Speech, and Language Processing}
+      \field{month}{9}
+      \field{note}{Conference Name: IEEE Transactions on Audio, Speech, and Language Processing}
+      \field{number}{7}
+      \field{title}{A {Binaural} {Scene} {Analyzer} for {Joint} {Localization} and {Recognition} of {Speakers} in the {Presence} of {Interfering} {Noise} {Sources} and {Reverberation}}
+      \field{urlday}{7}
+      \field{urlmonth}{6}
+      \field{urlyear}{2024}
+      \field{volume}{20}
+      \field{year}{2012}
+      \field{urldateera}{ce}
+      \field{pages}{2016\bibrangedash 2030}
+      \range{pages}{15}
+      \verb{doi}
+      \verb 10.1109/TASL.2012.2193391
+      \endverb
+      \verb{urlraw}
+      \verb https://ieeexplore.ieee.org/document/6178270
+      \endverb
+      \verb{url}
+      \verb https://ieeexplore.ieee.org/document/6178270
+      \endverb
+      \keyw{Acoustics,Auditory system,Automatic speaker recognition,binaural processing,computational auditory scene analysis (CASA),Humans,mask estimation,missing data,Noise,Speech,Speech recognition,Target recognition}
+    \endentry
+    \entry{woodruff_binaural_2012}{article}{}
+      \name{author}{2}{}{%
+        {{hash=7d546bf7dc4d1dd29f8aa15f0a06bbff}{%
+           family={Woodruff},
+           familyi={W\bibinitperiod},
+           given={John},
+           giveni={J\bibinitperiod}}}%
+        {{hash=0a1bd97b59cb3cf65dc849873adf0d25}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={DeLiang},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{04534bf25b92e9e93d01c70d4417fda2}
+      \strng{fullhash}{04534bf25b92e9e93d01c70d4417fda2}
+      \strng{bibnamehash}{04534bf25b92e9e93d01c70d4417fda2}
+      \strng{authorbibnamehash}{04534bf25b92e9e93d01c70d4417fda2}
+      \strng{authornamehash}{04534bf25b92e9e93d01c70d4417fda2}
+      \strng{authorfullhash}{04534bf25b92e9e93d01c70d4417fda2}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Sound source localization from a binaural input is a challenging problem, particularly when multiple sources are active simultaneously and reverberation or background noise are present. In this work, we investigate a multi-source localization framework in which monaural source segregation is used as a mechanism to increase the robustness of azimuth estimates from a binaural input. We demonstrate performance improvement relative to binaural only methods assuming a known number of spatially stationary sources. We also propose a flexible azimuth-dependent model of binaural features that independently captures characteristics of the binaural setup and environmental conditions, allowing for adaptation to new environments or calibration to an unseen binaural setup. Results with both simulated and recorded impulse responses show that robust performance can be achieved with limited prior training.}
+      \field{issn}{1558-7924}
+      \field{journaltitle}{IEEE Transactions on Audio, Speech, and Language Processing}
+      \field{month}{7}
+      \field{note}{Conference Name: IEEE Transactions on Audio, Speech, and Language Processing}
+      \field{number}{5}
+      \field{title}{Binaural {Localization} of {Multiple} {Sources} in {Reverberant} and {Noisy} {Environments}}
+      \field{urlday}{7}
+      \field{urlmonth}{6}
+      \field{urlyear}{2024}
+      \field{volume}{20}
+      \field{year}{2012}
+      \field{urldateera}{ce}
+      \field{pages}{1503\bibrangedash 1512}
+      \range{pages}{10}
+      \verb{doi}
+      \verb 10.1109/TASL.2012.2183869
+      \endverb
+      \verb{file}
+      \verb IEEE Xplore Abstract Record:/Users/pawel/Zotero/storage/9CW9FT7X/6129395.html:text/html
+      \endverb
+      \verb{urlraw}
+      \verb https://ieeexplore.ieee.org/document/6129395
+      \endverb
+      \verb{url}
+      \verb https://ieeexplore.ieee.org/document/6129395
+      \endverb
+      \keyw{Adaptation models,Azimuth,Binaural sound localization,computational auditory scene analysis (CASA),Estimation,Feature extraction,monaural grouping,Noise measurement,reverberation,Reverberation,Time frequency analysis}
+    \endentry
+    \entry{may_robust_2015}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=2a5132ceaf8d99a9f7e5a2646bd2a24d}{%
+           family={May},
+           familyi={M\bibinitperiod},
+           given={Tobias},
+           giveni={T\bibinitperiod}}}%
+        {{hash=bc16016f182e265b79ec758885f45f27}{%
+           family={Ma},
+           familyi={M\bibinitperiod},
+           given={Ning},
+           giveni={N\bibinitperiod}}}%
+        {{hash=8bbee333c5da8578412d448adc4f0ae0}{%
+           family={Brown},
+           familyi={B\bibinitperiod},
+           given={Guy\bibnamedelima J.},
+           giveni={G\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \strng{namehash}{eee598b8bc0119d5883b990d271c6bcd}
+      \strng{fullhash}{240fedddeebda9c63ac23acdd7cdedf0}
+      \strng{bibnamehash}{240fedddeebda9c63ac23acdd7cdedf0}
+      \strng{authorbibnamehash}{240fedddeebda9c63ac23acdd7cdedf0}
+      \strng{authornamehash}{eee598b8bc0119d5883b990d271c6bcd}
+      \strng{authorfullhash}{240fedddeebda9c63ac23acdd7cdedf0}
+      \field{extraname}{3}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{This paper addresses the problem of localising multiple competing speakers in the presence of room reverberation, where sound sources can be positioned at any azimuth on the horizontal plane. To reduce the amount of front-back confusions which can occur due to the similarity of interaural time differences (ITDs) and interaural level differences (ILDs) in the front and rear hemifield, a machine hearing system is presented which combines supervised learning of binaural cues using multi-conditional training (MCT) with a head movement strategy. A systematic evaluation showed that this approach substantially reduced the amount of front-back confusions in challenging acoustic scenarios. Moreover, the system was able to generalise to a variety of different acoustic conditions not seen during training.}
+      \field{booktitle}{2015 {IEEE} {International} {Conference} on {Acoustics}, {Speech} and {Signal} {Processing} ({ICASSP})}
+      \field{month}{4}
+      \field{note}{ISSN: 2379-190X}
+      \field{title}{Robust localisation of multiple speakers exploiting head movements and multi-conditional training of binaural cues}
+      \field{urlday}{7}
+      \field{urlmonth}{6}
+      \field{urlyear}{2024}
+      \field{year}{2015}
+      \field{urldateera}{ce}
+      \field{pages}{2679\bibrangedash 2683}
+      \range{pages}{5}
+      \verb{doi}
+      \verb 10.1109/ICASSP.2015.7178457
+      \endverb
+      \verb{file}
+      \verb Accepted Version:/Users/pawel/Zotero/storage/UUF7ABAN/May et al. - 2015 - Robust localisation of multiple speakers exploitin.pdf:application/pdf;IEEE Xplore Abstract Record:/Users/pawel/Zotero/storage/VAZXWS4I/7178457.html:text/html
+      \endverb
+      \verb{urlraw}
+      \verb https://ieeexplore.ieee.org/document/7178457
+      \endverb
+      \verb{url}
+      \verb https://ieeexplore.ieee.org/document/7178457
+      \endverb
+      \keyw{Acoustics,Auditory system,Azimuth,binaural sound source localisation,generalisation,head movements,Magnetic heads,multi-conditional training,Robustness,Speech,Training}
+    \endentry
+    \entry{ma16c_interspeech}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=bc16016f182e265b79ec758885f45f27}{%
+           family={Ma},
+           familyi={M\bibinitperiod},
+           given={Ning},
+           giveni={N\bibinitperiod}}}%
+        {{hash=8bbee333c5da8578412d448adc4f0ae0}{%
+           family={Brown},
+           familyi={B\bibinitperiod},
+           given={Guy\bibnamedelima J.},
+           giveni={G\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \strng{namehash}{9f93af7b144e77f1b4559cf7d976b821}
+      \strng{fullhash}{9f93af7b144e77f1b4559cf7d976b821}
+      \strng{bibnamehash}{9f93af7b144e77f1b4559cf7d976b821}
+      \strng{authorbibnamehash}{9f93af7b144e77f1b4559cf7d976b821}
+      \strng{authornamehash}{9f93af7b144e77f1b4559cf7d976b821}
+      \strng{authorfullhash}{9f93af7b144e77f1b4559cf7d976b821}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proc. Interspeech 2016}
+      \field{issn}{2308-457X}
+      \field{title}{{Speech Localisation in a Multitalker Mixture by Humans and Machines}}
+      \field{year}{2016}
+      \field{pages}{3359\bibrangedash 3363}
+      \range{pages}{5}
+      \verb{doi}
+      \verb 10.21437/Interspeech.2016-1149
+      \endverb
+    \endentry
+    \entry{ma_exploiting_2017}{article}{}
+      \name{author}{3}{}{%
+        {{hash=bc16016f182e265b79ec758885f45f27}{%
+           family={Ma},
+           familyi={M\bibinitperiod},
+           given={Ning},
+           giveni={N\bibinitperiod}}}%
+        {{hash=2a5132ceaf8d99a9f7e5a2646bd2a24d}{%
+           family={May},
+           familyi={M\bibinitperiod},
+           given={Tobias},
+           giveni={T\bibinitperiod}}}%
+        {{hash=8bbee333c5da8578412d448adc4f0ae0}{%
+           family={Brown},
+           familyi={B\bibinitperiod},
+           given={Guy\bibnamedelima J.},
+           giveni={G\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \strng{namehash}{58b0fab47aa83132cfe45c4295606152}
+      \strng{fullhash}{c581f172961308c31ced8958a27e3765}
+      \strng{bibnamehash}{c581f172961308c31ced8958a27e3765}
+      \strng{authorbibnamehash}{c581f172961308c31ced8958a27e3765}
+      \strng{authornamehash}{58b0fab47aa83132cfe45c4295606152}
+      \strng{authorfullhash}{c581f172961308c31ced8958a27e3765}
+      \field{extraname}{1}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{This paper presents a novel machine-hearing system that exploits deep neural networks (DNNs) and head movements for robust binaural localisation of multiple sources in reverberant environments. DNNs are used to learn the relationship between the source azimuth and binaural cues, consisting of the complete cross-correlation function (CCF) and interaural level differences (ILDs). In contrast to many previous binaural hearing systems, the proposed approach is not restricted to localisation of sound sources in the frontal hemifield. Due to the similarity of binaural cues in the frontal and rear hemifields, front-back confusions often occur. To address this, a head movement strategy is incorporated in the localisation model to help reduce the front-back errors. The proposed DNN system is compared to a Gaussian mixture model (GMM) based system that employs interaural time differences (ITDs) and ILDs as localisation features. Our experiments show that the DNN is able to exploit information in the CCF that is not available in the ITD cue, which together with head movements substantially improves localisation accuracies under challenging acoustic scenarios in which multiple talkers and room reverberation are present.}
+      \field{annotation}{Comment: 10 pages}
+      \field{issn}{2329-9290, 2329-9304}
+      \field{journaltitle}{IEEE/ACM Transactions on Audio, Speech, and Language Processing}
+      \field{month}{12}
+      \field{note}{arXiv:1904.03001 [cs, eess]}
+      \field{number}{12}
+      \field{title}{Exploiting {Deep} {Neural} {Networks} and {Head} {Movements} for {Robust} {Binaural} {Localisation} of {Multiple} {Sources} in {Reverberant} {Environments}}
+      \field{urlday}{7}
+      \field{urlmonth}{6}
+      \field{urlyear}{2024}
+      \field{volume}{25}
+      \field{year}{2017}
+      \field{urldateera}{ce}
+      \field{pages}{2444\bibrangedash 2453}
+      \range{pages}{10}
+      \verb{doi}
+      \verb 10.1109/TASLP.2017.2750760
+      \endverb
+      \verb{file}
+      \verb arXiv Fulltext PDF:/Users/pawel/Zotero/storage/Q8KYT7PT/Ma et al. - 2017 - Exploiting Deep Neural Networks and Head Movements.pdf:application/pdf;arXiv.org Snapshot:/Users/pawel/Zotero/storage/NXKLQ8NH/1904.html:text/html
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/1904.03001
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/1904.03001
+      \endverb
+      \keyw{Computer Science - Sound,Electrical Engineering and Systems Science - Audio and Speech Processing}
+    \endentry
+    \entry{benaroya_binaural_2018}{article}{}
+      \name{author}{6}{}{%
+        {{hash=3a604688c1793716f5fe6c3fbd26773d}{%
+           family={Benaroya},
+           familyi={B\bibinitperiod},
+           given={Elie\bibnamedelima Laurent},
+           giveni={E\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+        {{hash=65528959cd45c0dd00fa184216842d23}{%
+           family={Obin},
+           familyi={O\bibinitperiod},
+           given={Nicolas},
+           giveni={N\bibinitperiod}}}%
+        {{hash=0d687f9ad924001bf48b16f37f767d76}{%
+           family={Liuni},
+           familyi={L\bibinitperiod},
+           given={Marco},
+           giveni={M\bibinitperiod}}}%
+        {{hash=88a4a4281b192bf9abbdd5a5d27ca33b}{%
+           family={Roebel},
+           familyi={R\bibinitperiod},
+           given={Axel},
+           giveni={A\bibinitperiod}}}%
+        {{hash=1da39a02a80a901382d4f7019d24107a}{%
+           family={Raumel},
+           familyi={R\bibinitperiod},
+           given={Wilson},
+           giveni={W\bibinitperiod}}}%
+        {{hash=dbb8a822f42d7807b9fb1d66c5be15ab}{%
+           family={Argentieri},
+           familyi={A\bibinitperiod},
+           given={Sylvain},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{c7f483dd5309c8d8b0e969b04de1b6cd}
+      \strng{fullhash}{434bbd30f8bcba4350feac4726358cf8}
+      \strng{bibnamehash}{c7f483dd5309c8d8b0e969b04de1b6cd}
+      \strng{authorbibnamehash}{c7f483dd5309c8d8b0e969b04de1b6cd}
+      \strng{authornamehash}{c7f483dd5309c8d8b0e969b04de1b6cd}
+      \strng{authorfullhash}{434bbd30f8bcba4350feac4726358cf8}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{This paper presents non-negative factorization of audio signals for the binaural localization of multiple sound sources within realistic and unknown sound environments. Non-negative tensor factorization (NTF) provides a sparse representation of multichannel audio signals in time, frequency, and space that can be exploited in computational audio scene analysis and robot audition for the separation and localization of sound sources. In the proposed formulation, each sound source is represented by means of spectral dictionaries, temporal activation, and its distribution within each channel (here, left and right ears). This distribution, being dependent on the frequency, can be interpreted as an explicit estimation of the Head-Related Transfer Function (HRTF) of a binaural head which can then be converted into the estimated sound source position. Moreover, the semisupervised formulation of the non-negative factorization allows us to integrate prior knowledge about some sound sources of interest whose dictionaries can be learned in advance, whereas the remaining sources are considered as background sound, which remains unknown and is estimated on the fly. The proposed NTF-based sound source localization is applied here to binaural sound source localization of multiple speakers within realistic sound environments.}
+      \field{issn}{2329-9304}
+      \field{journaltitle}{IEEE/ACM Transactions on Audio, Speech, and Language Processing}
+      \field{month}{6}
+      \field{note}{Conference Name: IEEE/ACM Transactions on Audio, Speech, and Language Processing}
+      \field{number}{6}
+      \field{title}{Binaural {Localization} of {Multiple} {Sound} {Sources} by {Non}-{Negative} {Tensor} {Factorization}}
+      \field{urlday}{7}
+      \field{urlmonth}{6}
+      \field{urlyear}{2024}
+      \field{volume}{26}
+      \field{year}{2018}
+      \field{urldateera}{ce}
+      \field{pages}{1072\bibrangedash 1082}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.1109/TASLP.2018.2806745
+      \endverb
+      \verb{file}
+      \verb IEEE Xplore Abstract Record:/Users/pawel/Zotero/storage/AGTH4VGH/8294267.html:text/html;Submitted Version:/Users/pawel/Zotero/storage/TERC7QZT/Benaroya et al. - 2018 - Binaural Localization of Multiple Sound Sources by.pdf:application/pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://ieeexplore.ieee.org/document/8294267
+      \endverb
+      \verb{url}
+      \verb https://ieeexplore.ieee.org/document/8294267
+      \endverb
+      \keyw{Binaural localization,computational audio scene analysis,Ear,Image analysis,non-negative tensor factorization,robot audition,Robot kinematics,Speech,Speech processing,Tensile stress}
+    \endentry
+    \entry{vecchiotti19}{article}{}
+      \name{author}{4}{}{%
+        {{hash=dd2688b271dbbecf993a80c6a385c9b2}{%
+           family={Vecchiotti},
+           familyi={V\bibinitperiod},
+           given={Paolo},
+           giveni={P\bibinitperiod}}}%
+        {{hash=bc16016f182e265b79ec758885f45f27}{%
+           family={Ma},
+           familyi={M\bibinitperiod},
+           given={Ning},
+           giveni={N\bibinitperiod}}}%
+        {{hash=a2f00650504fc0bb5efb1ec394adbaa4}{%
+           family={Squartini},
+           familyi={S\bibinitperiod},
+           given={Stefano},
+           giveni={S\bibinitperiod}}}%
+        {{hash=8bbee333c5da8578412d448adc4f0ae0}{%
+           family={Brown},
+           familyi={B\bibinitperiod},
+           given={Guy\bibnamedelima J.},
+           giveni={G\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \strng{namehash}{c41b65bcb2cf677a54f2d74dc2937514}
+      \strng{fullhash}{cc087543c1a49a288ee1cffbe889f286}
+      \strng{bibnamehash}{cc087543c1a49a288ee1cffbe889f286}
+      \strng{authorbibnamehash}{cc087543c1a49a288ee1cffbe889f286}
+      \strng{authornamehash}{c41b65bcb2cf677a54f2d74dc2937514}
+      \strng{authorfullhash}{cc087543c1a49a288ee1cffbe889f286}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{CoRR}
+      \field{title}{End-to-end Binaural Sound Localisation from the Raw Waveform}
+      \field{volume}{abs/1904.01916}
+      \field{year}{2019}
+      \verb{eprint}
+      \verb 1904.01916
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/1904.01916
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/1904.01916
+      \endverb
+    \endentry
+    \entry{s_spatiogram_2021}{misc}{}
+      \name{author}{2}{}{%
+        {{hash=2374d82a7fc3037b98ca1d9d8d545d7e}{%
+           family={S},
+           familyi={S\bibinitperiod},
+           given={Arthi},
+           giveni={A\bibinitperiod}}}%
+        {{hash=efe78b0a33fce81d722b5876744a313f}{%
+           family={T\bibnamedelima V},
+           familyi={T\bibinitperiod\bibinitdelim V\bibinitperiod},
+           given={Sreenivas},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{66cbee93cf9f00e469fc0c95a634a8fb}
+      \strng{fullhash}{66cbee93cf9f00e469fc0c95a634a8fb}
+      \strng{bibnamehash}{66cbee93cf9f00e469fc0c95a634a8fb}
+      \strng{authorbibnamehash}{66cbee93cf9f00e469fc0c95a634a8fb}
+      \strng{authornamehash}{66cbee93cf9f00e469fc0c95a634a8fb}
+      \strng{authorfullhash}{66cbee93cf9f00e469fc0c95a634a8fb}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{In concert hall studies, inter-aural cross-correlation (IACC), which is signal dependent, is used as a measure of perceptual source width. The same measure is used for perceptual source width in the case of distributed sources also. In this work, we examine the validity of IACC for both the cases and develop an improved measure for ensemble-like distributed sources. We decompose the new objective measure for perceptual ensemble source width (ESW) into two components (i) phase based directional angular measure, which is timbre independent (spatial measure) and (ii) mean time-bandwidth energy (MTBE), a perceptual weight, (timbre measure). This combination of spatial and timbral measures can be extended as an alternate measure for determining auditory source width (ASW) and listener envelopment (LEV) of arbitrary signals in concert-hall and room acoustics.}
+      \field{annotation}{Comment: 12 pages, 11 figures}
+      \field{month}{12}
+      \field{note}{arXiv:2112.07216 [cs, eess]}
+      \field{shorttitle}{Spatiogram}
+      \field{title}{Spatiogram: {A} phase based directional angular measure and perceptual weighting for ensemble source width}
+      \field{urlday}{7}
+      \field{urlmonth}{6}
+      \field{urlyear}{2024}
+      \field{year}{2021}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/arXiv.2112.07216
+      \endverb
+      \verb{file}
+      \verb arXiv Fulltext PDF:/Users/pawel/Zotero/storage/IRU2Y2LJ/S and T V - 2021 - Spatiogram A phase based directional angular meas.pdf:application/pdf;arXiv.org Snapshot:/Users/pawel/Zotero/storage/TXPUMCRK/2112.html:text/html
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/2112.07216
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/2112.07216
+      \endverb
+      \keyw{Computer Science - Sound,Electrical Engineering and Systems Science - Audio and Speech Processing}
+    \endentry
+    \entry{wang_binaural_2020}{article}{}
+      \name{author}{5}{}{%
+        {{hash=49a19e08791a3dc09c932ff975949361}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Jing},
+           giveni={J\bibinitperiod}}}%
+        {{hash=57cf8531003f9d0c22b8a30358523ffc}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Jin},
+           giveni={J\bibinitperiod}}}%
+        {{hash=81e718542697d8cb9b28022566aa3a73}{%
+           family={Qian},
+           familyi={Q\bibinitperiod},
+           given={Kai},
+           giveni={K\bibinitperiod}}}%
+        {{hash=e6a4eb28abe7c87f188cdfbca1e0d60b}{%
+           family={Xie},
+           familyi={X\bibinitperiod},
+           given={Xiang},
+           giveni={X\bibinitperiod}}}%
+        {{hash=74f843d34d0fc73c4784f6fb01462125}{%
+           family={Kuang},
+           familyi={K\bibinitperiod},
+           given={Jingming},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{bb255b96d1bb6f677f7841b684efd08c}
+      \strng{fullhash}{9b8aa841b860cee3f7ee3708c718fd42}
+      \strng{bibnamehash}{9b8aa841b860cee3f7ee3708c718fd42}
+      \strng{authorbibnamehash}{9b8aa841b860cee3f7ee3708c718fd42}
+      \strng{authornamehash}{bb255b96d1bb6f677f7841b684efd08c}
+      \strng{authorfullhash}{9b8aa841b860cee3f7ee3708c718fd42}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Binaural sound source localization is an important and widely used perceptually based method and it has been applied to machine learning studies by many researchers based on head-related transfer function ({HRTF}). Because the {HRTF} is closely related to human physiological structure, the {HRTFs} vary between individuals. Related machine learning studies to date tend to focus on binaural localization in reverberant or noisy environments, or in conditions with multiple simultaneously active sound sources. In contrast, mismatched {HRTF} condition, in which the {HRTFs} used to generate the training and test sets are different, is rarely studied. This mismatch leads to a degradation of localization performance. A basic solution to this problem is to introduce more data to improve generalization performance, which requires a lot. However, simply increasing the data volume will result in data-inefficiency. In this paper, we propose a data-efficient method based on deep neural network ({DNN}) and clustering to improve binaural localization performance in the mismatched {HRTF} condition. Firstly, we analyze the relationship between binaural cues and the sound source localization with a classification {DNN}. Different {HRTFs} are used to generate training and test sets, respectively. On this basis, we study the localization performance of {DNN} model trained by each training set on different test sets. The result shows that the localization performance of the same model on different test sets is different, while the localization performance of different models on the same test set may be similar. The result also shows a clustering trend. Secondly, different {HRTFs} are divided into several clusters. Finally, the corresponding {HRTFs} of each cluster center are selected to generate a new training set and to train a more generalized {DNN} model. The experimental results show that the proposed method achieves better generalization performance than the baseline methods in the mismatched {HRTF} condition and has almost equal performance to the {DNN} trained with a large number of {HRTFs}, which means the proposed method is data-efficient.}
+      \field{day}{10}
+      \field{issn}{1687-4722}
+      \field{journaltitle}{{EURASIP} Journal on Audio, Speech, and Music Processing}
+      \field{month}{2}
+      \field{number}{1}
+      \field{shortjournal}{{EURASIP} Journal on Audio, Speech, and Music Processing}
+      \field{title}{Binaural sound localization based on deep neural network and affinity propagation clustering in mismatched {HRTF} condition}
+      \field{urlday}{7}
+      \field{urlmonth}{6}
+      \field{urlyear}{2024}
+      \field{volume}{2020}
+      \field{year}{2020}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{4}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1186/s13636-020-0171-y
+      \endverb
+      \verb{file}
+      \verb Full Text PDF:/Users/pawel/Zotero/storage/AXJ7NQJI/Wang et al. - 2020 - Binaural sound localization based on deep neural n.pdf:application/pdf;Snapshot:/Users/pawel/Zotero/storage/HXP2Q4IJ/s13636-020-0171-y.html:text/html
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1186/s13636-020-0171-y
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1186/s13636-020-0171-y
+      \endverb
+      \keyw{Affinity propagation,Binaural localization,Clustering,Deep neural network}
+    \endentry
+    \entry{liu_multiple_2018}{article}{}
+      \name{author}{5}{}{%
+        {{hash=7d8ff4df69095548fd14c2e6e040dfd2}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Qingju},
+           giveni={Q\bibinitperiod}}}%
+        {{hash=8be7c3820bf2af64ef6797042404933a}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Wenwu},
+           giveni={W\bibinitperiod}}}%
+        {{hash=28441c007bd61b6db752461d573f2a74}{%
+           family={Campos},
+           familyi={C\bibinitperiod},
+           given={Teófilo},
+           giveni={T\bibinitperiod},
+           prefix={de},
+           prefixi={d\bibinitperiod}}}%
+        {{hash=f32004081bcf11ee769cd92302b54823}{%
+           family={Jackson},
+           familyi={J\bibinitperiod},
+           given={Philip\bibnamedelimb J.\bibnamedelimi B.},
+           giveni={P\bibinitperiod\bibinitdelim J\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+        {{hash=5dea3144ba12b0f069a5735888879d6d}{%
+           family={Hilton},
+           familyi={H\bibinitperiod},
+           given={Adrian},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{97431020ac7db7ff55462430cba5b36e}
+      \strng{fullhash}{9f4013b96d4f9ebb0dbc99d9f8c93497}
+      \strng{bibnamehash}{9f4013b96d4f9ebb0dbc99d9f8c93497}
+      \strng{authorbibnamehash}{9f4013b96d4f9ebb0dbc99d9f8c93497}
+      \strng{authornamehash}{97431020ac7db7ff55462430cba5b36e}
+      \strng{authorfullhash}{9f4013b96d4f9ebb0dbc99d9f8c93497}
+      \field{extraname}{2}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{In the object-based spatial audio system, positions of the audio objects (e.g., speakers/talkers or voices) presented in the sound scene are required as important metadata attributes for object acquisition and reproduction. Binaural microphones are often used as a physical device to mimic human hearing and to monitor and analyze the scene, including localization and tracking of multiple speakers. The binaural audio tracker, however, is usually prone to the errors caused by room reverberation and background noise. To address this limitation, we present a multimodal tracking method by fusing the binaural audio with depth information (from a depth sensor, e.g., Kinect). More specifically, the probability hypothesis density ({PHD}) filtering framework is first applied to the depth stream, and a novel clutter intensity model is proposed to improve the robustness of the {PHD} filter when an object is occluded either by other objects or due to the limited field of view of the depth sensor. To compensate misdetections in the depth stream, a novel gap filling technique is presented to map audio azimuths obtained from the binaural audio tracker to 3D positions, using speaker-dependent spatial constraints learned from the depth stream. With our proposed method, both the errors in the binaural tracker and the misdetections in the depth tracker can be significantly reduced. Real-room recordings are used to show the improved performance of the proposed method in removing outliers and reducing misdetections.}
+      \field{issn}{1941-0077}
+      \field{journaltitle}{{IEEE} Transactions on Multimedia}
+      \field{month}{7}
+      \field{note}{Conference Name: {IEEE} Transactions on Multimedia}
+      \field{number}{7}
+      \field{title}{Multiple Speaker Tracking in Spatial Audio via {PHD} Filtering and Depth-Audio Fusion}
+      \field{urlday}{7}
+      \field{urlmonth}{6}
+      \field{urlyear}{2024}
+      \field{volume}{20}
+      \field{year}{2018}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{1767\bibrangedash 1780}
+      \range{pages}{14}
+      \verb{doi}
+      \verb 10.1109/TMM.2017.2777671
+      \endverb
+      \verb{file}
+      \verb IEEE Xplore Abstract Record:/Users/pawel/Zotero/storage/ETBEG7F9/8119824.html:text/html
+      \endverb
+      \verb{urlraw}
+      \verb https://ieeexplore.ieee.org/document/8119824
+      \endverb
+      \verb{url}
+      \verb https://ieeexplore.ieee.org/document/8119824
+      \endverb
+      \keyw{Azimuth,binaural microphones,Clutter,depth and audio,depth sensor,Metadata,Microphones,Multi-person tracking,{PHD} filtering,spatial audio,Target tracking,Three-dimensional displays,Trajectory}
+    \endentry
+    \entry{ma_robust_2018}{article}{}
+      \name{author}{3}{}{%
+        {{hash=bc16016f182e265b79ec758885f45f27}{%
+           family={Ma},
+           familyi={M\bibinitperiod},
+           given={Ning},
+           giveni={N\bibinitperiod}}}%
+        {{hash=1230365d4e7c053d32ee1ce21caab89b}{%
+           family={Gonzalez},
+           familyi={G\bibinitperiod},
+           given={Jose\bibnamedelima A.},
+           giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=8bbee333c5da8578412d448adc4f0ae0}{%
+           family={Brown},
+           familyi={B\bibinitperiod},
+           given={Guy\bibnamedelima J.},
+           giveni={G\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \strng{namehash}{58b0fab47aa83132cfe45c4295606152}
+      \strng{fullhash}{10ef4aab764bb9514a44369ebdd82e1e}
+      \strng{bibnamehash}{10ef4aab764bb9514a44369ebdd82e1e}
+      \strng{authorbibnamehash}{10ef4aab764bb9514a44369ebdd82e1e}
+      \strng{authornamehash}{58b0fab47aa83132cfe45c4295606152}
+      \strng{authorfullhash}{10ef4aab764bb9514a44369ebdd82e1e}
+      \field{extraname}{2}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Despite there being a clear evidence for top-down (e.g., attentional) effects in biological spatial hearing, relatively few machine hearing systems exploit the top-down model-based knowledge in sound localization. This paper addresses this issue by proposing a novel framework for the binaural sound localization that combines the model-based information about the spectral characteristics of sound sources and deep neural networks ({DNNs}). A target source model and a background source model are first estimated during a training phase using spectral features extracted from sound signals in isolation. When the identity of the background source is not available, a universal background model can be used. During testing, the source models are used jointly to explain the mixed observations and improve the localization process by selectively weighting source azimuth posteriors output by a {DNN}-based localization system. To address the possible mismatch between the training and testing, a model adaptation process is further employed the on-the-fly during testing, which adapts the background model parameters directly from the noisy observations in an iterative manner. The proposed system, therefore, combines the model-based and data-driven information flow within a single computational framework. The evaluation task involved localization of a target speech source in the presence of an interfering source and room reverberation. Our experiments show that by exploiting the model-based information in this way, the sound localization performance can be improved substantially under various noisy and reverberant conditions.}
+      \field{issn}{2329-9304}
+      \field{journaltitle}{{IEEE}/{ACM} Transactions on Audio, Speech, and Language Processing}
+      \field{month}{11}
+      \field{note}{Conference Name: {IEEE}/{ACM} Transactions on Audio, Speech, and Language Processing}
+      \field{number}{11}
+      \field{title}{Robust Binaural Localization of a Target Sound Source by Combining Spectral Source Models and Deep Neural Networks}
+      \field{urlday}{7}
+      \field{urlmonth}{6}
+      \field{urlyear}{2024}
+      \field{volume}{26}
+      \field{year}{2018}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{2122\bibrangedash 2131}
+      \range{pages}{10}
+      \verb{doi}
+      \verb 10.1109/TASLP.2018.2855960
+      \endverb
+      \verb{file}
+      \verb Accepted Version:/Users/pawel/Zotero/storage/LZQN43AY/Ma et al. - 2018 - Robust Binaural Localization of a Target Sound Sou.pdf:application/pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://ieeexplore.ieee.org/document/8410799
+      \endverb
+      \verb{url}
+      \verb https://ieeexplore.ieee.org/document/8410799
+      \endverb
+      \keyw{Adaptation models,Auditory system,Azimuth,Binaural source localisation,Biological system modeling,Computational modeling,machine hearing,masking,reverberation,sound source combination,Speech processing,Time-frequency analysis}
+    \endentry
+    \entry{antoniuk2023blind}{article}{}
+      \name{author}{2}{}{%
+        {{hash=042c3230bb494d76936dd98ae0475eda}{%
+           family={pawel},
+           familyi={p\bibinitperiod},
+           prefix={antoniuk},
+           prefixi={a\bibinitperiod}}}%
+        {{hash=3c3e96db5a761511d564398cfc6afc8b}{%
+           family={krzysztof},
+           familyi={k\bibinitperiod},
+           prefix={zielinski\bibnamedelima slawomir},
+           prefixi={z\bibinitperiod\bibinitdelim s\bibinitperiod}}}%
+      }
+      \strng{namehash}{cf6dcb4305edd935819f4bdeab0ffc62}
+      \strng{fullhash}{cf6dcb4305edd935819f4bdeab0ffc62}
+      \strng{bibnamehash}{cf6dcb4305edd935819f4bdeab0ffc62}
+      \strng{authorbibnamehash}{cf6dcb4305edd935819f4bdeab0ffc62}
+      \strng{authornamehash}{cf6dcb4305edd935819f4bdeab0ffc62}
+      \strng{authorfullhash}{cf6dcb4305edd935819f4bdeab0ffc62}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{journal of the audio engineering society}
+      \field{month}{4}
+      \field{number}{15}
+      \field{title}{blind estimation of ensemble width in binaural music recordings using 'spatiograms' under simulated anechoic conditions}
+      \field{year}{2023}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

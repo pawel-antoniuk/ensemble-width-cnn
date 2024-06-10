@@ -139,6 +139,7 @@ plt.scatter(
     edgecolor="none",
     rasterized=True,
 )
+plt.axline((0, 0), (1, 1), color='r')
 plt.xlabel(r"Actual Width $\omega$")
 plt.ylabel(r"Predicted Width $\omega'$")
 plt.grid()
@@ -148,6 +149,7 @@ plt.xlim([0, 90])
 plt.ylim([0, 90])
 plt.gca().xaxis.set_major_formatter(FuncFormatter(lambda x, pos: f"{x}°"))
 plt.gca().yaxis.set_major_formatter(FuncFormatter(lambda x, pos: f"{x}°"))
+plt.legend(['Sample', 'One-to-one line'])
 plt.tight_layout()
 plt.savefig(f"/app/figures/actual_vs_predicted_width.{out_img_format}")
 # plt.show()
@@ -163,6 +165,7 @@ plt.scatter(
     edgecolor="none",
     rasterized=True,
 )
+plt.axline((0, 0), (1, 1), color='r')
 plt.xlabel(r"Actual Location $\theta$")
 plt.ylabel(r"Predicted Location $\theta'$")
 plt.grid()
@@ -172,6 +175,7 @@ plt.xlim([-45, 45])
 plt.ylim([-45, 45])
 plt.gca().xaxis.set_major_formatter(FuncFormatter(lambda x, pos: f"{x}°"))
 plt.gca().yaxis.set_major_formatter(FuncFormatter(lambda x, pos: f"{x}°"))
+plt.legend(['Sample', 'One-to-one line'])
 plt.tight_layout()
 plt.savefig(f"/app/figures/actual_vs_predicted_location.{out_img_format}")
 # plt.show()

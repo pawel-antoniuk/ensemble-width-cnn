@@ -15,7 +15,7 @@ default:
 requests:
   #  - name: 'simple1'
   #    model_architecture: simple1
-  - name: multi_inout_1_model_final_3_nogcc_nosame
+  - name: final_width_location
     model_architecture: multi_inout_1
     run_num_repetitions: 10
     learn_decay: 0.000001

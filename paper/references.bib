@@ -549,3 +549,73 @@
   number  = {15},
   month   = {4}
 }
+
+
+@article{zielinski_automatic_2022,
+  title        = {Automatic discrimination between front and back ensemble locations in {HRTF}-convolved binaural recordings of music},
+  volume       = {2022},
+  issn         = {1687-4722},
+  url          = {https://doi.org/10.1186/s13636-021-00235-2},
+  doi          = {10.1186/s13636-021-00235-2},
+  abstract     = {One of the greatest challenges in the development of binaural machine audition systems is the disambiguation between front and back audio sources, particularly in complex spatial audio scenes. The goal of this work was to develop a method for discriminating between front and back located ensembles in binaural recordings of music. To this end, 22, 496 binaural excerpts, representing either front or back located ensembles, were synthesized by convolving multi-track music recordings with 74 sets of head-related transfer functions ({HRTF}). The discrimination method was developed based on the traditional approach, involving hand-engineering of features, as well as using a deep learning technique incorporating the convolutional neural network ({CNN}). According to the results obtained under {HRTF}-dependent test conditions, {CNN} showed a very high discrimination accuracy (99.4\%), slightly outperforming the traditional method. However, under the {HRTF}-independent test scenario, {CNN} performed worse than the traditional algorithm, highlighting the importance of testing the algorithms under {HRTF}-independent conditions and indicating that the traditional method might be more generalizable than {CNN}. A minimum of 20 {HRTFs} are required to achieve a satisfactory generalization performance for the traditional algorithm and 30 {HRTFs} for {CNN}. The minimum duration of audio excerpts required by both the traditional and {CNN}-based methods was assessed as 3 s. Feature importance analysis, based on a gradient attribution mapping technique, revealed that for both the traditional and the deep learning methods, a frequency band between 5 and 6 {kHz} is particularly important in terms of the discrimination between front and back ensemble locations. Linear-frequency cepstral coefficients, interaural level differences, and audio bandwidth were identified as the key descriptors facilitating the discrimination process using the traditional approach.},
+  pages        = {3},
+  number       = {1},
+  journaltitle = {{EURASIP} Journal on Audio, Speech, and Music Processing},
+  shortjournal = {{EURASIP} Journal on Audio, Speech, and Music Processing},
+  author       = {Zieliński, Sławomir K. and Antoniuk, Paweł and Lee, Hyunkook and Johnson, Dale},
+  urldate      = {2024-06-10},
+  date         = {2022-01-15},
+  keywords     = {Binaural recordings, Feature engineering, {HRTF}, Spatial audio information retrieval},
+  file         = {Full Text PDF:/Users/pawel/Zotero/storage/4G5WL8AM/Zieliński et al. - 2022 - Automatic discrimination between front and back en.pdf:application/pdf;Snapshot:/Users/pawel/Zotero/storage/SI2K4EJ6/s13636-021-00235-2.html:text/html}
+}
+
+
+@article{zielinski_spatial_2022,
+  title        = {Spatial Audio Scene Characterization ({SASC}): Automatic Localization of Front-, Back-, Up-, and Down-Positioned Music Ensembles in Binaural Recordings},
+  volume       = {12},
+  rights       = {http://creativecommons.org/licenses/by/3.0/},
+  issn         = {2076-3417},
+  url          = {https://www.mdpi.com/2076-3417/12/3/1569},
+  doi          = {10.3390/app12031569},
+  shorttitle   = {Spatial Audio Scene Characterization ({SASC})},
+  abstract     = {The automatic localization of audio sources distributed symmetrically with respect to coronal or transverse planes using binaural signals still poses a challenging task, due to the front–back and up–down confusion effects. This paper demonstrates that the convolutional neural network ({CNN}) can be used to automatically localize music ensembles panned to the front, back, up, or down positions. The network was developed using the repository of the binaural excerpts obtained by the convolution of multi-track music recordings with the selected sets of head-related transfer functions ({HRTFs}). They were generated in such a way that a music ensemble (of circular shape in terms of its boundaries) was positioned in one of the following four locations with respect to the listener: front, back, up, and down. According to the obtained results, {CNN} identified the location of the ensembles with the average accuracy levels of 90.7\% and 71.4\% when tested under the {HRTF}-dependent and {HRTF}-independent conditions, respectively. For {HRTF}-dependent tests, the accuracy decreased monotonically with the increase in the ensemble size. A modified image occlusion sensitivity technique revealed selected frequency bands as being particularly important in terms of the localization process. These frequency bands are largely in accordance with the psychoacoustical literature.},
+  pages        = {1569},
+  number       = {3},
+  journaltitle = {Applied Sciences},
+  author       = {Zieliński, Sławomir K. and Antoniuk, Paweł and Lee, Hyunkook},
+  urldate      = {2024-06-10},
+  date         = {2022-01},
+  langid       = {english},
+  note         = {Number: 3
+                  Publisher: Multidisciplinary Digital Publishing Institute},
+  keywords     = {convolutional neural networks, deep learning, spatial audio information retrieval, spatial audio scene characterization},
+  file         = {Full Text PDF:/Users/pawel/Zotero/storage/HDGFITDN/Zieliński et al. - 2022 - Spatial Audio Scene Characterization (SASC) Autom.pdf:application/pdf}
+}
+
+
+@article{zielinski_comparison_2020,
+  title        = {A Comparison of Human against Machine-Classification of Spatial Audio Scenes in Binaural Recordings of Music},
+  volume       = {10},
+  rights       = {http://creativecommons.org/licenses/by/3.0/},
+  issn         = {2076-3417},
+  url          = {https://www.mdpi.com/2076-3417/10/17/5956},
+  doi          = {10.3390/app10175956},
+  abstract     = {The purpose of this paper is to compare the performance of human listeners against the selected machine learning algorithms in the task of the classification of spatial audio scenes in binaural recordings of music under practical conditions. The three scenes were subject to classification: (1) music ensemble (a group of musical sources) located in the front, (2) music ensemble located at the back, and (3) music ensemble distributed around a listener. In the listening test, undertaken remotely over the Internet, human listeners reached the classification accuracy of 42.5\%. For the listeners who passed the post-screening test, the accuracy was greater, approaching 60\%. The above classification task was also undertaken automatically using four machine learning algorithms: convolutional neural network, support vector machines, extreme gradient boosting framework, and logistic regression. The machine learning algorithms substantially outperformed human listeners, with the classification accuracy reaching 84\%, when tested under the binaural-room-impulse-response ({BRIR}) matched conditions. However, when the algorithms were tested under the {BRIR} mismatched scenario, the accuracy obtained by the algorithms was comparable to that exhibited by the listeners who passed the post-screening test, implying that the machine learning algorithms capability to perform in unknown electro-acoustic conditions needs to be further improved.},
+  pages        = {5956},
+  number       = {17},
+  journaltitle = {Applied Sciences},
+  author       = {Zieliński, Sławomir K. and Lee, Hyunkook and Antoniuk, Paweł and Dadan, Oskar},
+  urldate      = {2024-06-10},
+  date         = {2020-01},
+  langid       = {english},
+  note         = {Number: 17
+                  Publisher: Multidisciplinary Digital Publishing Institute},
+  keywords     = {convolutional neural networks, deep learning, spatial audio information retrieval, spatial audio scene classification},
+  file         = {Full Text PDF:/Users/pawel/Zotero/storage/SC5RHNYP/Zieliński et al. - 2020 - A Comparison of Human against Machine-Classificati.pdf:application/pdf}
+}
+
+
+# glass-box methods
+
+# black-box methods
+
