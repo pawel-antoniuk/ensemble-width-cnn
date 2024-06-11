@@ -22,7 +22,7 @@ def load_sample_data():
     src_request_path = model_dir / "0" / "request.pkl"
     request = joblib.load(src_request_path)
     model = Model(request).try_load_or_compute_input_data()
-    np.random.seed(1)
+    np.random.seed(3)
     n_samples = 100
     random_indices = np.random.choice(
         model.store_split.x_train_mag_shape[0], n_samples, replace=False
@@ -47,7 +47,7 @@ def load_sample_data():
 
 
 def get_sample_data():
-    sample_data_filename = "/app/data/analyze/state/analyze_sample_data.pkl"
+    sample_data_filename = f"/app/data/analyze/state/analyze_sample_data{model_name}.pkl"
     try:
         return joblib.load(sample_data_filename)
     except FileNotFoundError:

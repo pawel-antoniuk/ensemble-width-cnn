@@ -2369,7 +2369,8 @@
     <bcf:citekey order="1" intorder="1">blauert_spatial_1996</bcf:citekey>
     <bcf:citekey order="2" intorder="1">cherry_experiments_1953</bcf:citekey>
     <bcf:citekey order="3" intorder="1">zhang_surround_2017</bcf:citekey>
-    <bcf:citekey order="4" intorder="1">thiemann_speech_2016</bcf:citekey>
+    <bcf:citekey order="4" intorder="1">hirsh_binaural_1950</bcf:citekey>
+    <bcf:citekey order="4" intorder="2">thiemann_speech_2016</bcf:citekey>
     <bcf:citekey order="5" intorder="1">yang_deepear_2022</bcf:citekey>
     <bcf:citekey order="5" intorder="2">vera-diaz_towards_2018</bcf:citekey>
     <bcf:citekey order="5" intorder="3">pang_multitask_2019</bcf:citekey>
@@ -2411,8 +2412,37 @@
     <bcf:citekey order="11" intorder="11">yang_deepear_2022</bcf:citekey>
     <bcf:citekey order="11" intorder="12">ma_robust_2018</bcf:citekey>
     <bcf:citekey order="12" intorder="1">antoniuk2023blind</bcf:citekey>
-    <bcf:citekey order="13" intorder="1">blauert_spatial_1996</bcf:citekey>
+    <bcf:citekey order="13" intorder="1">dietz_auditory_2011</bcf:citekey>
+    <bcf:citekey order="13" intorder="2">may_probabilistic_2011</bcf:citekey>
+    <bcf:citekey order="13" intorder="3">may_binaural_2012</bcf:citekey>
+    <bcf:citekey order="13" intorder="4">may_robust_2015</bcf:citekey>
+    <bcf:citekey order="13" intorder="5">woodruff_binaural_2012</bcf:citekey>
+    <bcf:citekey order="13" intorder="6">ma16c_interspeech</bcf:citekey>
+    <bcf:citekey order="13" intorder="7">ma_exploiting_2017</bcf:citekey>
+    <bcf:citekey order="13" intorder="8">ma_robust_2018</bcf:citekey>
     <bcf:citekey order="14" intorder="1">vecchiotti19</bcf:citekey>
+    <bcf:citekey order="14" intorder="2">vera-diaz_towards_2018</bcf:citekey>
+    <bcf:citekey order="14" intorder="3">yang_deepear_2022</bcf:citekey>
+    <bcf:citekey order="15" intorder="1">blauert_spatial_1996</bcf:citekey>
+    <bcf:citekey order="16" intorder="1">raake_computational_nodate</bcf:citekey>
+    <bcf:citekey order="17" intorder="1">garofolo_john_s_timit_1993</bcf:citekey>
+    <bcf:citekey order="18" intorder="1">yang_deepear_2022</bcf:citekey>
+    <bcf:citekey order="18" intorder="2">benaroya_binaural_2018</bcf:citekey>
+    <bcf:citekey order="18" intorder="3">wang_binaural_2020</bcf:citekey>
+    <bcf:citekey order="18" intorder="4">vecchiotti19</bcf:citekey>
+    <bcf:citekey order="18" intorder="5">ma_exploiting_2017</bcf:citekey>
+    <bcf:citekey order="18" intorder="6">pang_multitask_2019</bcf:citekey>
+    <bcf:citekey order="18" intorder="7">ma_robust_2018</bcf:citekey>
+    <bcf:citekey order="18" intorder="8">may_robust_2015</bcf:citekey>
+    <bcf:citekey order="19" intorder="1">antoniuk2023blind</bcf:citekey>
+    <bcf:citekey order="19" intorder="2">zielinski_automatic_2022</bcf:citekey>
+    <bcf:citekey order="19" intorder="3">zielinski_spatial_2022</bcf:citekey>
+    <bcf:citekey order="19" intorder="4">zielinski_comparison_2020</bcf:citekey>
+    <bcf:citekey order="20" intorder="1">ma_robust_2018</bcf:citekey>
+    <bcf:citekey order="20" intorder="2">zielinski_spatial_2022</bcf:citekey>
+    <bcf:citekey order="21" intorder="1">noauthor_mixing_nodate</bcf:citekey>
+    <bcf:citekey order="22" intorder="1">blauert_spatial_1996</bcf:citekey>
+    <bcf:citekey order="23" intorder="1">zielinski_automatic_2022</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">

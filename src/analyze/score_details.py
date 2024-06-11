@@ -29,6 +29,7 @@ results = get_results(model_name)
 mean_width, std_width, mean_location, std_location = get_stats(results)
 print(f"[all] Width MAE: {mean_width:0.2f} (std: {std_width:0.2f})")
 print(f"[all] Location MAE: {mean_location:0.2f} (std: {std_location:0.2f})")
+print(f"[all] Location MAE is better than Width MAE by {(mean_width / mean_location - 1)*100:0.2f}%")
 print()
 
 mean_width, std_width, mean_location, std_location = get_stats(results, lambda r: r.actual_width < 30)
