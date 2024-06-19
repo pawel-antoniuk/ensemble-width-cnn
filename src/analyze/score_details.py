@@ -2,7 +2,7 @@ from pathlib import Path
 from results import get_results
 import numpy as np
 
-model_name = "multi_inout_1_model_final_3_nogcc_nosame"
+model_name = "final_width_location"
 
 
 def get_stats(results, filter = None) -> tuple[float, float, float, float]:

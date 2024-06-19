@@ -31,6 +31,7 @@ def load_results(model_dir: Path):
         score_file_test_width = score_df["test_score_width"] * 90
         score_file_test_location = score_df["test_score_location"] * 45
 
+        print(score_file_test_width)
         assert np.all(np.abs(score_file_test_width - score_test_width) < 1e-4)
         assert np.all(np.abs(score_file_test_location - score_test_location) < 1e-4)
 

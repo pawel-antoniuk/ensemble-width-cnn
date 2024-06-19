@@ -710,7 +710,7 @@
   file         = {Submitted Version:/Users/pawel/Zotero/storage/E78H3576/LeCun et al. - 2015 - Deep learning.pdf:application/pdf}
 }
 
-
+% CNN internals
 
 @inproceedings{krizhevsky_imagenet_2012,
   title     = {{ImageNet} Classification with Deep Convolutional Neural Networks},
@@ -723,4 +723,428 @@
   urldate   = {2024-06-19},
   date      = {2012},
   file      = {Full Text PDF:/Users/pawel/Zotero/storage/NKTH38ND/Krizhevsky et al. - 2012 - ImageNet Classification with Deep Convolutional Ne.pdf:application/pdf}
+}
+
+
+@article{srivastava_dropout_nodate,
+  title    = {Dropout: A Simple Way to Prevent Neural Networks from Overﬁtting},
+  abstract = {Deep neural nets with a large number of parameters are very powerful machine learning systems. However, overﬁtting is a serious problem in such networks. Large networks are also slow to use, making it diﬃcult to deal with overﬁtting by combining the predictions of many diﬀerent large neural nets at test time. Dropout is a technique for addressing this problem. The key idea is to randomly drop units (along with their connections) from the neural network during training. This prevents units from co-adapting too much. During training, dropout samples from an exponential number of diﬀerent “thinned” networks. At test time, it is easy to approximate the eﬀect of averaging the predictions of all these thinned networks by simply using a single unthinned network that has smaller weights. This signiﬁcantly reduces overﬁtting and gives major improvements over other regularization methods. We show that dropout improves the performance of neural networks on supervised learning tasks in vision, speech recognition, document classiﬁcation and computational biology, obtaining state-of-the-art results on many benchmark data sets.},
+  author   = {Srivastava, Nitish and Hinton, Geoﬀrey and Krizhevsky, Alex and Sutskever, Ilya and Salakhutdinov, Ruslan},
+  langid   = {english},
+  file     = {Srivastava et al. - Dropout A Simple Way to Prevent Neural Networks f.pdf:/Users/pawel/Zotero/storage/L84IJM4L/Srivastava et al. - Dropout A Simple Way to Prevent Neural Networks f.pdf:application/pdf}
+}
+
+
+@misc{ioffe_batch_2015,
+  title      = {Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift},
+  url        = {http://arxiv.org/abs/1502.03167},
+  doi        = {10.48550/arXiv.1502.03167},
+  shorttitle = {Batch Normalization},
+  abstract   = {Training Deep Neural Networks is complicated by the fact that the distribution of each layer's inputs changes during training, as the parameters of the previous layers change. This slows down the training by requiring lower learning rates and careful parameter initialization, and makes it notoriously hard to train models with saturating nonlinearities. We refer to this phenomenon as internal covariate shift, and address the problem by normalizing layer inputs. Our method draws its strength from making normalization a part of the model architecture and performing the normalization for each training mini-batch. Batch Normalization allows us to use much higher learning rates and be less careful about initialization. It also acts as a regularizer, in some cases eliminating the need for Dropout. Applied to a state-of-the-art image classification model, Batch Normalization achieves the same accuracy with 14 times fewer training steps, and beats the original model by a significant margin. Using an ensemble of batch-normalized networks, we improve upon the best published result on {ImageNet} classification: reaching 4.9\% top-5 validation error (and 4.8\% test error), exceeding the accuracy of human raters.},
+  number     = {{arXiv}:1502.03167},
+  publisher  = {{arXiv}},
+  author     = {Ioffe, Sergey and Szegedy, Christian},
+  urldate    = {2024-06-19},
+  date       = {2015-03-02},
+  eprinttype = {arxiv},
+  eprint     = {1502.03167 [cs]},
+  keywords   = {Computer Science - Machine Learning},
+  file       = {arXiv Fulltext PDF:/Users/pawel/Zotero/storage/BF9JR2FJ/Ioffe and Szegedy - 2015 - Batch Normalization Accelerating Deep Network Tra.pdf:application/pdf}
+}
+
+
+@misc{lin_network_2014,
+  title      = {Network In Network},
+  url        = {http://arxiv.org/abs/1312.4400},
+  doi        = {10.48550/arXiv.1312.4400},
+  abstract   = {We propose a novel deep network structure called "Network In Network" ({NIN}) to enhance model discriminability for local patches within the receptive field. The conventional convolutional layer uses linear filters followed by a nonlinear activation function to scan the input. Instead, we build micro neural networks with more complex structures to abstract the data within the receptive field. We instantiate the micro neural network with a multilayer perceptron, which is a potent function approximator. The feature maps are obtained by sliding the micro networks over the input in a similar manner as {CNN}; they are then fed into the next layer. Deep {NIN} can be implemented by stacking mutiple of the above described structure. With enhanced local modeling via the micro network, we are able to utilize global average pooling over feature maps in the classification layer, which is easier to interpret and less prone to overfitting than traditional fully connected layers. We demonstrated the state-of-the-art classification performances with {NIN} on {CIFAR}-10 and {CIFAR}-100, and reasonable performances on {SVHN} and {MNIST} datasets.},
+  number     = {{arXiv}:1312.4400},
+  publisher  = {{arXiv}},
+  author     = {Lin, Min and Chen, Qiang and Yan, Shuicheng},
+  urldate    = {2024-06-19},
+  date       = {2014-03-04},
+  eprinttype = {arxiv},
+  eprint     = {1312.4400 [cs]},
+  keywords   = {Computer Science - Computer Vision and Pattern Recognition, Computer Science - Machine Learning, Computer Science - Neural and Evolutionary Computing},
+  file       = {arXiv Fulltext PDF:/Users/pawel/Zotero/storage/3FFXZK4D/Lin et al. - 2014 - Network In Network.pdf:application/pdf}
+}
+
+
+% Datasets
+
+
+@misc{braren_high-resolution_2020,
+  title      = {A High-Resolution Individual 3D Adult Head and Torso Model for {HRTF} Simulation and Validation: {HRTF} Measurement},
+  url        = {https://publications.rwth-aachen.de/record/793261},
+  doi        = {10.18154/RWTH-2020-06761},
+  shorttitle = {A High-Resolution Individual 3D Adult Head and Torso Model for {HRTF} Simulation and Validation},
+  abstract   = {Head-related transfer functions ({HRTFs}) are highly individual, however they can be calculated based on 3D data of the head and torso. In an accompanying report, a high resolution 3D model of an adult male is provided. This report contains a detailed description of the same participant’s continuous {HRTF} measurement, including the method for addressing motion artifacts. This can be used for validation of calculations based on the 3D model. The provided {HRTF} data sets contain equiangular elevation samplings at 2.5◦ from approximately 0◦ to 160◦ zenith angle. Diﬀerent azimuth samplings are provided. The datasets are made available in .ita (used with the {ITA}-Toolbox) and .sofa (Spatially Oriented Format for Acoustics) ﬁle formats.},
+  publisher  = {{RWTH} Aachen University},
+  author     = {Braren, Hark Simon and Fels, Janina},
+  urldate    = {2024-06-19},
+  date       = {2020},
+  langid     = {english},
+  keywords   = {Acoustics, Binaural Technologies, Anthropometric Model, {HRTF} Measurement},
+  file       = {Braren and Fels - 2020 - A High-Resolution Individual 3D Adult Head and Tor.pdf:/Users/pawel/Zotero/storage/KKR3ZBZ8/Braren and Fels - 2020 - A High-Resolution Individual 3D Adult Head and Tor.pdf:application/pdf}
+}
+
+
+@online{noauthor_hrtf-database_nodate,
+  title      = {{HRTF}-Database},
+  url        = {https://www.oeaw.ac.at/en/ari/das-institut/software/hrtf-database},
+  titleaddon = {Austrian Academy of Sciences},
+  type       = {Acoustic Research Institute},
+  urldate    = {2024-06-19},
+  file       = {HRTF-Database:/Users/pawel/Zotero/storage/F6K6MNKB/hrtf-database.html:text/html}
+}
+
+
+@inproceedings{algazi_cipic_2001,
+  title      = {The {CIPIC} {HRTF} database},
+  url        = {https://ieeexplore.ieee.org/document/969552},
+  doi        = {10.1109/ASPAA.2001.969552},
+  abstract   = {This paper describes a public-domain database of high-spatial-resolution head-related transfer functions measured at the {UC} Davis {CIPIC} Interface Laboratory and the methods used to collect the data.. Release 1.0 (see http://interface.cipic.ucdavis.edu) includes head-related impulse responses for 45 subjects at 25 different azimuths and 50 different elevations (1250 directions) at approximately 5/spl deg/ angular increments. In addition, the database contains anthropometric measurements for each subject. Statistics of anthropometric parameters and correlations between anthropometry and some temporal and spectral features of the {HRTFs} are reported.},
+  eventtitle = {Proceedings of the 2001 {IEEE} Workshop on the Applications of Signal Processing to Audio and Acoustics (Cat. No.01TH8575)},
+  pages      = {99--102},
+  booktitle  = {Proceedings of the 2001 {IEEE} Workshop on the Applications of Signal Processing to Audio and Acoustics (Cat. No.01TH8575)},
+  author     = {Algazi, V.R. and Duda, R.O. and Thompson, D.M. and Avendano, C.},
+  urldate    = {2024-06-19},
+  date       = {2001-10},
+  keywords   = {Acoustic scattering, Anthropometry, Azimuth, Ear, Laboratories, Microphones, Position measurement, Spatial databases, Statistics, Transfer functions},
+  file       = {IEEE Xplore Abstract Record:/Users/pawel/Zotero/storage/8YD4T6PV/969552.html:text/html}
+}
+
+
+@article{andreopoulou_inter-laboratory_2015,
+  title        = {Inter-Laboratory Round Robin {HRTF} Measurement Comparison},
+  volume       = {9},
+  issn         = {1941-0484},
+  url          = {https://ieeexplore.ieee.org/document/7031925},
+  doi          = {10.1109/JSTSP.2015.2400417},
+  abstract     = {Head-Related Transfer Function ({HRTF}) measurements underlie the signal processing used in binaural auditory displays, but measurement techniques, equipment, and post-processing vary substantially between laboratories. This variation can result in significant differences in measured spectral and timing data taken from the same subject for the same sound source locations. An ongoing project for comparing databases from laboratories across the world (colloquially titled “Club Fritz”) employs a single dummy head microphone for measurements (Neumann {KU}-100) at various sites. The current study examines magnitude and timing differences between left and right ear data from 12 different {HRTF} sets taken from 10 different laboratories. Results revealed spectral magnitude variations up to 12.5 {dB} for frequency bands below 6 {kHz} and up to 23 {dB} above that, as well as large spectral left/right asymmetries (dcorr ≤ 0.4) for high-frequency content. Further subjective studies are necessary to determine the perceptual relevance of these findings. Nevertheless, the observed {ITD} variations of up to 235 μsec are alarming as they often exceeded reported {JND} values. Such findings highlight the potential impact of physical spaces, measurement routines, and equipment types on the collected {HRTF} data.},
+  pages        = {895--906},
+  number       = {5},
+  journaltitle = {{IEEE} Journal of Selected Topics in Signal Processing},
+  author       = {Andreopoulou, Areti and Begault, Durand R. and Katz, Brian F. G.},
+  urldate      = {2024-06-19},
+  date         = {2015-08},
+  note         = {Conference Name: {IEEE} Journal of Selected Topics in Signal Processing},
+  keywords     = {Current measurement, Databases, Ear, {HRTF}/{HRIR}, {ITD} variations, Laboratories, measurement, Microphones, Position measurement, repeatability, Spatial resolution, spatial symmetry, spectral variations},
+  file         = {IEEE Xplore Abstract Record:/Users/pawel/Zotero/storage/S29TAY72/7031925.html:text/html}
+}
+
+
+@article{brinkmann_cross-evaluated_2019,
+  title        = {A Cross-Evaluated Database of Measured and Simulated {HRTFs} Including 3D Head Meshes, Anthropometric Features, and Headphone Impulse Responses},
+  volume       = {67},
+  issn         = {15494950},
+  url          = {http://www.aes.org/e-lib/browse.cfm?elib=20546},
+  doi          = {10.17743/jaes.2019.0024},
+  pages        = {705--718},
+  number       = {9},
+  journaltitle = {Journal of the Audio Engineering Society},
+  shortjournal = {J. Audio Eng. Soc.},
+  author       = {Brinkmann, Fabian and Dinakaran, Manoj and Pelzer, Robert and Grosche, Peter and Voss, Daniel and Weinzierl, Stefan},
+  urldate      = {2024-06-19},
+  date         = {2019-09-21},
+  langid       = {english},
+  file         = {Brinkmann et al. - 2019 - A Cross-Evaluated Database of Measured and Simulat.pdf:/Users/pawel/Zotero/storage/8RIN3L7T/Brinkmann et al. - 2019 - A Cross-Evaluated Database of Measured and Simulat.pdf:application/pdf}
+}
+
+
+@article{spagnol_viking_2019,
+  title    = {The Viking {HRTF} Dataset},
+  rights   = {Creative Commons Attribution 4.0 International, Open Access},
+  issn     = {2518-3672},
+  url      = {https://zenodo.org/record/3249252},
+  doi      = {10.5281/ZENODO.3249252},
+  abstract = {This paper describes the Viking {HRTF} dataset, a collection of head-related transfer functions ({HRTFs}) measured at the University of Iceland. The dataset includes fullsphere {HRTFs} measured on a dense spatial grid (1513 positions) with a {KEMAR} mannequin with 20 different artiﬁcial left pinnae attached, one at a time. The artiﬁcial pinnae were previously obtained through a custom molding procedure from 20 different lifelike human heads. The analyses of results reported here suggest that the collected acoustical measurements are robust, reproducible, and faithful to reference {KEMAR} {HRTFs}, and that material hardness has a negligible impact on the measurements compared to pinna shape. The purpose of the present collection, which is available for free download, is to provide accurate input data for future investigations on the relation between {HRTFs} and anthropometric data through machine learning techniques or other state-of-the-art methodologies.},
+  author   = {Spagnol, Simone and Purkhús, Kristján Bjarki and Unnthórsson, Runar and Björnsson, Sverrir Karl},
+  urldate  = {2024-06-19},
+  date     = {2019-05-28},
+  langid   = {english},
+  note     = {{ISBN}: 9788409085187
+              Publisher: Zenodo},
+  file     = {Spagnol et al. - 2019 - The Viking HRTF Dataset.pdf:/Users/pawel/Zotero/storage/TZEJLRL5/Spagnol et al. - 2019 - The Viking HRTF Dataset.pdf:application/pdf}
+}
+
+
+@inproceedings{porschmann_spherical_2017,
+  title    = {A Spherical Near-Field {HRTF} Set for Auralization and Psychoacoustic Research},
+  abstract = {Head-related transfer functions ({HRTFs}) describe the directional filtering caused by the head, pinna, and torso and are an essential component of binaural synthesis systems. Currently most of these systems are based on far-field {HRTFs} and thus do not consider acoustical specifics of nearby sound sources. One reason might be that full spherical near-field {HRTF} sets are rarely available. In this paper we present an {HRTF} set of a Neumann {KU}100 dummy head and a technical evaluation of the set. The set is freely available for download and contains post-processed impulse responses, captured on a circular and full spherical grid at distances between 0.25 m and 1.50 m. It can be used for psychoacoustic research and for applications where nearby virtual sound sources shall be auralized.
+              
+              Engineering Brief 322
+              http://www.aes.org/e-lib/browse.cfm?elib=18697},
+  author   = {Pörschmann, Christoph and Arend, Johannes and Neidhardt, Annika},
+  date     = {2017-05-21}
+}
+
+@article{wierstorf_free_2011,
+  title    = {A Free Database of Head-Related Impulse Response Measurements in the Horizontal Plane with Multiple Distances},
+  abstract = {A freely available collection of Head-Related Impulse Response ({HRIR}) measurements is introduced. The impulse responses were acquired in an anechoic chamber using a {KEMAR} manikin at four diﬀerent loudspeaker distances – 3 m, 2 m, 1 m and 0.5 m – reaching from the far ﬁeld to the near ﬁeld. The loudspeaker was positioned at ear height and the manikin was rotated with a high-precision stepper motor in one degree increments. Besides the raw {HRIRs} also datasets are available which have been compensated for the use with speciﬁc headphone models.},
+  author   = {Wierstorf, Hagen and Geier, Matthias and Raake, Alexander and Spors, Sascha},
+  date     = {2011},
+  langid   = {english},
+  file     = {Wierstorf et al. - 2011 - A Free Database of Head-Related Impulse Response M.pdf:/Users/pawel/Zotero/storage/A66C4WXR/Wierstorf et al. - 2011 - A Free Database of Head-Related Impulse Response M.pdf:application/pdf}
+}
+
+
+@misc{spagnol_viking_2020,
+  title     = {The Viking {HRTF} dataset v2},
+  url       = {https://zenodo.org/records/4160401},
+  doi       = {10.5281/zenodo.4160401},
+  abstract  = {The Viking {HRTF} dataset v2 is a collection of head-related transfer functions ({HRTFs}) measured at the University of Iceland. It includes full-sphere {HRTFs} measured on a dense spatial grid (1513 positions) with a {KEMAR} mannequin with different pairs of artificial pinnae attached. The artificial pinnae were previously obtained through a custom molding procedure from different lifelike human heads (courtesy of Ernst Backman, Saga Museum Reykjavík).
+               
+               
+               An overview of the methods and procedures of the {HRTF} measurement sessions can be found in the papers
+               
+               
+               
+               
+               Simone Spagnol, Kristján Bjarki Purkhús, Sverrir Karl Björnsson, and Rúnar Unnthórsson (2019). The Viking {HRTF} dataset. In: Proceedings of the 16th Sound \& Music Computing Conference ({SMC} 2019), pages 55-60, Málaga, Spain.
+               
+               Marius George Onofrei, Riccardo Miccini, Rúnar Unnthórsson, Stefania Serafin, and Simone Spagnol (2020). 3D ear shape as an estimator of {HRTF} notch frequency. In: Proceedings of the 17th Sound \& Music Computing Conference ({SMC} 2020), pages 131-137, Torino, Italy.
+               
+               
+               
+               A first version of the dataset has been released in May 2019. In this second version, the used artificial pinnae were re-casted from the existing inverse molds with 35 Shore {OO} silicone for both the left and right channels of the {KEMAR}. Furthermore, the {HRTF} measurements have been taken inside the anechoic chamber of the University of Iceland in Reykjavík and free-field compensated.
+               
+               
+               The dataset, available in {SOFA} format, contains measurements for 20 different pairs of articial pinna replicas (subjects A to T, where T is a pair of standard large {KEMAR} anthropometric pinnae replicas) plus a pair of flat baffles simulating a "pinna-less" condition (subject Z).
+               
+               
+               3D scans of the 20 left pinna replicas are available as {STL} files. The scans were captured at 1mm resolution with a Creaform Go!{SCAN} 20 (courtesy of {AAU} Create Prototyping Lab).
+               
+               
+               The data is provided under the {CC}-{BY} 4.0 license that grants unlimited access for everyone. If you use this data please reference
+               
+               
+               
+               
+               Simone Spagnol, Kristján Bjarki Purkhús, Sverrir Karl Björnsson, and Rúnar Unnthórsson (2019). The Viking {HRTF} dataset. In: Proceedings of the 16th Sound \& Music Computing Conference ({SMC} 2019), pages 55-60, Málaga, Spain.
+               
+               Simone Spagnol, Riccardo Miccini and Rúnar Unnthórsson (2020). The Viking {HRTF} dataset v2. {DOI}: 10.5281/zenodo.4160401},
+  version   = {1.0},
+  publisher = {Zenodo},
+  author    = {Spagnol, Simone and Miccini, Riccardo and Unnthorsson, Runar},
+  urldate   = {2024-06-19},
+  date      = {2020-10-30},
+  keywords  = {Audio, Binaural, {HRTF}, {KEMAR}, Pinna, Spatial Sound},
+  file      = {Snapshot:/Users/pawel/Zotero/storage/S9G86Z27/4160401.html:text/html}
+}
+
+
+@online{noauthor_listen_2023,
+  title   = {{LISTEN} {HRTF} {DATABASE}},
+  url     = {http://recherche.ircam.fr/equipes/salles/listen/},
+  urldate = {2024-06-19},
+  date    = {2023},
+  file    = {LISTEN HRTF DATABASE:/Users/pawel/Zotero/storage/66K5BKAI/listen.html:text/html}
+}
+
+
+@online{gardne_hrtf_1994,
+  title   = {{HRTF} Measurements of a {KEMAR} Dummy-Head Microphone},
+  rights  = {{MIT} Media Lab},
+  url     = {https://sound.media.mit.edu/resources/KEMAR.html},
+  author  = {Gardne, Bill and Martin, Keith},
+  urldate = {2024-06-19},
+  date    = {1994},
+  file    = {HRTF Measurements of a KEMAR Dummy-Head Microphone:/Users/pawel/Zotero/storage/4HFJMLXI/KEMAR.html:text/html}
+}
+
+
+@article{watanabe_dataset_2014,
+  title        = {Dataset of head-related transfer functions measured with a circular loudspeaker array},
+  volume       = {35},
+  issn         = {1346-3969, 1347-5177},
+  url          = {https://www.jstage.jst.go.jp/article/ast/35/3/35_E1368/_article},
+  doi          = {10.1250/ast.35.159},
+  abstract     = {In this paper, we describe a dataset of head-related transfer functions ({HRTFs}) measured at the Research Institute of Electrical Communications, Tohoku University. The current dataset includes {HRTFs} for 105 subjects at 72 azimuths Â 13 elevations of spherical coordinates. Anthropometric data for 39 subjects are also included. The measurement and postprocessing methods are outlined in this paper. These data will be freely accessible for nonproﬁt academic purposes via the Internet. Moreover, this dataset will be included in an international joint project to gather several {HRTF} datasets in a uniﬁed data format.},
+  pages        = {159--165},
+  number       = {3},
+  journaltitle = {Acoustical Science and Technology},
+  shortjournal = {Acoust. Sci. \& Tech.},
+  author       = {Watanabe, Kanji and Iwaya, Yukio and Suzuki, Yôiti and Takane, Shouichi and Sato, Sojun},
+  urldate      = {2024-06-19},
+  date         = {2014},
+  langid       = {english},
+  file         = {Watanabe et al. - 2014 - Dataset of head-related transfer functions measure.pdf:/Users/pawel/Zotero/storage/5TRRD52B/Watanabe et al. - 2014 - Dataset of head-related transfer functions measure.pdf:application/pdf}
+}
+
+
+@article{armstrong_perceptual_2018,
+  title        = {A Perceptual Evaluation of Individual and Non-Individual {HRTFs}: A Case Study of the {SADIE} {II} Database},
+  volume       = {8},
+  rights       = {http://creativecommons.org/licenses/by/3.0/},
+  issn         = {2076-3417},
+  url          = {https://www.mdpi.com/2076-3417/8/11/2029},
+  doi          = {10.3390/app8112029},
+  shorttitle   = {A Perceptual Evaluation of Individual and Non-Individual {HRTFs}},
+  abstract     = {As binaural audio continues to permeate immersive technologies, it is vital to develop a detailed understanding of the perceptual relevance of {HRTFs}. Previous research has explored the benefit of individual {HRTFs} with respect to localisation. However, localisation is only one metric with which it is possible to rate spatial audio. This paper evaluates the perceived timbral and spatial characteristics of both individual and non-individual {HRTFs} and compares the results to overall preference. To that end, the measurement and evaluation of a high-resolution multi-environment binaural Impulse Response database is presented for 20 subjects, including the {KU}100 and {KEMAR} binaural mannequins. Post-processing techniques, including low frequency compensation and diffuse field equalisation are discussed in relation to the 8802 unique {HRTFs} measured for each mannequin and 2818/2114 {HRTFs} measured for each human. Listening test results indicate that particular {HRTF} sets are preferred more generally by subjects over their own individual measurements.},
+  pages        = {2029},
+  number       = {11},
+  journaltitle = {Applied Sciences},
+  author       = {Armstrong, Cal and Thresh, Lewis and Murphy, Damian and Kearney, Gavin},
+  urldate      = {2024-06-19},
+  date         = {2018-11},
+  langid       = {english},
+  note         = {Number: 11
+                  Publisher: Multidisciplinary Digital Publishing Institute},
+  keywords     = {binaural, database, evaluation, {HRTF}, measurement, perception, spatial audio, timbre},
+  file         = {Full Text PDF:/Users/pawel/Zotero/storage/JUFP5BZ5/Armstrong et al. - 2018 - A Perceptual Evaluation of Individual and Non-Indi.pdf:application/pdf}
+}
+
+
+@article{yu_near-field_2018,
+  title        = {Near-field head-related transfer-function measurement and database of human subjects},
+  volume       = {143},
+  issn         = {0001-4966, 1520-8524},
+  url          = {https://pubs.aip.org/jasa/article/143/3/EL194/609761/Near-field-head-related-transfer-function},
+  doi          = {10.1121/1.5027019},
+  abstract     = {Near-ﬁeld head-related transfer functions ({HRTFs}) of human subjects are essential to those researching spatial hearing. By using a carefully designed measurement system, near-ﬁeld {HRTFs} of human subjects were measured and a database was constructed. The database includes 56 Chinese human subjects, seven source distances from 0.2 to 1.0 m, and 685 directions at each distance for each subject. In the present work, the technique of near-ﬁeld {HRTF} measurement is outlined, the performance of the measurement system is assessed and validated, and the resultant database is reported. The database can provide fundamental data for future research.},
+  pages        = {EL194--EL198},
+  number       = {3},
+  journaltitle = {The Journal of the Acoustical Society of America},
+  author       = {Yu, Guangzheng and Wu, Ruixing and Liu, Yu and Xie, Bosun},
+  urldate      = {2024-06-19},
+  date         = {2018-03-01},
+  langid       = {english},
+  file         = {Yu et al. - 2018 - Near-field head-related transfer-function measurem.pdf:/Users/pawel/Zotero/storage/U66CIAPL/Yu et al. - 2018 - Near-field head-related transfer-function measurem.pdf:application/pdf}
+}
+
+
+@inproceedings{porschmann_spherical_2017,
+	title = {A Spherical Near-Field {HRTF} Set for Auralization and Psychoacoustic Research},
+	abstract = {Head-related transfer functions ({HRTFs}) describe the directional filtering caused by the head, pinna, and torso and are an essential component of binaural synthesis systems. Currently most of these systems are based on far-field {HRTFs} and thus do not consider acoustical specifics of nearby sound sources. One reason might be that full spherical near-field {HRTF} sets are rarely available. In this paper we present an {HRTF} set of a Neumann {KU}100 dummy head and a technical evaluation of the set. The set is freely available for download and contains post-processed impulse responses, captured on a circular and full spherical grid at distances between 0.25 m and 1.50 m. It can be used for psychoacoustic research and for applications where nearby virtual sound sources shall be auralized.
+
+Engineering Brief 322
+http://www.aes.org/e-lib/browse.cfm?elib=18697},
+	author = {Pörschmann, Christoph and Arend, Johannes and Neidhardt, Annika},
+	date = {2017-05-21},
+}
+
+
+@article{yu_near-field_2018,
+	title = {Near-field head-related transfer-function measurement and database of human subjects},
+	volume = {143},
+	issn = {0001-4966, 1520-8524},
+	url = {https://pubs.aip.org/jasa/article/143/3/EL194/609761/Near-field-head-related-transfer-function},
+	doi = {10.1121/1.5027019},
+	abstract = {Near-ﬁeld head-related transfer functions ({HRTFs}) of human subjects are essential to those researching spatial hearing. By using a carefully designed measurement system, near-ﬁeld {HRTFs} of human subjects were measured and a database was constructed. The database includes 56 Chinese human subjects, seven source distances from 0.2 to 1.0 m, and 685 directions at each distance for each subject. In the present work, the technique of near-ﬁeld {HRTF} measurement is outlined, the performance of the measurement system is assessed and validated, and the resultant database is reported. The database can provide fundamental data for future research.},
+	pages = {EL194--EL198},
+	number = {3},
+	journaltitle = {The Journal of the Acoustical Society of America},
+	author = {Yu, Guangzheng and Wu, Ruixing and Liu, Yu and Xie, Bosun},
+	urldate = {2024-06-19},
+	date = {2018-03-01},
+	langid = {english},
+	file = {Yu et al. - 2018 - Near-field head-related transfer-function measurem.pdf:/Users/pawel/Zotero/storage/U66CIAPL/Yu et al. - 2018 - Near-field head-related transfer-function measurem.pdf:application/pdf},
+}
+
+
+@article{brinkmann_high_2017,
+	title = {A High Resolution and Full-Spherical Head-Related Transfer Function Database for Different Head-Above-Torso Orientations},
+	volume = {65},
+	issn = {15494950},
+	url = {http://www.aes.org/e-lib/browse.cfm?elib=19357},
+	doi = {10.17743/jaes.2017.0033},
+	pages = {841--848},
+	number = {10},
+	journaltitle = {Journal of the Audio Engineering Society},
+	shortjournal = {J. Audio Eng. Soc.},
+	author = {Brinkmann, Fabian and Lindau, Alexander and Weinzerl, Stefan and Van De Par, Steven and Müller-Trapet, Markus and Opdam, Rob and Vorländer, Michael},
+	urldate = {2024-06-19},
+	date = {2017-10-30},
+	langid = {english},
+	file = {Brinkmann et al. - 2017 - A High Resolution and Full-Spherical Head-Related .pdf:/Users/pawel/Zotero/storage/GZFNE9CA/Brinkmann et al. - 2017 - A High Resolution and Full-Spherical Head-Related .pdf:application/pdf},
+}
+
+
+
+
+% CNN in audio w/ spectrograms
+
+@inproceedings{thomas_analyzing_2014,
+  location   = {Florence, Italy},
+  title      = {Analyzing convolutional neural networks for speech activity detection in mismatched acoustic conditions},
+  isbn       = {978-1-4799-2893-4},
+  url        = {http://ieeexplore.ieee.org/document/6854054/},
+  doi        = {10.1109/ICASSP.2014.6854054},
+  abstract   = {Convolutional neural networks ({CNN}) are extensions to deep neural networks ({DNN}) which are used as alternate acoustic models with state-of-the-art performances for speech recognition. In this paper, {CNNs} are used as acoustic models for speech activity detection ({SAD}) on data collected over noisy radio communication channels. When these {SAD} models are tested on audio recorded from radio channels not seen during training, there is severe performance degradation. We attribute this degradation to mismatches between the two dimensional ﬁlters learnt in the initial {CNN} layers and the novel channel data. Using a small amount of supervised data from the novel channels, the ﬁlters can be adapted to provide signiﬁcant improvements in {SAD} performance. In mismatched acoustic conditions, the adapted models provide signiﬁcant improvements (about 10-25\%) relative to conventional {DNN}-based {SAD} systems. These results illustrate that {CNNs} have a considerable advantage in fast adaptation for acoustic modeling in these settings.},
+  eventtitle = {{ICASSP} 2014 - 2014 {IEEE} International Conference on Acoustics, Speech and Signal Processing ({ICASSP})},
+  pages      = {2519--2523},
+  booktitle  = {2014 {IEEE} International Conference on Acoustics, Speech and Signal Processing ({ICASSP})},
+  publisher  = {{IEEE}},
+  author     = {Thomas, Samuel and Ganapathy, Sriram and Saon, George and Soltau, Hagen},
+  urldate    = {2024-06-19},
+  date       = {2014-05},
+  langid     = {english},
+  file       = {Thomas et al. - 2014 - Analyzing convolutional neural networks for speech.pdf:/Users/pawel/Zotero/storage/RAIR3LKP/Thomas et al. - 2014 - Analyzing convolutional neural networks for speech.pdf:application/pdf}
+}
+
+
+@article{espi_exploiting_2015,
+  title        = {Exploiting spectro-temporal locality in deep learning based acoustic event detection},
+  volume       = {2015},
+  issn         = {1687-4722},
+  url          = {https://asmp-eurasipjournals.springeropen.com/articles/10.1186/s13636-015-0069-2},
+  doi          = {10.1186/s13636-015-0069-2},
+  abstract     = {In recent years, deep learning has not only permeated the computer vision and speech recognition research fields but also fields such as acoustic event detection ({AED}). One of the aims of {AED} is to detect and classify non-speech acoustic events occurring in conversation scenes including those produced by both humans and the objects that surround us. In {AED}, deep learning has enabled modeling of detail-rich features, and among these, high resolution spectrograms have shown a significant advantage over existing predefined features (e.g., Mel-filter bank) that compress and reduce detail. In this paper, we further asses the importance of feature extraction for deep learning-based acoustic event detection. {AED}, based on spectrogram-input deep neural networks, exploits the fact that sounds have “global” spectral patterns, but sounds also have “local” properties such as being more transient or smoother in the time-frequency domain. These can be exposed by adjusting the time-frequency resolution used to compute the spectrogram, or by using a model that exploits locality leading us to explore two different feature extraction strategies in the context of deep learning: (1) using multiple resolution spectrograms simultaneously and analyzing the overall and event-wise influence to combine the results, and (2) introducing the use of convolutional neural networks ({CNN}), a state of the art 2D feature extraction model that exploits local structures, with log power spectrogram input for {AED}. An experimental evaluation shows that the approaches we describe outperform our state-of-the-art deep learning baseline with a noticeable gain in the {CNN} case and provides insights regarding {CNN}-based spectrogram characterization for {AED}.},
+  pages        = {26},
+  number       = {1},
+  journaltitle = {{EURASIP} Journal on Audio, Speech, and Music Processing},
+  shortjournal = {J {AUDIO} {SPEECH} {MUSIC} {PROC}.},
+  author       = {Espi, Miquel and Fujimoto, Masakiyo and Kinoshita, Keisuke and Nakatani, Tomohiro},
+  urldate      = {2024-06-19},
+  date         = {2015-12},
+  langid       = {english},
+  file         = {Espi et al. - 2015 - Exploiting spectro-temporal locality in deep learn.pdf:/Users/pawel/Zotero/storage/29QSQYTI/Espi et al. - 2015 - Exploiting spectro-temporal locality in deep learn.pdf:application/pdf}
+}
+
+% CNN in audio no spectrograms
+
+@inproceedings{abdel-hamid_applying_2012,
+  location   = {Kyoto, Japan},
+  title      = {Applying Convolutional Neural Networks concepts to hybrid {NN}-{HMM} model for speech recognition},
+  isbn       = {978-1-4673-0046-9 978-1-4673-0045-2 978-1-4673-0044-5},
+  url        = {http://ieeexplore.ieee.org/document/6288864/},
+  doi        = {10.1109/ICASSP.2012.6288864},
+  eventtitle = {{ICASSP} 2012 - 2012 {IEEE} International Conference on Acoustics, Speech and Signal Processing},
+  pages      = {4277--4280},
+  booktitle  = {2012 {IEEE} International Conference on Acoustics, Speech and Signal Processing ({ICASSP})},
+  publisher  = {{IEEE}},
+  author     = {Abdel-Hamid, Ossama and Mohamed, Abdel-rahman and Jiang, Hui and Penn, Gerald},
+  urldate    = {2024-06-19},
+  date       = {2012-03},
+  file       = {Submitted Version:/Users/pawel/Zotero/storage/Z5P9C3WR/Abdel-Hamid et al. - 2012 - Applying Convolutional Neural Networks concepts to.pdf:application/pdf}
+}
+
+@inproceedings{sainath_deep_2013,
+  location   = {Vancouver, {BC}, Canada},
+  title      = {Deep convolutional neural networks for {LVCSR}},
+  isbn       = {978-1-4799-0356-6},
+  url        = {http://ieeexplore.ieee.org/document/6639347/},
+  doi        = {10.1109/ICASSP.2013.6639347},
+  abstract   = {Convolutional Neural Networks ({CNNs}) are an alternative type of neural network that can be used to reduce spectral variations and model spectral correlations which exist in signals. Since speech signals exhibit both of these properties, {CNNs} are a more effective model for speech compared to Deep Neural Networks ({DNNs}). In this paper, we explore applying {CNNs} to large vocabulary speech tasks. First, we determine the appropriate architecture to make {CNNs} effective compared to {DNNs} for {LVCSR} tasks. Speciﬁcally, we focus on how many convolutional layers are needed, what is the optimal number of hidden units, what is the best pooling strategy, and the best input feature type for {CNNs}. We then explore the behavior of neural network features extracted from {CNNs} on a variety of {LVCSR} tasks, comparing {CNNs} to {DNNs} and {GMMs}. We ﬁnd that {CNNs} offer between a 13-30\% relative improvement over {GMMs}, and a 4-12\% relative improvement over {DNNs}, on a 400-hr Broadcast News and 300-hr Switchboard task.},
+  eventtitle = {{ICASSP} 2013 - 2013 {IEEE} International Conference on Acoustics, Speech and Signal Processing ({ICASSP})},
+  pages      = {8614--8618},
+  booktitle  = {2013 {IEEE} International Conference on Acoustics, Speech and Signal Processing},
+  publisher  = {{IEEE}},
+  author     = {Sainath, Tara N. and Mohamed, Abdel-rahman and Kingsbury, Brian and Ramabhadran, Bhuvana},
+  urldate    = {2024-06-19},
+  date       = {2013-05},
+  langid     = {english},
+  file       = {Sainath et al. - 2013 - Deep convolutional neural networks for LVCSR.pdf:/Users/pawel/Zotero/storage/VPCY5FCK/Sainath et al. - 2013 - Deep convolutional neural networks for LVCSR.pdf:application/pdf}
+}
+
+
+% Recommendations
+
+
+@article{noauthor_recommendation_nodate,
+  title        = {Recommendation {ITU}-R {BS}.1770-5 (11/2023) Algorithms to measure audio programme loudness and true-peak audio level},
+  journaltitle = {R {BS}.},
+  langid       = {english},
+  file         = {Recommendation ITU-R BS.1770-5 (112023) Algorithm.pdf:/Users/pawel/Zotero/storage/KP326E9A/Recommendation ITU-R BS.1770-5 (112023) Algorithm.pdf:application/pdf}
 }
