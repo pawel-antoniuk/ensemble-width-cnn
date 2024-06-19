@@ -18,6 +18,7 @@ requests:
   - name: final_width_location
     model_architecture: multi_inout_1
     run_num_repetitions: 10
+    time_window_len: 0.04
     learn_decay: 0.000001
 #  - name: 'simple2_magnitude_phase'
 #    model_architecture: simple2

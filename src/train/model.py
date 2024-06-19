@@ -81,6 +81,7 @@ class Model:
         self.x_val_phase: Optional[np.memmap] = None
         self.x_test_mag: Optional[np.memmap] = None
         self.x_test_phase: Optional[np.memmap] = None
+        self.__model: Optional[keras.Model] = None
 
         self.store_split: DotMap = DotMap()
         self.store_extract: DotMap = DotMap()
@@ -195,7 +196,7 @@ class Model:
             with ThreadPoolExecutor(max_workers=2) as executor:
                 try:
                     futures = [
-                        executor.submit(self._extract_features, filepath)
+                        executor.submit(self.__extract_features_from_filepath, filepath)
                         for filepath in self.filepaths
                     ]
                     for i, future in enumerate(futures):
@@ -212,7 +213,7 @@ class Model:
                     raise e
         else:
             for i, filepath in enumerate(self.filepaths):
-                result = self._extract_features(filepath)
+                result = self.__extract_features_from_filepath(filepath)
                 to_execute(i, result)
 
     def try_load_or_compute_input_data(self) -> Model:
@@ -428,48 +429,7 @@ class Model:
         print("[split] [5/5] Normalizing data")
         start_time = timeit.default_timer()
 
-        x_train_mag_min = np.min(self.x_train_mag)
-        x_train_mag_max = np.max(self.x_train_mag)
-        x_train_mag_mean = np.mean(self.x_train_mag)
-        x_train_mag_std = np.std(self.x_train_mag)
-        x_train_phase_min = np.min(self.x_train_phase)
-        x_train_phase_max = np.max(self.x_train_phase)
-        x_train_gcc_phat_min = np.min(self.store_split.x_train_gcc_phat)
-        x_train_gcc_phat_max = np.max(self.store_split.x_train_gcc_phat)
-        x_train_gcc_phat_mean = np.mean(self.store_split.x_train_gcc_phat)
-        x_train_gcc_phat_std = np.std(self.store_split.x_train_gcc_phat)
-
-        self.x_train_mag[:] = (self.x_train_mag - x_train_mag_mean) / x_train_mag_std
-        self.x_val_mag[:] = (self.x_val_mag - x_train_mag_mean) / x_train_mag_std
-        self.x_test_mag[:] = (self.x_test_mag - x_train_mag_mean) / x_train_mag_std
-
-        self.x_train_phase[:] = (self.x_train_phase - x_train_phase_min) / (
-            x_train_phase_max - x_train_phase_min
-        )
-        self.x_val_phase[:] = (self.x_val_phase - x_train_phase_min) / (
-            x_train_phase_max - x_train_phase_min
-        )
-        self.x_test_phase[:] = (self.x_test_phase - x_train_phase_min) / (
-            x_train_phase_max - x_train_phase_min
-        )
-
-        self.store_split.x_train_gcc_phat = (
-            self.store_split.x_train_gcc_phat - x_train_gcc_phat_mean
-        ) / x_train_gcc_phat_std
-        self.store_split.x_val_gcc_phat = (
-            self.store_split.x_val_gcc_phat - x_train_gcc_phat_mean
-        ) / x_train_gcc_phat_std
-        self.store_split.x_test_gcc_phat = (
-            self.store_split.x_test_gcc_phat - x_train_gcc_phat_mean
-        ) / x_train_gcc_phat_std
-
-        self.store_split.y_train_width = self.store_split.y_train_width / 45
-        self.store_split.y_val_width = self.store_split.y_val_width / 45
-        self.store_split.y_test_width = self.store_split.y_test_width / 45
-
-        self.store_split.y_train_location = self.store_split.y_train_location / 45
-        self.store_split.y_val_location = self.store_split.y_val_location / 45
-        self.store_split.y_test_location = self.store_split.y_test_location / 45
+        self.normalize()
 
         elapsed = timeit.default_timer() - start_time
 
@@ -500,6 +460,61 @@ class Model:
 
         return self
 
+    def normalize(self) -> Model:
+        self.store_split.x_train_mag_mean = np.mean(self.x_train_mag)
+        self.store_split.x_train_mag_std = np.std(self.x_train_mag)
+
+        self.store_split.x_train_phase_min = np.min(self.x_train_phase)
+        self.store_split.x_train_phase_max = np.max(self.x_train_phase)
+
+        self.store_split.x_train_gcc_phat_mean = np.mean(
+            self.store_split.x_train_gcc_phat
+        )
+        self.store_split.x_train_gcc_phat_std = np.std(
+            self.store_split.x_train_gcc_phat
+        )
+
+        self.x_train_mag[:] = self.normalize_in_mag(self.x_train_mag)
+        self.x_val_mag[:] = self.normalize_in_mag(self.x_val_mag)
+        self.x_test_mag[:] = self.normalize_in_mag(self.x_test_mag)
+
+        self.x_train_phase[:] = self.normalize_in_phase(self.x_train_phase)
+        self.x_val_phase[:] = self.normalize_in_phase(self.x_val_phase)
+        self.x_test_phase[:] = self.normalize_in_phase(self.x_test_phase)
+
+        self.store_split.x_train_gcc_phat = self.normalize_in_gcc_phat(
+            self.store_split.x_train_gcc_phat
+        )
+        self.store_split.x_val_gcc_phat = self.normalize_in_gcc_phat(
+            self.store_split.x_val_gcc_phat
+        )
+        self.store_split.x_test_gcc_phat = self.normalize_in_gcc_phat(
+            self.store_split.x_test_gcc_phat
+        )
+
+        self.store_split.y_train_width = self.store_split.y_train_width / 45
+        self.store_split.y_val_width = self.store_split.y_val_width / 45
+        self.store_split.y_test_width = self.store_split.y_test_width / 45
+
+        self.store_split.y_train_location = self.store_split.y_train_location / 45
+        self.store_split.y_val_location = self.store_split.y_val_location / 45
+        self.store_split.y_test_location = self.store_split.y_test_location / 45
+
+    def normalize_in_mag(self, in_mag: np.ndarray) -> np.ndarray:
+        return (
+            in_mag - self.store_split.x_train_mag_mean
+        ) / self.store_split.x_train_mag_std
+
+    def normalize_in_phase(self, in_phase: np.ndarray) -> np.ndarray:
+        return (in_phase - self.store_split.x_train_phase_min) / (
+            self.store_split.x_train_phase_max - self.store_split.x_train_phase_min
+        )
+
+    def normalize_in_gcc_phat(self, in_gcc_phat: np.ndarray) -> np.ndarray:
+        return (
+            in_gcc_phat - self.store_split.x_train_gcc_phat_mean
+        ) / self.store_split.x_train_gcc_phat_std
+
     # Train
     def train(self) -> Model:
         start_time = timeit.default_timer()
@@ -511,10 +526,10 @@ class Model:
         dest_model_path = self.__get_model_output_dir() / "model.keras"
         os.makedirs(os.path.dirname(dest_model_path), exist_ok=True)
 
-        model = self.__load_topology()
-        model.summary()
+        self.__model = self.__load_topology()
+        self.__model.summary()
 
-        self.__save_model_params(model)
+        self.__save_model_params(self.__model)
 
         early_stop = keras.callbacks.EarlyStopping(
             monitor="val_loss", patience=self.train_patience, restore_best_weights=False
@@ -526,13 +541,13 @@ class Model:
             save_best_only=True,
             verbose=1,
         )
-        model.compile(
+        self.__model.compile(
             optimizer=self.train_optimizer,
             loss={"out_width": self.train_loss, "out_location": self.train_loss},
             metrics={"out_width": ["mae"], "out_location": ["mae"]},
         )
         model_inout = self.__get_model_inout()
-        self.result_history = model.fit(
+        self.result_history = self.__model.fit(
             model_inout.in_train,
             model_inout.out_train,
             batch_size=self.train_batch_size,
@@ -552,9 +567,9 @@ class Model:
             self.result_best_val_mae,
         )
 
-        model.load_weights(dest_model_path)
+        self.__model.load_weights(dest_model_path)
 
-        self.result_test_mae = model.evaluate(
+        self.result_test_mae = self.__model.evaluate(
             model_inout.in_test, model_inout.out_test, verbose=0, return_dict=True
         )
         print("[train] Test loss:", self.result_test_mae)
@@ -576,17 +591,17 @@ class Model:
         model_inout.in_train = {
             "in_mag": self.x_train_mag,
             # "in_phase": self.x_train_mag,
-            "in_gcc": self.store_split.x_train_gcc_phat,
+            # "in_gcc": self.store_split.x_train_gcc_phat,
         }
         model_inout.in_val = {
             "in_mag": self.x_val_mag,
             # "in_phase": self.x_val_mag,
-            "in_gcc": self.store_split.x_val_gcc_phat,
+            # "in_gcc": self.store_split.x_val_gcc_phat,
         }
         model_inout.in_test = {
             "in_mag": self.x_test_mag,
             # "in_phase": self.x_test_phase,
-            "in_gcc": self.store_split.x_test_gcc_phat,
+            # "in_gcc": self.store_split.x_test_gcc_phat,
         }
         model_inout.out_train = {
             "out_width": self.store_split.y_train_width,
@@ -708,14 +723,51 @@ class Model:
 
         return self
 
-    def predict_test_data(self) -> pd.DataFrame:
+    def load_model(self) -> Model:
         output_dir = self.__get_model_output_dir()
         model_path = output_dir / "model.keras"
-        model = keras.models.load_model(model_path)
-        model_inout = self.__get_model_inout()
-        predictions = model.predict(model_inout.in_test)
-        test_filenames = self.store_extract.actual_filenames[self.store_split.idx_test]
+        self.__model = keras.models.load_model(model_path)
+        print(f"[predict] Loaded model from {model_path}")
+        return self
 
+    def predict_by_features(self, in_pred: np.ndarray) -> pd.DataFrame:
+        if not self.__model:
+            self.load_model()
+
+        predictions = self.__model.predict(in_pred)
+        return pd.DataFrame(
+            {
+                "predicted_width": predictions[0][:, 0] * 90,
+                "predicted_location": predictions[1][:, 0] * 45,
+            }
+        )
+
+    def predict_by_raw_signals(
+        self, samples: np.ndarray, sample_rate: float
+    ) -> pd.DataFrame:
+        if not self.__model:
+            self.load_model()
+
+        in_pred = self.extract_features_from_raw_signal(samples, sample_rate)
+        return self.predict_by_features(in_pred)
+    
+    def extract_features_from_raw_signal(self, samples: np.ndarray, sample_rate: float) -> np.ndarray:
+        if not self.__model:
+            self.load_model()
+
+        result = self.__extract_features(samples, sample_rate)
+        data = np.expand_dims(result.input_spectrogram_magnitude, axis=0)
+        data = self.normalize_in_mag(data)
+        in_pred = {"in_mag": data}
+        return in_pred
+
+    def predict_test_data(self) -> pd.DataFrame:
+        if not self.__model:
+            self.load_model()
+
+        model_inout = self.__get_model_inout()
+        predictions = self.__model.predict(model_inout.in_test)
+        test_filenames = self.store_extract.actual_filenames[self.store_split.idx_test]
         return pd.DataFrame(
             {
                 "filename": test_filenames,
@@ -725,6 +777,7 @@ class Model:
                 "predicted_location": predictions[1][:, 0],
             }
         )
+        
 
     def __get_extract_hash(self) -> str:
         args = [
@@ -798,45 +851,49 @@ class Model:
 
         return new_freq, aggregated_sxx
 
-    def _extract_features(self, filepath: Path) -> DotMap:
+    def __extract_features_from_filepath(self, filepath: Path) -> DotMap:
         if not filepath.is_file():
             raise ValueError("Invalid file path")
 
         start_time = timeit.default_timer()
 
-        actual_width = float(str(filepath).split("_")[-4].replace("width", ""))
-        actual_location = float(str(filepath).split("_")[-2].replace("azoffset", ""))
-        actual_recording = str(filepath).split("_")[0].split(os.sep)[-1]
-
         audio_data, sample_rate = sf.read(filepath)
         assert self.sample_rate == sample_rate
+        result = self.__extract_features(audio_data, sample_rate)
+        result.update(self.extract_metadata_from_sample_name(filepath))
+        result.actual_filename = str(filepath)
+        result.elapsed = timeit.default_timer() - start_time
+        return result
+
+    def extract_metadata_from_sample_name(self, filepath: Path) -> DotMap:
+        metadata = DotMap()
+        metadata.actual_width = float(str(filepath).split("_")[-4].replace("width", ""))
+        metadata.actual_location = float(
+            str(filepath).split("_")[-2].replace("azoffset", "")
+        )
+        metadata.actual_recording = str(filepath).split("_")[0].split(os.sep)[-1]
+        return metadata
+
+    def __extract_features(self, audio_data: np.ndarray, sample_rate: float) -> DotMap:
+        start_time = timeit.default_timer()
         _, _, features_left, features_right = self.__compute_spectrogram(
             audio_data, sample_rate
         )
-
-        gcc_phat_fvec = gcc_phat_feature(audio_data, sample_rate, self.gcc_phat_len)
-
-        elapsed = timeit.default_timer() - start_time
-
         result = DotMap()
         result.input_spectrogram_magnitude = np.stack(
             [
-                np.log10(features_left * np.conjugate(features_left)),
-                np.log10(features_right * np.conjugate(features_right)),
+                np.log10(features_left * np.conjugate(features_left)).real,
+                np.log10(features_right * np.conjugate(features_right)).real,
             ],
             axis=-1,
         )
         result.input_spectrogram_phase = np.stack(
             [np.angle(features_left), np.angle(features_right)], axis=-1
         )
-
-        result.gcc_phat_fvec = gcc_phat_fvec
-        result.actual_width = actual_width
-        result.actual_location = actual_location
-        result.actual_recording = actual_recording
-        result.actual_filename = str(filepath)
-        result.elapsed = elapsed
-
+        result.gcc_phat_fvec = gcc_phat_feature(
+            audio_data, sample_rate, self.gcc_phat_len
+        )
+        result.elapsed = timeit.default_timer() - start_time
         return result
 
     def __compute_spectrogram(
@@ -863,7 +920,7 @@ class Model:
 
         return freq_left, times_left, spectrogram_left, spectrogram_right
 
-    def __load_topology(self):
+    def __load_topology(self) -> keras.Model:
         input_shape = (
             self.target_bands,
             self.n_time_frames,

@@ -24,15 +24,16 @@
 \begin{document}
 \maketitle
 
+
 \begin{abstract}
-  Binaural audio technology has been in existence for many years, but its popularity has significantly increased over the past decade as a consequence of advancements in virtual reality and streaming technologies. Along with its growing popularity, the quantity of publicly accessible binaural audio materials has also expanded. Consequently, there is now a need for automated and objective measurements of spatial content information, with ensemble location and width being the most important. This study presents a novel method for predicting ensemble location and width in binaural recordings. To this end, 30 head-related transfer functions and 192 binaural music recordings from publicly accessible multi-track recording repositories were used to synthesize 23,040 binaural recordings. The synthesized recordings were then used to train a multi-task convolutional neural network model, the aim of which was to predict the location and width of the ensemble for unseen recordings. The results indicate that models of ensemble location and width can be successfully constructed with low prediction errors --- $4.76\degree$ ($\pm0.10\degree$) for ensemble location and $8.57\degree$ ($\pm0.19\degree$) for ensemble width. This approach is a novel method for predicting both ensemble location and width, offering a more accurate representation of spatial properties. This suggests significant potential for advancing spatial audio applications in virtual reality and streaming technologies, by providing audio engineers with tools that can leverage this method to enhance spatial audio experiences.
+  Binaural audio technology has been in existence for many years, but its popularity has significantly increased over the past decade as a consequence of advancements in virtual reality and streaming technologies. Along with its growing popularity, the quantity of publicly accessible binaural audio materials has also expanded. Consequently, there is now a need for automated and objective measurements of spatial content information, with ensemble location and width being the most prominent. This study presents a novel method for predicting ensemble location and width in binaural recordings. To this end, 30 head-related transfer functions and 192 binaural music recordings from publicly accessible multi-track recording repositories were used to synthesize 23,040 binaural recordings. The synthesized recordings were then used to train a multi-task convolutional neural network model, the aim of which was to predict the location and width of the ensemble for unseen recordings. The results indicate that models of ensemble location and width can be successfully constructed with low prediction errors --- $4.76\degree$ ($\pm0.10\degree$) for ensemble location and $8.57\degree$ ($\pm0.19\degree$) for ensemble width. The method developed in this study outperforms previous spatiogram-based methods recently published in the literature and holds promise for future development as a part of a novel tool for audio engineers to assess binaural audio.
 \end{abstract}
 
 \section{Introduction}
 
 The human auditory system demonstrates exceptional proficiency in segregating, localizing, and interpreting diverse auditory signals, despite being limited to two ears. This capability arises from the intricate analysis of temporal, amplitude, and spectral disparities, a process termed binaural hearing \cite{blauert_spatial_1996}, which enables precise localization of sound sources in complex auditory environments. An important advantage of binaural hearing is demonstrated by the `cocktail party effect', which showcases the system's capacity to concentrate on individual sounds while suppressing background noise \cite{cherry_experiments_1953}. An understanding of the auditory system is essential for comprehending its limits and creating more immersive binaural experiences for entertainment purposes \cite{zhang_surround_2017}. It also helps to improve hearing aid devices by enhancing auditory signal reception and improving spatial awareness \cite{hirsh_binaural_1950, thiemann_speech_2016}.
 
-The advancement of sophisticated machine learning techniques, particularly deep learning networks, has prompted an intriguing exploration of the extent to which these tools can emulate the human auditory system without relying on advanced spatial audio feature engineering, traditionally employed in audio source localization tasks \cite{yang_deepear_2022, vera-diaz_towards_2018, pang_multitask_2019}. To investigate this, the study developed an audio localization method based on a multi-task convolutional neural network (CNN) model.
+The advancement of sophisticated machine learning techniques, particularly deep learning networks, has prompted an intriguing exploration of the extent to which these tools can emulate the human auditory system without relying on advanced spatial audio feature engineering, traditionally employed in audio source localization tasks \cite{yang_deepear_2022, vera-diaz_towards_2018, pang_multitask_2019}. To investigate this, the study developed an audio localization method based on a multi-task convolutional neural network (CNN) model \cite{lecun_handwritten_1989, lecun_deep_2015}.
 
 Inspired by the fact, that humans tend to localize sound sources in groups rather than individually \cite{bregman_auditory_1990, rumsey_spatial_2002}, the objective of the proposed model is to predict ensemble location and width instead of positions of individual sources. This study is unique as it not only conceptualized the method but also tested it on a vast, real-life music corpus of 23,040 binaural excerpts that were synthesized using 192 multi-track music recordings and 30 publicly available head-related transfer functions (HRTFs) from various sources. The music recordings encompassed various genres, including rock, jazz, pop, and classical music.
 
@@ -87,16 +88,27 @@ Due to copyright restrictions, the music corpus utilized in this study was not p
 
 % The procedure proposed in this study did not 
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=\linewidth]{../figures/samples.pdf}
-  \caption{\label{fig:samples}Example magnitude spectrograms from randomly selected synthesized binaural music recordings, used as input data for training and evaluating the convolutional neural network (CNN) in this study. }
-\end{figure}
+% Zamiast tego dac obrazek z glowami i spektrogramami, lewy i prawi i roznica, sprawdzic czy to ma sens, potencjalnie usunac
+% \begin{figure}[ht]
+%   \centering
+%   \includegraphics[width=\linewidth]{../figures/samples.pdf}
+%   \caption{\label{fig:samples}Example magnitude spectrograms from randomly selected synthesized binaural music recordings, used as input data for training and evaluating the convolutional neural network (CNN) in this study. }
+% \end{figure}
 
-Prior to input into the model, the binaural recordings of music were transformed into magnitude spectrograms. Figure \ref{fig:samples} displays example spectrograms from four distinct binaural recordings, exhibiting a broad bandwidth and the diversity of the signals used in this study. It is important to note that the original spectrograms were preserved in a floating-point precision matrix format, which prevented any loss of information due to precision conversion. The spectrograms were calculated using the Fast Fourier Transform (FFT) algorithm, with a limitation of 150 bands, spaced linearly from 100 Hz to 16 kHz. Additionally, a Hamming window of 40 ms was applied to each frame of the signal, resulting in a total of 349 time frames. This procedure was conducted for both the left and right channels, yielding two spectrograms for each binaural sample. Each sample was represented by a matrix of dimensions $2 \times 349 \times 150$. This method parallels the procedure presented in \cite{zielinski_automatic_2022}.
+% Figure \ref{fig:samples} displays example spectrograms from four distinct binaural recordings, exhibiting a broad bandwidth and the diversity of the signals used in this study
+
+Prior to input into the model, the binaural recordings of music were transformed into magnitude spectrograms. It is important to note that the original spectrograms were preserved in a floating-point precision matrix format, which prevented any loss of information due to precision conversion. The spectrograms were calculated using the Fast Fourier Transform (FFT) algorithm, with a limitation of 150 bands, spaced linearly from 100 Hz to 16 kHz. Additionally, a Hamming window of 40 ms was applied to each frame of the signal, resulting in a total of 349 time frames. This procedure was conducted for both the left and right channels, yielding two spectrograms for each binaural sample. Each sample was represented by a matrix of dimensions $2 \times 349 \times 150$. This method parallels the procedure presented in \cite{zielinski_automatic_2022}.
 
 \subsection{Network topology}
 \label{subsec:topology}
+
+The network topology used in this study was highly inspired by a AlexNet convolutional neural network \cite{krizhevsky_imagenet_2012}. Although AlexNet network was designed for image classification, the binaural recordings in this study were converted into magnitude spectrograms, as described in Section \ref{subsec:feature_extraction}. The network is consisting of a series of convolutional units followed by a series of classification units.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\linewidth]{../pictures/architecture.pdf}
+  \caption{\label{fig:architecture}Topology of the Convolutional Neural Network (CNN) used for identifying ensemble location and width}
+\end{figure}
 
 \subsection{Model training and evaluation}
 \label{subsec:training_evaluation}
@@ -136,6 +148,7 @@ Figure \ref{fig:actual_vs_predicted_width} illustrates the comparison between th
 
 In contrast to the correlation between ensemble width and its prediction error, there is no significant relationship between the actual location and its prediction error, as illustrated in Figures \ref{fig:actual_vs_predicted_location} and \ref{fig:mae_location}. This finding indicates that the model's capabilities for localizing the center of the ensemble is robust, unaffected by the actual spatial positioning of the ensemble, including lateral locations.
 
+% jak uzyskane wyniki koresponduja z literatura: w jjednym przypadku ejst lepsza niz metoda oparta na spatiogramach, a w drugim przypadku nie ma 
 The mean absolute prediction error for ensemble width was $8.57^\circ$ ($\pm0.19^\circ$), while the error for ensemble location prediction was $4.76^\circ$ ($\pm0.10^\circ$). Although both ensemble parameters were constrained within the same angular span of $90^\circ$, the ensemble location was predicted with significantly better precision --- approximately $80\%$ better. This shows that the model prediction quality is much better for ensemble location prediction than width prediction. This difference can be attributed to the fact that the model's performance on ensemble width deteriorates significantly for wider ensembles, whereas location prediction remains largely unaffected. For a visual comparison, please refer to Figures \ref{fig:mae_location} and \ref{fig:mae_width}.
 
 \begin{figure}[ht]
@@ -155,8 +168,9 @@ Figure \ref{fig:map_mae_location} illustrates the influence of both ensemble loc
 \section{Conclusions}
 \label{sec:conclusions}
 
-\clearpage
+% 1. napisac wnioski, potem occulusion. we wnioskach odniesc sie do spatiogramach
 
+\clearpage
 \section*{Appendix A}
 \label{appendix:a_hrtf}
 

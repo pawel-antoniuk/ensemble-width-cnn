@@ -13,23 +13,26 @@ def load_results(model_dir: Path):
         request = joblib.load(path_rep_it / "request.pkl")
         print(f"loading model[{path_rep_it}] for request {request}")
         model = Model(request).try_load_or_compute_input_data()
+
         prediction_result = model.predict_test_data()
-        errors_width = (
-            prediction_result.predicted_width - prediction_result.actual_width
-        )
-        errors_location = (
-            prediction_result.predicted_location - prediction_result.actual_location
-        )
+        predicted_width = prediction_result.predicted_width * 90
+        actual_width = prediction_result.actual_width * 90
+        predicted_location = prediction_result.predicted_location * 45
+        actual_location = prediction_result.actual_location * 45
+
+        errors_width = predicted_width - actual_width
+        errors_location = predicted_location - actual_location
         score_test_width = np.mean(np.abs(errors_width))
         score_test_location = np.mean(np.abs(errors_location))
 
         # assertions
         score_path = next(path_rep_it.glob("score_*.csv"))
         score_df = pd.read_csv(score_path)
-        score_file_test_width = score_df["test_score_width"]
-        score_file_test_location = score_df["test_score_location"]
-        assert np.all(np.abs(score_file_test_width - score_test_width) < 1e-6)
-        assert np.all(np.abs(score_file_test_location - score_test_location) < 1e-6)
+        score_file_test_width = score_df["test_score_width"] * 90
+        score_file_test_location = score_df["test_score_location"] * 45
+
+        assert np.all(np.abs(score_file_test_width - score_test_width) < 1e-4)
+        assert np.all(np.abs(score_file_test_location - score_test_location) < 1e-4)
 
         test_filenames = prediction_result.filename
         actual_widths_test = [
@@ -48,12 +51,12 @@ def load_results(model_dir: Path):
             DotMap(
                 {
                     "filename": prediction_result.filename,
-                    "actual_width": prediction_result.actual_width * 90,
-                    "predicted_width": prediction_result.predicted_width * 90,
-                    "errors_width": errors_width * 90,
-                    "actual_location": prediction_result.actual_location * 45,
-                    "predicted_location": prediction_result.predicted_location * 45,
-                    "errors_location": errors_location * 45,
+                    "actual_width": actual_width,
+                    "predicted_width": predicted_width,
+                    "errors_width": errors_width,
+                    "actual_location": actual_location,
+                    "predicted_location": predicted_location,
+                    "errors_location": errors_location,
                 }
             )
         )
