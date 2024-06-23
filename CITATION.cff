@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Antoniuk"
+  given-names: "Paweł"
+  orcid: "https://orcid.org/0000-0002-0914-8920"
+- family-names: "Zieliński"
+  given-names: "Sławomir K."
+  orcid: "https://orcid.org/0000-0002-3205-974X"
+title: "Predicting Ensemble Location and Width in Binaural Recordings of Music with Convolutional Neural Networks"
+journal: "Archives of Acoustics"
+version: 1.0.0
+date-released: 2024-07-01
+url: "https://github.com/pawel-antoniuk/ensemble-width-cnn"
