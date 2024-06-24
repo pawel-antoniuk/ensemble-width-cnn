@@ -994,6 +994,16 @@
   file         = {Espi et al. - 2015 - Exploiting spectro-temporal locality in deep learn.pdf:/Users/pawel/Zotero/storage/29QSQYTI/Espi et al. - 2015 - Exploiting spectro-temporal locality in deep learn.pdf:application/pdf}
 }
 
+
+@inproceedings{han_convolutional_2017,
+  title     = {Convolutional Neural Networks with Binaural Representations and Background Subtraction for Acoustic Scene Classification},
+  url       = {https://api.semanticscholar.org/CorpusID:52830611},
+  booktitle = {Workshop on Detection and Classification of Acoustic Scenes and Events},
+  author    = {Han, Yoonchang and Park, Jeongsoon and Lee, Kyogu},
+  date      = {2017}
+}
+
+
 % CNN in audio no spectrograms
 
 @inproceedings{abdel-hamid_applying_2012,
@@ -1219,7 +1229,7 @@
 
 @software{MATLAB,
   year      = {2022},
-  author    = {The MathWorks Inc.},
+  author    = {{The MathWorks Inc.}},
   title     = {MATLAB version: 9.13.0 (R2022b)},
   publisher = {{The MathWorks Inc.}},
   address   = {Natick, Massachusetts, United States},
@@ -1228,49 +1238,92 @@
 
 @software{MATLAB_Audio_Toolbox,
   year      = {2022},
-  author    = {The MathWorks Inc.},
+  author    = {{The MathWorks Inc.}},
   title     = {Audio Toolbox version: 9.13.0 (R2022b)},
   publisher = {{The MathWorks Inc.}},
   address   = {Natick, Massachusetts, United States},
   url       = {https://www.mathworks.com}
 }
 
-@book{python, 
- author = {Van Rossum, Guido and Drake, Fred L.}, 
- title = {Python 3 Reference Manual}, 
- year = {2009}, 
- isbn = {1441412697}, 
- publisher = {CreateSpace}, 
- address = {Scotts Valley, CA} 
+@book{python,
+  author    = {Van Rossum, Guido and Drake, Fred L.},
+  title     = {Python 3 Reference Manual},
+  year      = {2009},
+  isbn      = {1441412697},
+  publisher = {CreateSpace},
+  address   = {Scotts Valley, CA}
 }
 
-@ARTICLE{2020SciPy-NMeth,
+@article{2020SciPy-NMeth,
   author  = {Virtanen, Pauli and Gommers, Ralf and Oliphant, Travis E. and
-            Haberland, Matt and Reddy, Tyler and Cournapeau, David and
-            Burovski, Evgeni and Peterson, Pearu and Weckesser, Warren and
-            Bright, Jonathan and {van der Walt}, St{\'e}fan J. and
-            Brett, Matthew and Wilson, Joshua and Millman, K. Jarrod and
-            Mayorov, Nikolay and Nelson, Andrew R. J. and Jones, Eric and
-            Kern, Robert and Larson, Eric and Carey, C J and
-            Polat, {\.I}lhan and Feng, Yu and Moore, Eric W. and
-            {VanderPlas}, Jake and Laxalde, Denis and Perktold, Josef and
-            Cimrman, Robert and Henriksen, Ian and Quintero, E. A. and
-            Harris, Charles R. and Archibald, Anne M. and
-            Ribeiro, Ant{\^o}nio H. and Pedregosa, Fabian and
-            {van Mulbregt}, Paul and {SciPy 1.0 Contributors}},
+             Haberland, Matt and Reddy, Tyler and Cournapeau, David and
+             Burovski, Evgeni and Peterson, Pearu and Weckesser, Warren and
+             Bright, Jonathan and {van der Walt}, St{\'e}fan J. and
+             Brett, Matthew and Wilson, Joshua and Millman, K. Jarrod and
+             Mayorov, Nikolay and Nelson, Andrew R. J. and Jones, Eric and
+             Kern, Robert and Larson, Eric and Carey, C J and
+             Polat, {\.I}lhan and Feng, Yu and Moore, Eric W. and
+             {VanderPlas}, Jake and Laxalde, Denis and Perktold, Josef and
+             Cimrman, Robert and Henriksen, Ian and Quintero, E. A. and
+             Harris, Charles R. and Archibald, Anne M. and
+             Ribeiro, Ant{\^o}nio H. and Pedregosa, Fabian and
+             {van Mulbregt}, Paul and {SciPy 1.0 Contributors}},
   title   = {{{SciPy} 1.0: Fundamental Algorithms for Scientific
-            Computing in Python}},
+             Computing in Python}},
   journal = {Nature Methods},
   year    = {2020},
   volume  = {17},
   pages   = {261--272},
   adsurl  = {https://rdcu.be/b08Wh},
-  doi     = {10.1038/s41592-019-0686-2},
+  doi     = {10.1038/s41592-019-0686-2}
+}
+
+@misc{chollet2015keras,
+  title        = {Keras},
+  author       = {Chollet, Fran\c{c}ois and others},
+  year         = {2015},
+  howpublished = {\url{https://keras.io}}
 }
 
 @software{github_repo,
-  year      = {2024},
-  author    = {Antoniuk, Paweł},
-  title     = {Software Repository: Predicting Ensemble Location and Width in Binaural Recordings of Music with Convolutional Neural Networks},
-  url       = {https://github.com/pawel-antoniuk/ensemble-width-cnn/tree/main}
+  year   = {2024},
+  author = {Antoniuk, Paweł},
+  title  = {Software Repository: Predicting Ensemble Location and Width in Binaural Recordings of Music with Convolutional Neural Networks},
+  url    = {https://github.com/pawel-antoniuk/ensemble-width-cnn/tree/main}
+}
+
+% HRTF Development durning life
+
+@article{king_how_2001,
+  title        = {How Plastic Is Spatial Hearing?},
+  volume       = {6},
+  issn         = {1420-3030},
+  url          = {https://doi.org/10.1159/000046829},
+  doi          = {10.1159/000046829},
+  abstract     = {The location of a sound source is derived by the auditory system from spatial cues present in the signals at the two ears. These cues include interaural timing and level differences, as well as monaural spectral cues generated by the external ear. The values of these cues vary with individual differences in the shape and dimensions of the head and external ears. We have examined the neurophysiological consequences of these intersubject variations by recording the responses of neurons in ferret primary auditory cortex to virtual sound sources mimicking the animal’s own ears or those of other ferrets. For most neurons, the structure of the spatial response fields changed significantly when acoustic cues measured from another animal were presented. This is consistent with the finding that humans localize less accurately when listening to virtual sounds from other subjects. To examine the role of experience in shaping the ability to localize sound, we have studied the behavioural consequences of altering binaural cues by chronically plugging one ear. Ferrets raised and tested with one ear plugged learned to localize as accurately as control animals, which is consistent with previous findings that the representation of auditory space in the midbrain can accommodate abnormal sensory cues during development. Adaptive changes in behaviour were also observed in adults, particularly if they were provided with regular practice in the localization task. Together, these findings suggest that the neural circuits responsible for sound localization can be recalibrated throughout life.},
+  pages        = {182--186},
+  number       = {4},
+  journaltitle = {Audiology and Neurotology},
+  shortjournal = {Audiology and Neurotology},
+  author       = {King, Andrew J. and Kacelnik, Oliver and Mrsic-Flogel, Thomas D. and Schnupp, Jan W.H. and Parsons, Carl H. and Moore, David R.},
+  urldate      = {2024-06-24},
+  date         = {2001-11-08}
+}
+
+
+
+@article{clifton_growth_1988,
+	title = {Growth in head size during infancy: Implications for sound localization.},
+	volume = {24},
+	issn = {1939-0599(Electronic),0012-1649(Print)},
+	doi = {10.1037/0012-1649.24.4.477},
+	abstract = {We measured head circumference and interaural distance in infants between birth and 22 weeks of age. A small sample of preschool children and adults were measured for comparison over the life span. We used these data to calculate changing interaural time differences across ages. Large shifts in this important binaural cue suggest that an ongoing developmental process recalibrates the association between interaural time differences and spatial location. These new data confirmed the sex differences in head circumference described in the Berkeley Growth Study (Eichorn \& Bailey, 1962) and found no secular trend in this measure in the 60 years since the earlier data were collected. ({PsycINFO} Database Record (c) 2016 {APA}, all rights reserved)},
+	pages = {477--483},
+	number = {4},
+	journaltitle = {Developmental Psychology},
+	author = {Clifton, Rachel K. and Gwiazda, Jane and Bauer, Joseph A. and Clarkson, Marsha G. and Held, Richard M.},
+	date = {1988},
+	note = {Place: {US}
+Publisher: American Psychological Association},
+	keywords = {*Auditory Localization, *Age Differences, *Head (Anatomy), *Human Sex Differences, Physical Development},
 }

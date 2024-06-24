@@ -328,7 +328,7 @@ cbar.set_ticks(cbar.get_ticks())
 cbar.set_ticklabels(tick_labels)
 
 plt.xlabel(r'Ensemble Location $\theta$')
-plt.ylabel('Ensemble Width')
+plt.ylabel(r'Ensemble Width $\omega$')
 xticks = np.linspace(0, mae_map_location.shape[1] - 1, 7)
 yticks = np.linspace(0, mae_map_location.shape[0] - 1, 4)
 xlabels = [f'{int(label)}°' for label in np.linspace(-45, 45, 7)]
@@ -357,8 +357,8 @@ tick_labels[-1] = f'>{tick_labels[-1]}'
 cbar.set_ticks(cbar.get_ticks())
 cbar.set_ticklabels(tick_labels)
 
-plt.xlabel('Ensemble Location')
-plt.ylabel('Ensemble Width')
+plt.xlabel(r'Ensemble Location $\theta$')
+plt.ylabel(r'Ensemble Width $\omega$')
 xticks = np.linspace(0, mae_map_width.shape[1] - 1, 7)
 yticks = np.linspace(0, mae_map_width.shape[0] - 1, 4)
 xlabels = [f'{int(label)}°' for label in np.linspace(-45, 45, 7)]
