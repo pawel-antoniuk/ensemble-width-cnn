@@ -13,13 +13,13 @@ default:
   train_batch_size: 32
   train_epochs: 256
 requests:
-  # - name: final_width_location
-  #   model_architecture: multi_inout_1
-  #   run_num_repetitions: 10
-  #   time_window_len: 0.04
-  #   learn_decay: 0.000001
-  - name: final_width_location_flat
-    model_architecture: multi_inout_1_flat
+  - name: final_width_location2
+    model_architecture: multi_inout_1
     run_num_repetitions: 10
     time_window_len: 0.04
     learn_decay: 0.000001
+  # - name: final_width_location_flat
+  #   model_architecture: multi_inout_1_flat
+  #   run_num_repetitions: 10
+  #   time_window_len: 0.04
+  #   learn_decay: 0.000001

@@ -1,7 +1,10 @@
 {
     "cmake.configureOnOpen": false,
     "cSpell.words": [
-        "convolutional"
+        "binauralization",
+        "convolutional",
+        "interaural",
+        "overfitting"
     ],
     "cSpell.enableFiletypes": [
         "!python",

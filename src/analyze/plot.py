@@ -154,6 +154,8 @@ plt.tight_layout()
 plt.savefig(f"/app/figures/actual_vs_predicted_width.{out_img_format}")
 # plt.show()
 
+# pearsonr(results[0].actual_width, abs(results[0].predicted_width - results[0].actual_width))
+
 
 # %% actual vs predicted location
 plt.figure(figsize=(4, 3))
@@ -179,6 +181,8 @@ plt.legend(['Sample', 'One-to-one line'])
 plt.tight_layout()
 plt.savefig(f"/app/figures/actual_vs_predicted_location.{out_img_format}")
 # plt.show()
+
+# pearsonr(np.abs(results[0].actual_location), abs(results[0].predicted_location - results[0].actual_location))
 
 
 # %% Mean absolute error vs actual width

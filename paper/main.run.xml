@@ -51,12 +51,12 @@
     </requires>
     <requires type="static">
       <file>blx-dm.def</file>
-      <file>apa.dbx</file>
+      <file>custom.dbx</file>
       <file>blx-compat.def</file>
       <file>biblatex.def</file>
       <file>standard.bbx</file>
-      <file>apa.bbx</file>
-      <file>apa.cbx</file>
+      <file>custom.bbx</file>
+      <file>custom.cbx</file>
       <file>biblatex.cfg</file>
       <file>english.lbx</file>
       <file>american.lbx</file>
